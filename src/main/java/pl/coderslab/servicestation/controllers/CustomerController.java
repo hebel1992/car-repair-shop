@@ -70,7 +70,7 @@ public class CustomerController {
     @GetMapping("/delete/{id}")
     public String deleteCustomer(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
-        return "customers/delete";
+        return "customers/deleteCustomer";
     }
 
     @GetMapping("/delete-action/{id}")

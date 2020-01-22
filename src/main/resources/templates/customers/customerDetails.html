@@ -3,11 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Customers Details</title>
-    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+    <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="main">
+
+    <h3 class="title">Customer Details</h3>
+
+    <p>First name: <span th:text="${customer.firstName}"></span></p>
+
+    <p>Last name: <span th:text="${customer.lastName}"></span></p>
+
+    <p>Date of birth: <span th:text="${customer.dateOfBirth}"></span></p>
+
+    <p>Address: <span th:text="${customer.address}"></span></p>
+
+    <p>Phone number: <span th:text="${customer.phoneNumber}"></span></p>
+
+    <p>Vehicles:</p>
+
+    <p>Note: <span th:text="${customer.note}"></span></p>
+
+    <p><a class="editLink" th:href="@{'/customers/update/' + ${customer.id}}">Edit mode</a></p>
+
+    <p><a class="deleteLink" th:href="@{'/customers/delete/' + ${customer.id}}">Delete customer</a></p>
+
+    <input type="button" value="Back" class="button"
+           onclick="history.go(-1)">
 </div>
 <div th:include="footer.html"></div>
 </body>

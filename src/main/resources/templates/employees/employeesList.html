@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Employees</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+
+<button class="addRowButton" onclick="window.location.href='/employees/add'">Add new employee</button>
+<div class="main">
+    <h1>Employees List</h1>
+    <table border="1" class="blueTable">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Phone number</td>
+        </tr>
+        </thead>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.getFirstName()} + ${employee.getLastName()}"></td>
+            <td th:text="${employee.getPhoneNumber()}"></td>
+        </tr>
+    </table>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

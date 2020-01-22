@@ -1,0 +1,209 @@
+/* The sidebar menu */
+.sidenav {
+    height: 100%;
+    width: 190px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: gainsboro;
+    overflow-x: hidden;
+    padding-top: 65px;
+    text-align: -moz-left;
+}
+
+.sidenav p {
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.footer-style {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+}
+
+.statement-success {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 10.5%;
+    font-size: x-large;
+    font-family: "Bitstream Vera Serif";
+    font-weight: bold;
+    color: forestgreen;
+}
+
+.statement-error {
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 11%;
+    font-size: x-large;
+    font-family: "Bitstream Vera Serif";
+    font-weight: bold;
+    color: red;
+}
+
+.question {
+    margin: 0;
+    position: absolute;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    top: 20%;
+}
+
+.questionChoice {
+    margin: 0;
+    position: absolute;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    top: 150px;
+}
+
+.main {
+    margin-left: 190px;
+    padding: 0px 10px;
+}
+
+.title-style {
+    font-family: "Waree";
+    padding: 6px 8px 6px 16px;
+    background-color: gainsboro;
+    font-size: 50px;
+    color: darkblue;
+    margin-left: 160px;
+    text-align: center;
+}
+
+
+table.blueTable {
+    border: 1px solid #1C6EA4;
+    background-color: #EEEEEE;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+table.blueTable td, table.blueTable th {
+    border: 1px solid #AAAAAA;
+    padding: 10px 10px;
+}
+
+table.blueTable tbody td {
+    font-size: 13px;
+}
+
+table.blueTable tr:nth-child(even) {
+    background: #D0E4F5;
+}
+
+table.blueTable thead {
+    background: #1C6EA4;
+    background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    border-bottom: 2px solid #444444;
+}
+
+thead {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border-left: 2px solid #D0E4F5;
+}
+
+table.blueTable thead th:first-child {
+    border-left: none;
+}
+
+table.blueTable tfoot {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background: #D0E4F5;
+    background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+    background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+    background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+    border-top: 2px solid #444444;
+}
+
+table.blueTable tfoot td {
+    font-size: 14px;
+}
+
+table.blueTable tfoot .links {
+    text-align: right;
+}
+
+table.blueTable tfoot .links a {
+    display: inline-block;
+    background: #1C6EA4;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+.button {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border: 2px solid #1C6EA4;
+    background-color: white;
+    padding: 12px 10px;
+    width: 100px;
+    margin: 5px;
+}
+
+.button:hover {
+    background-color: #1C6EA4; /* Green */
+    color: white;
+}
+
+.addRowButton {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border: 2px solid #1C6EA4;
+    background-color: white;
+    padding: 10px 28px;
+    position: absolute;
+    right: 10px;
+}
+
+.addRowButton:hover {
+    background-color: #1C6EA4; /* Green */
+    color: white;
+}
+
+.acceptRowButton {
+    border: 2px solid #1C6EA4;
+    background-color: white;
+    padding: 10px 28px;
+    position: absolute;
+    left: 200px;
+}
+
+.error {
+    color: red;
+}
+
+.title {
+    color: dodgerblue;
+}
+
+.deleteLink {
+    color: red;
+    font-weight: bold;
+}
+
+.editLink {
+    color: green;
+    font-weight: bold
+}
+
+.requiredFiled {
+    color: red;
+}
+

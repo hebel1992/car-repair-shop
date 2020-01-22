@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 import pl.coderslab.servicestation.models.Vehicle;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
-
+    List<Vehicle> findByCustomer_Id(Long id);
 }

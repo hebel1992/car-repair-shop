@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Customer Details</h3>
+
+    <p>First name: ${customer.firstName}</p>
+
+    <p>Last name: ${customer.lastName}</p>
+
+    <p>Date of birth: ${customer.dateOfBirth}</p>
+
+    <p>Address: ${customer.address}</p>
+
+    <p>Phone number: ${customer.phoneNumber}
+
+    <p>Additional notes: ${customer.note}<p/>
+
+    <p><a class="editLink" href="${contextPath}/update/${customer.id}">Edit mode</a></p>
+
+    <p><a class="deleteLink" href="${contextPath}/delete/${customer.id}">Delete customer</a></p>
+
+    <input type="button" value="Back" class="button"
+           onclick="window.location.href='/customers/list'">
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

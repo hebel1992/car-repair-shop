@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Add Employee</h3>
+    <form method="post" th:action="@{/employees/add}" th:object="${employee}">
+
+        <p>First name:<span class="requiredFiled">*</span> <input th:field="*{firstName}" type="text"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        </p>
+
+        <p>Last name:<span class="requiredFiled">*</span> <input th:field="*{lastName}" type="text">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        </p>
+
+        <p>Date of birth: <input th:field="*{dateOfBirth}" type="date">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
+                  th:errors="*{dateOfBirth}"></span>
+        </p>
+
+        <p>Address: <input th:field="*{address}" type="text" placeholder="optional"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+        </p>
+
+        <p>Phone number:<span class="requiredFiled">*</span> <input th:field="*{phoneNumber}" type="text"
+                                                                    maxlength="15"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                  th:errors="*{phoneNumber}"></span>
+        </p>
+
+        Additional notes:
+        <p>
+            <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
+        </p>
+
+        <input type="submit" value="Add" class="button"><input type="button" value="Cancel" class="button"
+                                                               onclick="window.location.href='/employees/list'">
+    </form>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

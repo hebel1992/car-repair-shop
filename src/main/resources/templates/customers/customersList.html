@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Customers</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+
+<button class="addRowButton" onclick="window.location.href='/customers/add'">Add new customer</button>
+<div class="main">
+    <h1>Customers List</h1>
+    <table border="1" class="blueTable">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Phone number</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.firstName} + ${customer.lastName}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td><a th:href="@{'/customers/details/' + ${customer.id}}">More</a></td>
+        </tr>
+    </table>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

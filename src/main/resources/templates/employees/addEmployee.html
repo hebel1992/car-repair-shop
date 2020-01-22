@@ -24,7 +24,7 @@
                   th:errors="*{dateOfBirth}"></span>
         </p>
 
-        <p>Address: <input th:field="*{address}" type="text" placeholder="optional"/>
+        <p>Address: <input th:field="*{address}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
         </p>
 

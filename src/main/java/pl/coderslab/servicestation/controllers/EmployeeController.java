@@ -51,7 +51,7 @@ public class EmployeeController {
     public String updateEmployee(Model model, @PathVariable Long id) {
         Employee employee = employeeRepository.findById(id).get();
         model.addAttribute("employee", employee);
-        return "employees/edit";
+        return "employees/editEmployee";
     }
 
     @PostMapping("/update")
@@ -66,7 +66,7 @@ public class EmployeeController {
     @GetMapping("/delete/{id}")
     public String deleteEmployee(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
-        return "employees/delete";
+        return "employees/deleteEmployee";
     }
 
     @GetMapping("/delete-action/{id}")

@@ -3,11 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee Details</title>
-    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+    <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="main">
+
+    <h3 class="title">Employee Details</h3>
+
+    <p>First name: <span th:text="${employee.firstName}"></span></p>
+
+    <p>Last name: <span th:text="${employee.lastName}"></span></p>
+
+    <p>Date of birth: <span th:text="${employee.dateOfBirth}"></span></p>
+
+    <p>Address: <span th:text="${employee.address}"></span></p>
+
+    <p>Phone number: <span th:text="${employee.phoneNumber}"></span></p>
+
+    <p>Rate per hour: <span th:text="${employee.ratePerHour}"></span></p>
+
+    <p>Note: <span th:text="${employee.note}"></span></p>
+
+    <p><a class="editLink" th:href="@{'/employees/update/' + ${employee.id}}">Edit mode</a></p>
+
+    <p><a class="deleteLink" th:href="@{'/employees/delete/' + ${employee.id}}">Delete employee</a></p>
+
+    <input type="button" value="Back" class="button"
+           onclick="window.location.href='/employees/list'">
 </div>
 <div th:include="footer.html"></div>
 </body>

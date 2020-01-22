@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Customers</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+    <title>Edit Employee</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h3 class="title">Edit Customer</h3>
-    <form method="post" th:action="@{/customers/update}" th:object="${customer}">
+    <h3 class="title">Edit Employee</h3>
+    <form method="post" th:action="@{/employees/add-execute}" th:object="${employee}">
 
         <input type="hidden" th:field="*{id}">
 
@@ -21,12 +21,14 @@
             <span class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
         </p>
 
-        <p>Date of birth(optional): <input th:field="*{dateOfBirth}" type="date">
+        <p>Date of birth: <input th:field="*{dateOfBirth}" type="date">
             <span class="alert alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
                   th:errors="*{dateOfBirth}"></span>
         </p>
 
-        <p>Address: <input th:field="*{address}" type="text" placeholder="optional"/></p>
+        <p>Address: <input th:field="*{address}" type="text"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+        </p>
 
         <p>Phone number:<span class="requiredFiled">*</span> <input th:field="*{phoneNumber}" type="text"
                                                                     maxlength="15"/>
@@ -34,25 +36,21 @@
                   th:errors="*{phoneNumber}"></span>
         </p>
 
-        Attach vehicles:
-
-        <p><select th:field="*{vehicle}">
-            <option th:each="vehicle : ${vehicles}"
-                    th:text="${vehicle.model + vehicle.brand}"
-                    th:value="${vehicle.id}">
-            </option>
-        </select></p>
+        <p>Rate per hour:<span class="requiredFiled">*</span> <input th:field="*{ratePerHour}" type="number"
+                                                                     step="0.1"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('ratePerHour')}"
+                  th:errors="*{ratePerHour}"></span>
+        </p>
 
         Additional notes:
         <p>
             <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
         </p>
 
-        <input type="submit" name="action" value="Update" class="button">
-        <a th:href="@{'/customers/details/' + ${customer.id}}"><input type="button" class="button" value="Cancel"/></a>
+        <input type="submit" value="Update" class="button">
+        <a th:href="@{'/employees/details/' + ${employee.id}}"><input type="button" class="button" value="Cancel"/></a>
 
     </form>
-
 </div>
 <div th:include="footer.html"></div>
 </body>

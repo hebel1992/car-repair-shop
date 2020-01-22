@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Customers</title>
-    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Add Customer</h3>
-    <form method="post" th:action="@{/customers/add}" th:object="${customer}">
+    <form method="post" th:action="@{/customers/add-execute}" th:object="${customer}">
 
         <p>First name:<span class="requiredFiled">*</span> <input th:field="*{firstName}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>

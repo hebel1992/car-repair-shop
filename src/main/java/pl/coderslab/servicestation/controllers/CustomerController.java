@@ -32,7 +32,7 @@ public class CustomerController {
         return "customers/addCustomer";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add-execute")
     public String addCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "customers/addCustomer";
@@ -43,12 +43,12 @@ public class CustomerController {
     }
 
     @GetMapping("/details/{id}")
-    public String customerDetails(@PathVariable Long id, Model model) {
+    public String customerDetails(@PathVariable("id") Long id, Model model) {
         Customer customer = customerRepository.findById(id).get();
         List<Vehicle> customerVehicles = vehicleRepository.findByCustomer_Id(id);
         model.addAttribute("customer", customer);
         model.addAttribute("vehicles", customerVehicles);
-        return "customers/customerDetails";
+        return "/customers/customerDetails";
     }
 
     @GetMapping("/update/{id}")

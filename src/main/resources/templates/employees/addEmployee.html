@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Add Employee</h3>
-    <form method="post" th:action="@{/employees/add}" th:object="${employee}">
+    <form method="post" th:action="@{/employees/add-execute}" th:object="${employee}">
 
         <p>First name:<span class="requiredFiled">*</span> <input th:field="*{firstName}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
@@ -32,6 +32,12 @@
                                                                     maxlength="15"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}"
                   th:errors="*{phoneNumber}"></span>
+        </p>
+
+        <p>Rate per hour:<span class="requiredFiled">*</span> <input th:field="*{ratePerHour}" type="number"
+                                                                     step="0.1"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('ratePerHour')}"
+                  th:errors="*{ratePerHour}"></span>
         </p>
 
         Additional notes:

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Details</title>
+    <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+
+    <h3 class="title">Vehicle Details</h3>
+
+    <p>Brand: <span th:text="${vehicle.brand}"></span></p>
+
+    <p>Model: <span th:text="${vehicle.model}"></span></p>
+
+    <p>Fuel Type: <span th:text="${vehicle.fuelType}"></span></p>
+
+    <p>Engine Size: <span th:text="${vehicle.engineSize}"></span></p>
+
+    <p>Year of production: <span th:text="${vehicle.yearOfProduction}"></span></p>
+
+    <p>Plate number: <span th:text="${vehicle.plateNumber}"></span></p>
+
+    <p>VIN: <span th:text="${vehicle.vin}"></span></p>
+
+    <p>Notes: <span th:text="${vehicle.note}"></span></p>
+
+    <p><a class="editLink" th:href="@{'/vehicles/update/' + ${vehicle.id}}">Edit mode</a></p>
+
+    <p><a class="deleteLink" th:href="@{'/vehicles/delete/' + ${vehicle.id}}">Delete vehicle</a></p>
+
+    <input type="button" value="Back" class="button"
+           onclick="window.location.href='/vehicles/list'">
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

@@ -51,5 +51,5 @@ public class Customer {
     private String note;
 
     @OneToMany(mappedBy = "customer")
-    private List<Vehicle> vehicle;
+    private List<Vehicle> vehicles;
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Vehicle</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Add Vehicle</h3>
+    <form method="post" th:action="@{/vehicles/add-execute}" th:object="${vehicle}">
+
+        <p>Brand: <span class="requiredFiled">*</span> <input th:field="*{brand}" type="text"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
+        </p>
+
+        <p>Model: <span class="requiredFiled">*</span> <input th:field="*{model}" type="text">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></span>
+        </p>
+
+        <p>Fuel type: <span class="requiredFiled">*</span> <select th:field="*{fuelType}">
+            <option th:each="fuelType : ${fuelTypes}"
+                    th:text="${fuelType}"
+                    th:value="${fuelType}">
+            </option>
+        </select>
+        </p>
+
+        <p>Engine size: <input th:field="*{engineSize}" type="number" step="0.05">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('engineSize')}"
+                  th:errors="*{engineSize}"></span>
+        </p>
+
+        <p>Year of production: <input th:field="*{yearOfProduction}" type="number"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('yearOfProduction')}" th:errors="*{yearOfProduction}"></span>
+        </p>
+
+        <p>Plate number: <span class="requiredFiled">*</span> <input th:field="*{plateNumber}" type="text"
+                                                                    maxlength="15"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('plateNumber')}"
+                  th:errors="*{plateNumber}"></span>
+        </p>
+
+        <p>VIN: <input th:field="*{vin}" type="number"
+                                                                     step="0.1"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('vin')}"
+                  th:errors="*{vin}"></span>
+        </p>
+
+        Additional notes:
+        <p>
+            <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
+        </p>
+
+        <input type="submit" value="Add" class="button"><input type="button" value="Cancel" class="button"
+                                                               onclick="window.location.href='/employees/list'">
+    </form>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

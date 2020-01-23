@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Vehicles</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+
+<button class="addRowButton" onclick="window.location.href='/vehicles/add'">Add new vehicle</button>
+<div class="main">
+    <h1>Vehicles List</h1>
+    <table border="1" class="blueTable">
+        <thead>
+        <tr>
+            <td>Brand</td>
+            <td>Model</td>
+            <td>Plate Number</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tr th:each="vehicle : ${vehicles}">
+            <td th:text="${vehicle.brand}"></td>
+            <td th:text="${vehicle.model}"></td>
+            <td th:text="${vehicle.plateNumber}"></td>
+            <td><a th:href="@{'/vehicles/details/' + ${vehicle.id}}">More</a></td>
+        </tr>
+    </table>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

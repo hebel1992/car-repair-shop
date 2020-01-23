@@ -37,7 +37,6 @@ public class CustomerController {
         if (bindingResult.hasErrors()) {
             return "customers/addCustomer";
         }
-
         customerRepository.save(customer);
         return "redirect:/customers/list";
     }
@@ -45,9 +44,7 @@ public class CustomerController {
     @GetMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
         Customer customer = customerRepository.findById(id).get();
-        List<Vehicle> customerVehicles = vehicleRepository.findByCustomer_Id(id);
         model.addAttribute("customer", customer);
-        model.addAttribute("vehicles", customerVehicles);
         return "/customers/customerDetails";
     }
 
@@ -63,6 +60,10 @@ public class CustomerController {
         if (bindingResult.hasErrors()) {
             return "customers/editCustomer";
         }
+        customer.getVehicles().stream()
+                .forEach(v -> {v.setCustomer(customer);
+                                vehicleRepository.save(v);});
+
         customerRepository.save(customer);
         return "redirect:/customers/details/" + customer.getId();
     }
@@ -89,8 +90,8 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    @ModelAttribute("vehicles")
+    @ModelAttribute("vehiclesWithourOwner")
     public List<Vehicle> getVehicles() {
-        return vehicleRepository.findAll();
+        return vehicleRepository.findWithoutCustomer();
     }
 }

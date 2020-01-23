@@ -21,7 +21,13 @@
 
     <p>Phone number: <span th:text="${customer.phoneNumber}"></span></p>
 
-    <p>Vehicles:</p>
+    <p>Vehicles:
+    <ul>
+        <li th:each="vehicle : ${customer.vehicles}"
+            th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}">
+        </li>
+    </ul>
+    </p>
 
     <p>Note: <span th:text="${customer.note}"></span></p>
 

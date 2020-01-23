@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -32,6 +34,7 @@ public class Vehicle {
     @Column(name = "engine_size")
     private Double engineSize;
 
+    @Range(min = 1920, max = 2020)
     @Column(name = "year_of_production")
     private Integer yearOfProduction;
 
@@ -46,7 +49,10 @@ public class Vehicle {
     @JoinColumn(name = "fuel_type")
     private FuelType fuelType;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @Column(name = "note")
+    private String note;
+
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 }

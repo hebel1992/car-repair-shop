@@ -37,6 +37,7 @@
         Attach vehicles:
 
         <p><select th:field="*{vehicles}">
+            <option th:text="Select" th:value="null"></option>
             <option th:each="vehicle : ${vehiclesWithourOwner}"
                     th:text="${vehicle.model + vehicle.brand}"
                     th:value="${vehicle.id}">

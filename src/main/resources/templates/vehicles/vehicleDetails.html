@@ -11,21 +11,24 @@
 
     <h3 class="title">Vehicle Details</h3>
 
-    <p>Brand: <span th:text="${vehicle.brand}"></span></p>
+    <p><span class="listed">Owner:</span> <span th:text="${vehicle.customer != null} ? ${vehicle.customer.firstName+' '+vehicle.customer.lastName} :
+    'Not assigned'"></span></p>
 
-    <p>Model: <span th:text="${vehicle.model}"></span></p>
+    <p><span>Brand:</span> <span th:text="${vehicle.brand}"></span></p>
 
-    <p>Fuel Type: <span th:text="${vehicle.fuelType}"></span></p>
+    <p><span>Model:</span> <span th:text="${vehicle.model}"></span></p>
 
-    <p>Engine Size: <span th:text="${vehicle.engineSize}"></span></p>
+    <p><span>Fuel Type:</span> <span th:text="${vehicle.fuelType}"></span></p>
 
-    <p>Year of production: <span th:text="${vehicle.yearOfProduction}"></span></p>
+    <p><span>Engine Size:</span> <span th:text="${vehicle.engineSize}"></span></p>
 
-    <p>Plate number: <span th:text="${vehicle.plateNumber}"></span></p>
+    <p><span>Year of production:</span> <span th:text="${vehicle.yearOfProduction}"></span></p>
 
-    <p>VIN: <span th:text="${vehicle.vin}"></span></p>
+    <p><span>Plate number:</span> <span th:text="${vehicle.plateNumber}"></span></p>
 
-    <p>Notes: <span th:text="${vehicle.note}"></span></p>
+    <p><span>VIN:</span> <span th:text="${vehicle.vin}"></span></p>
+
+    <p><span>Notes:</span> <span th:text="${vehicle.note}"></span></p>
 
     <p><a class="editLink" th:href="@{'/vehicles/update/' + ${vehicle.id}}">Edit mode</a></p>
 

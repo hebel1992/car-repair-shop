@@ -23,8 +23,8 @@
 
     <p>Vehicles:
     <ul>
-        <li th:each="vehicle : ${customer.vehicles}"
-            th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}">
+        <li th:each="vehicle : ${customer.vehicles}">
+            <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}" th:href="@{'/vehicles/details/'+${vehicle.id}}"></a>
         </li>
     </ul>
     </p>

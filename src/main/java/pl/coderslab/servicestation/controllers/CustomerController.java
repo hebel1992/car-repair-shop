@@ -87,6 +87,14 @@ public class CustomerController {
         }
     }
 
+    @GetMapping("/detachVehicle/{vehicleId}/{customerId}")
+    public String detachVehicle(@PathVariable Long vehicleId, @PathVariable Long customerId){
+        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
+        vehicle.setCustomer(null);
+        vehicleRepository.save(vehicle);
+        return "redirect:/customers/update/"+customerId;
+    }
+
     @ModelAttribute("customers")
     public List<Customer> getCustomers() {
         return customerRepository.findAll();

@@ -19,12 +19,12 @@
             <span class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
         </p>
 
-        <p>Date of birth: <input th:field="*{dateOfBirth}" type="date">
+        <p>Date of birth:<span class="requiredFiled">*</span> <input th:field="*{dateOfBirth}" type="date">
             <span class="alert alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
                   th:errors="*{dateOfBirth}"></span>
         </p>
 
-        <p>Address: <input th:field="*{address}" type="text"/>
+        <p>Address: <span class="requiredFiled">*</span><input th:field="*{address}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
         </p>
 

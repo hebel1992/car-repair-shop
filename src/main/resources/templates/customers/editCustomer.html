@@ -34,10 +34,19 @@
                   th:errors="*{phoneNumber}"></span>
         </p>
 
+        <p>Vehicles:
+        <ul>
+            <li th:each="vehicle : ${customer.vehicles}">
+                <span th:text="${vehicle.brand + ' ' + vehicle.model}"></span>
+                <a th:href="@{'/customers/detachVehicle/'+${vehicle.id}+'/'+${customer.id}}">Detach</a>
+            </li>
+        </ul>
+        </p>
+
         Attach vehicles:
 
         <p><select th:field="*{vehicles}">
-            <option th:each="vehicle : ${customer.vehicles}"
+            <option th:each="vehicle : ${vehiclesWithourOwner}"
                     th:text="${vehicle.model + vehicle.brand}"
                     th:value="${vehicle.id}" th:multiple="true">
             </option>

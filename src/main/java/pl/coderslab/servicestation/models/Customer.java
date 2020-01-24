@@ -43,7 +43,7 @@ public class Customer {
     private String address;
 
     @Pattern(regexp = "\\d{9,15}", message = "9 characters minimum(only digits)")
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
     @Size(max = 1000, message = "maximum 1000 characters")
@@ -52,4 +52,9 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<Vehicle> vehicles;
+
+    @PreRemove
+    private void preRemove() {
+        vehicles.forEach(child -> child.setCustomer(null));
+    }
 }

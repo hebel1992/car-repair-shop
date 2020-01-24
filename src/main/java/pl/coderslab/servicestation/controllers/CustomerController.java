@@ -38,6 +38,9 @@ public class CustomerController {
             return "customers/addCustomer";
         }
         customerRepository.save(customer);
+        customer.getVehicles().stream()
+                .forEach(v -> {v.setCustomer(customer);
+                    vehicleRepository.save(v);});
         return "redirect:/customers/list";
     }
 
@@ -63,7 +66,6 @@ public class CustomerController {
         customer.getVehicles().stream()
                 .forEach(v -> {v.setCustomer(customer);
                                 vehicleRepository.save(v);});
-
         customerRepository.save(customer);
         return "redirect:/customers/details/" + customer.getId();
     }

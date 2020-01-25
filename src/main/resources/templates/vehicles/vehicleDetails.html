@@ -11,7 +11,7 @@
 
     <h3 class="title">Vehicle Details</h3>
 
-    <p><span class="listed">Owner:</span> <span th:text="${vehicle.customer != null} ? ${vehicle.customer.firstName+' '+vehicle.customer.lastName} :
+    <p><span>Owner:</span> <span th:text="${vehicle.customer != null} ? ${vehicle.customer.firstName+' '+vehicle.customer.lastName} :
     'Not assigned'"></span></p>
 
     <p><span>Brand:</span> <span th:text="${vehicle.brand}"></span></p>

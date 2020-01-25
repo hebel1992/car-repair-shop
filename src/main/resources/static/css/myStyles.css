@@ -207,6 +207,6 @@ table.blueTable tfoot .links a {
     color: red;
 }
 
-.listed{
+div.main p span:first-child{
     font-weight: bold;
 }

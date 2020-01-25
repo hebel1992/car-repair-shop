@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tr th:each="employee : ${employees}">
-            <td th:text="${employee.firstName + '' + employee.lastName}"></td>
+            <td th:text="${employee.firstName + ' ' + employee.lastName}"></td>
             <td th:text="${employee.getPhoneNumber()}"></td>
             <td><a th:href="@{'/employees/details/' + ${employee.id}}">More</a></td>
         </tr>

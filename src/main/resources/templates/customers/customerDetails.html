@@ -11,17 +11,17 @@
 
     <h3 class="title">Customer Details</h3>
 
-    <p>First name: <span th:text="${customer.firstName}"></span></p>
+    <p><span>First name:</span> <span th:text="${customer.firstName}"></span></p>
 
-    <p>Last name: <span th:text="${customer.lastName}"></span></p>
+    <p><span>Last name:</span> <span th:text="${customer.lastName}"></span></p>
 
-    <p>Date of birth: <span th:text="${customer.dateOfBirth}"></span></p>
+    <p><span>Date of birth:</span> <span th:text="${customer.dateOfBirth}"></span></p>
 
-    <p>Address: <span th:text="${customer.address}"></span></p>
+    <p><span>Address:</span> <span th:text="${customer.address}"></span></p>
 
-    <p>Phone number: <span th:text="${customer.phoneNumber}"></span></p>
+    <p><span>Phone number:</span> <span th:text="${customer.phoneNumber}"></span></p>
 
-    <p>Vehicles:
+    <p><span>Vehicles:</span>
     <ul>
         <li th:each="vehicle : ${customer.vehicles}">
             <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}" th:href="@{'/vehicles/details/'+${vehicle.id}}"></a>
@@ -29,7 +29,7 @@
     </ul>
     </p>
 
-    <p>Note: <span th:text="${customer.note}"></span></p>
+    <p><span>Note:</span> <span th:text="${customer.note}"></span></p>
 
     <p><a class="editLink" th:href="@{'/customers/update/' + ${customer.id}}">Edit mode</a></p>
 

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Status {
 
     @Id
-    private Integer id;
+    private Long id;
 
     @Column(name = "description")
     private String description;

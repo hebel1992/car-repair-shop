@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,18 +24,20 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "vehicle_arrival")
-    private LocalDate vehicleArrival;
+    @NotBlank
+    @Column(name = "title")
+    private String title;
 
     @NotBlank
     @Column(name = "initial_diagnosis")
-    private String initalDiagnosis;
+    private String initialDiagnosis;
 
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "planned_repair_start")
     private LocalDate plannedRepairStart;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "actual_repair_start")
     private LocalDate actualRepairStart;
 
@@ -43,11 +47,17 @@ public class Order {
     @Column(name = "costs_of_parts")
     private Double costsOfParts;
 
-    @Column(name = "hours_of_service")
-    private Integer hoursOfService;
-
     @Column(name = "price_of_service")
     private Double priceOfService;
+
+    @Column(name = "created")
+    private LocalDate created;
+
+    @Column(name = "updated")
+    private LocalDate updated;
+
+    @Column(name = "note")
+    private String note;
 
     @NotNull
     @ManyToOne
@@ -56,10 +66,19 @@ public class Order {
 
     @NotNull
     @JoinColumn(name = "vehicle_id")
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Vehicle vehicle;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @ManyToMany
+    private List<Employee> employees;
+
+    @PrePersist
+    public void create() {
+        created = LocalDate.now();
+    }
+
+    @PreUpdate
+    public void update() {
+        updated = LocalDate.now();
+    }
 }

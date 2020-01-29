@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+
+    <h3 class="title">Order Details</h3>
+
+    <p><span>Title:</span> <span th:text="${order.title}"></span></p>
+
+    <p><span>Diagnosis:</span> <span th:text="${order.initialDiagnosis}"></span></p>
+
+    <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
+
+    <p><span>Actual repair start:</span> <span th:text="${order.actualRepairStart}"></span></p>
+
+    <p><span>Ordered parts:</span> <span th:text="${order.orderedParts}"></span></p>
+
+    <p><span>Costs of parts:</span> <span th:text="${order.costsOfParts}"></span></p>
+
+    <p><span>Price of service:</span> <span th:text="${order.priceOfService}"></span></p>
+
+    <p><span>Additional notes:</span> <span th:text="${order.note}"></span></p>
+
+    <p><span>Created:</span> <span th:text="${order.created}"></span></p>
+
+    <p><span>Updated:</span> <span th:text="${order.updated}"></span></p>
+
+    <p><span>Employee(s) assigned to order:</span>
+    <ul>
+        <li th:each="vehicle : ${vehicles}">
+            <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}" th:href="@{'/vehicles/details/'+${vehicle.id}}"></a>
+        </li>
+    </ul>
+    </p>
+
+    <p><span>Note:</span> <span th:text="${order.note}"></span></p>
+
+    <p><a class="editLink" th:href="@{'/orders/update/' + ${order.id}}">Edit mode</a></p>
+
+    <p><a class="deleteLink" th:href="@{'/orders/delete/' + ${order.id}}">Delete customer</a></p>
+
+    <input type="button" value="Back" class="button"
+           onclick="window.location.href='/'">
+</div>
+</body>
+</html>

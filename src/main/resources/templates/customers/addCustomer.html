@@ -38,7 +38,7 @@
 
         <p><select th:field="*{vehicles}">
             <option th:text="Select" th:value="null"></option>
-            <option th:each="vehicle : ${vehiclesWithourOwner}"
+            <option th:each="vehicle : ${vehiclesWithoutOwner}"
                     th:text="${vehicle.model + vehicle.brand}"
                     th:value="${vehicle.id}">
             </option>

@@ -100,7 +100,7 @@ public class CustomerController {
         return customerRepository.findAll();
     }
 
-    @ModelAttribute("vehiclesWithourOwner")
+    @ModelAttribute("vehiclesWithoutOwner")
     public List<Vehicle> getVehicles() {
         return vehicleRepository.findWithoutCustomer();
     }

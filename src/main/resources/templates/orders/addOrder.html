@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Order</title>
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Create Order</h3>
+    <form method="post" th:action="@{/orders/add-execute}" th:object="${order}">
+
+        <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </p>
+
+        Initial diagnosis:
+        <p><span class="requiredFiled">*</span> <textarea th:field="*{initialDiagnosis}"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
+                  th:errors="*{initialDiagnosis}"></span>
+        </p>
+
+        <p>Vehicle:<span class="requiredFiled">*</span> <select th:field="*{vehicle}">
+            <option th:each="vehicle : ${vehicles}"
+                    th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
+                    th:value="${vehicle.id}">
+            </option>
+        </select>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('vehicle')}"
+                  th:errors="*{vehicle}"></span>
+        </p>
+
+        <p>Planned repair start:<span class="requiredFiled">*</span><input th:field="*{plannedRepairStart}" type="date">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"
+                  th:errors="*{plannedRepairStart}"></span>
+        </p>
+
+        <p>Actual repair start: <input th:field="*{actualRepairStart}" type="date" placeholder="optional"/>
+        </p>
+
+        <p>Ordered parts: <input th:field="*{orderedParts}" type="text" maxlength="15"/></p>
+
+        <p>Costs of parts: <input th:field="*{costsOfParts}" type="number" step="0.01" maxlength="15"/></p>
+
+        <p>Price of service(parts + service): <input th:field="*{costsOfParts}" type="number" step="0.01"
+                                                     maxlength="15"/></p>
+
+        Assign employee(s):
+        <p><select th:field="*{employees}" th:multiple="true">
+            <option th:each="employee : ${employees}"
+                    th:text="${employee.firstName + ' ' +employee.lastName}"
+                    th:value="${employee.id}">
+            </option>
+        </select></p>
+
+        Additional notes:
+        <p>
+            <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
+        </p>
+
+        Status:
+        <p><select th:field="*{status}">
+            <option th:each="status : ${statusOptions}"
+                    th:text="${status.getDescription()}"
+                    th:value="${status.id}">
+            </option>
+        </select></p>
+
+        <input type="submit" value="Add" class="button"><input type="button" value="Cancel" class="button"
+                                                               onclick="window.location.href='/'">
+    </form>
+</div>
+</body>
+</html>

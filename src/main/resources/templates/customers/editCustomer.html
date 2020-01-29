@@ -45,11 +45,10 @@
 
         Attach vehicles:
 
-        <p><select th:field="*{vehicles}">
-            <option th:text="Select" th:value="null"></option>
-            <option th:each="vehicle : ${vehiclesWithourOwner}"
-                    th:text="${vehicle.model + vehicle.brand}"
-                    th:value="${vehicle.id}" th:multiple="true">
+        <p><select th:field="*{vehicles}" th:multiple="true">
+            <option th:each="vehicle : ${vehiclesWithoutOwner}"
+                    th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
+                    th:value="${vehicle.id}">
             </option>
         </select></p>
 
@@ -62,8 +61,6 @@
         <a th:href="@{'/customers/details/' + ${customer.id}}"><input type="button" class="button" value="Cancel"/></a>
 
     </form>
-
 </div>
-<div th:include="footer.html"></div>
 </body>
 </html>

@@ -2,10 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Cars Website</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link rel="stylesheet" href="css/myStyles.css" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
+<button class="addRowButton" onclick="window.location.href='/orders/add'">Create Order</button>
+<div class="main">
+    <h1>Current repairs</h1>
+    <tr th:each="startedOrder : ${ordersStarted}">
+        <a class="panel" th:href="'/orders/details/'+ ${startedOrder.id}">
+            <h3 th:text="${startedOrder.title}"></h3>
+            <div th:text="'Status: ' + ${startedOrder.status.description}"></div>
+            <span class="left" th:text="'Vehicle: ' + ${startedOrder.vehicle.model}"></span>
+            <span class="right" th:text="'Start date: ' + ${startedOrder.actualRepairStart}"></span>
+        </a>
+    </tr>
+    <h1>Planned repairs</h1>
+    <tr th:each="plannedOrder : ${plannedOrders}">
+        <a class="panel" th:href="'/orders/details/'+${plannedOrder.id}">
+            <h3 th:text="${plannedOrder.title}"></h3>
+            <div th:text="'Status: ' + ${plannedOrder.status.description}"></div>
+            <span class="left" th:text="'Vehicle: ' + ${plannedOrder.vehicle.model}"></span>
+            <span class="right" th:text="'Planned starting date: ' + ${plannedOrder.plannedRepairStart}"></span>
+        </a>
+    </tr>
+</div>
 <div th:include="footer.html"></div>
 </body>
 </html>

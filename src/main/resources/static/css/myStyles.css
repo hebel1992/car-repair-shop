@@ -7,12 +7,12 @@
     left: 0;
     background-color: gainsboro;
     overflow-x: hidden;
-    padding-top: 65px;
+    padding-top: 100px;
     text-align: -moz-left;
 }
 
 .sidenav p {
-    font-size: 25px;
+    font-size: 30px;
     color: #818181;
     display: block;
 }
@@ -21,7 +21,9 @@
     width: 100%;
     text-align: center;
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
+    height: 2.5rem;
+    overflow: auto;
 }
 
 .statement-success {
@@ -67,15 +69,16 @@
 .main {
     margin-left: 190px;
     padding: 0px 10px;
+
 }
 
 .title-style {
     font-family: "Waree";
     padding: 6px 8px 6px 16px;
     background-color: gainsboro;
-    font-size: 50px;
+    font-size: 80px;
     color: darkblue;
-    margin-left: 160px;
+    margin-left: 180px;
     text-align: center;
 }
 
@@ -207,6 +210,38 @@ table.blueTable tfoot .links a {
     color: red;
 }
 
-div.main p span:first-child{
+div.main p span:first-child {
     font-weight: bold;
+}
+
+.panel {
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    border: 4px solid #1C6EA4;
+    background-color: #d4e6f6;
+    padding: 5px 5px 5px 5px;
+    width: auto;
+    height: auto;
+    min-height: 100px;
+    margin: auto auto 10px;
+    display: block;
+    text-align: -webkit-center;
+    line-height: 18px;
+    overflow: auto;
+}
+
+.panel:hover {
+    background-color: #1C6EA4;
+    color: white;
+    text-decoration: none;
+}
+
+.left {
+    float: left;
+    margin-left: 5px;
+}
+
+.right {
+    float: right;
+    margin-right: 5px;
 }

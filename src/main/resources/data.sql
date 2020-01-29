@@ -1,7 +1,7 @@
-INSERT INTO status (id, description) VALUES (1, 'accepted');
-INSERT INTO status (id, description) VALUES (2, 'costs agreed');
+INSERT INTO status (id, description) VALUES (1, 'order accepted');
+INSERT INTO status (id, description) VALUES (2, 'vehicle arrived at the service');
 INSERT INTO status (id, description) VALUES (3, 'repair started');
-INSERT INTO status (id, description) VALUES (4, 'vehicle ready');
+INSERT INTO status (id, description) VALUES (4, 'vehicle ready to collect');
 INSERT INTO status (id, description) VALUES (5, 'order finished');
 INSERT INTO status (id, description) VALUES (6, 'repair cancelled');
 
@@ -13,5 +13,11 @@ INSERT INTO customers (address, date_of_birth, first_name, last_name, note, phon
 
 INSERT INTO vehicles (brand, engine_size, fuel_type, model,plate_number, year_of_production) VALUES ('Nissan', 1.2, 2, 'Almera', 'GH13P2', 2009);
 INSERT INTO vehicles (brand, fuel_type, model, note, plate_number, year_of_production) VALUES ('Volkswagen', 3, 'Golf', 'short note', 'YTF18PO', 2012);
+INSERT INTO vehicles (brand, engine_size, fuel_type, model, note, plate_number, year_of_production) VALUES ('Toyota', 2.0, 3, 'Corolla', 'Short note about Corolla', 'YO91AP', 2018);
 INSERT INTO vehicles (brand, engine_size, fuel_type, model, note, plate_number, year_of_production) VALUES ('Audi', 3.0, 0, 'A5', 'another short note', 'GF67AW1', 2015);
+
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Morawska 17c, Wolow', '1985-06-06', 'Grzegorz', 'Pawlak', 3411236781, 3.0);
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Nowa 1, Ketrzyn', '1980-03-02', 'Mariusz', 'Fredzel', 2211116731, 6.0);
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Fioletowa 5, Morawa', '1999-01-06', 'Kamil', 'Gniazdo', 412123123, 12.0);
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Krucha 115, Oborniki', '1978-12-11', 'Jaroslaw', 'Mily', 991000111, 4.0);
 

@@ -7,9 +7,13 @@ import pl.coderslab.servicestation.models.Order;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query(value = "SELECT * FROM orders WHERE actual_repair_start > NOW() AND status_id!=5 AND status_id!=6", nativeQuery = true)
-    List<Order> findAlreadyStartedOrders();
+    @Query(value = "SELECT * FROM orders WHERE status_id=1 OR status_id=2", nativeQuery = true)
+    List<Order> findPlannedOrders();
 
-    @Query(value = "SELECT * FROM orders WHERE actual_repair_start IS NULL AND status_id!=5 AND status_id!=6", nativeQuery = true)
-    List<Order> findAwaitingOrders();
+    @Query(value = "SELECT * FROM orders WHERE status_id=3 OR status_id=4", nativeQuery = true)
+    List<Order> findStartedOrders();
+
+    @Query(value = "SELECT * FROM orders WHERE status_id=5 OR status_id=6", nativeQuery = true)
+    List<Order> findHistoryOrders();
+
 }

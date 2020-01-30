@@ -17,7 +17,10 @@
 
     <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
-    <p><span>Actual repair start:</span> <span th:text="${order.actualRepairStart}"></span></p>
+    <p><span>Actual repair start:</span> <span th:text="${order.actualRepairStart != null} ?
+    ${order.actualRepairStart} : 'Not yet started'"></span></p>
+
+    <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
     <p><span>Ordered parts:</span> <span th:text="${order.orderedParts}"></span></p>
 
@@ -29,12 +32,13 @@
 
     <p><span>Created:</span> <span th:text="${order.created}"></span></p>
 
-    <p><span>Updated:</span> <span th:text="${order.updated}"></span></p>
+    <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
 
     <p><span>Employee(s) assigned to order:</span>
     <ul>
-        <li th:each="vehicle : ${vehicles}">
-            <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}" th:href="@{'/vehicles/details/'+${vehicle.id}}"></a>
+        <li th:each="employee : ${employeesAssignedToOrder}">
+            <a th:text="${employee.firstName + ' ' + employee.lastName}"
+               th:href="@{'/employees/details/'+${employee.id}}"></a>
         </li>
     </ul>
     </p>
@@ -43,7 +47,7 @@
 
     <p><a class="editLink" th:href="@{'/orders/update/' + ${order.id}}">Edit mode</a></p>
 
-    <p><a class="deleteLink" th:href="@{'/orders/delete/' + ${order.id}}">Delete customer</a></p>
+    <p><a class="deleteLink" th:href="@{'/orders/delete/' + ${order.id}}">Delete order</a></p>
 
     <input type="button" value="Back" class="button"
            onclick="window.location.href='/'">

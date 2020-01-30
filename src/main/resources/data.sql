@@ -3,7 +3,7 @@ INSERT INTO status (id, description) VALUES (2, 'vehicle arrived at the service'
 INSERT INTO status (id, description) VALUES (3, 'repair started');
 INSERT INTO status (id, description) VALUES (4, 'vehicle ready to collect');
 INSERT INTO status (id, description) VALUES (5, 'order finished');
-INSERT INTO status (id, description) VALUES (6, 'repair cancelled');
+INSERT INTO status (id, description) VALUES (6, 'order cancelled');
 
 INSERT INTO customers (first_name, last_name, phone_number) VALUES ('Rafal', 'Glowacki', '0444887901');
 INSERT INTO customers (address, date_of_birth, first_name, last_name, note, phone_number) VALUES ('ul. Sienkiewicza 15, Warszawa', '1990-05-05', 'Bartosz', 'Nowacki', 'This is short about order of Bartosz', '0567621321');

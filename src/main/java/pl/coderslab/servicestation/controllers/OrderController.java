@@ -16,6 +16,7 @@ import pl.coderslab.servicestation.repositories.VehicleRepository;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,16 +46,18 @@ public class OrderController {
     @GetMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
         Order order = orderRepository.findById(id).get();
-        List<Employee> employeesAssignedToOrder = employeeRepository.findEmployeesByOrderId(id);
+        Set<Employee> employeesAssignedToOrder = employeeRepository.findEmployeesByOrderId(id);
         model.addAttribute("order", order);
-        model.addAttribute("employees", employeesAssignedToOrder);
+        model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
         return "/orders/orderDetails";
     }
 
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
         Order order = orderRepository.findById(id).get();
+        Set<Employee> employeesNotInOrder = employeeRepository.findAllEmployeesNotInOrder(id);
         model.addAttribute("order", order);
+        model.addAttribute("employeesNotInOrder", employeesNotInOrder);
         return "orders/editOrder";
     }
 
@@ -63,6 +66,9 @@ public class OrderController {
         if (bindingResult.hasErrors()) {
             return "orders/editOrder";
         }
+        Order orderBeforeUpdate = orderRepository.findById(order.getId()).get();
+
+        order.getEmployees().addAll(orderBeforeUpdate.getEmployees());
         orderRepository.save(order);
         return "redirect:/orders/details/" + order.getId();
     }
@@ -70,7 +76,7 @@ public class OrderController {
     @GetMapping("/delete/{id}")
     public String deleteCustomer(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
-        return "orders/deleteCustomer";
+        return "orders/deleteOrder";
     }
 
     @GetMapping("/delete-action/{id}")
@@ -78,10 +84,25 @@ public class OrderController {
         if (action) {
             Order order = orderRepository.findById(id).get();
             orderRepository.delete(order);
-            return "redirect:/orders/list";
+            return "redirect:/";
         } else {
             return "redirect:/orders/details/" + id;
         }
+    }
+
+    @GetMapping("/detachEmployee/{employeeId}/{orderId}")
+    public String detachVehicle(@PathVariable Long employeeId, @PathVariable Long orderId, Model model){
+        Order order = orderRepository.findById(orderId).get();
+        Employee employee = employeeRepository.findById(employeeId).get();
+        order.getEmployees().remove(employee);
+        orderRepository.save(order);
+
+        return "redirect:/orders/update/"+orderId;
+    }
+
+    @RequestMapping("/historyOrders")
+    public String historyOrdersView() {
+        return "orders/historyOrders";
     }
 
     @ModelAttribute("vehicles")
@@ -97,5 +118,10 @@ public class OrderController {
     @ModelAttribute("statusOptions")
     public List<Status> getStatusList() {
         return statusRepository.findAll();
+    }
+
+    @ModelAttribute("historyOrders")
+    public List<Order> historyOrders(){
+        return orderRepository.findHistoryOrders();
     }
 }

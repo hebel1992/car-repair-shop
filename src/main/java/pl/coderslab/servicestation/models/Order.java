@@ -10,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -70,7 +70,9 @@ public class Order {
     private Vehicle vehicle;
 
     @ManyToMany
-    private List<Employee> employees;
+    @JoinTable(name = "orders_employees", joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    private Set<Employee> employees;
 
     @PrePersist
     public void create() {

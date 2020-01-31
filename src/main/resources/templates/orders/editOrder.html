@@ -17,11 +17,19 @@
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
         </p>
 
-        Initial diagnosis:
-        <p><span class="requiredFiled">*</span> <textarea th:field="*{initialDiagnosis}"/>
+        Initial diagnosis:<span class="requiredFiled">*</span>
+        <p><textarea th:field="*{initialDiagnosis}"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
                   th:errors="*{initialDiagnosis}"></span>
         </p>
+
+        Set status:
+        <p><select th:field="*{status}">
+            <option th:each="status : ${statusOptions}"
+                    th:text="${status.getDescription()}"
+                    th:value="${status.id}">
+            </option>
+        </select></p>
 
         <p>Vehicle:<span class="requiredFiled">*</span> <select th:field="*{vehicle}">
             <option th:each="vehicle : ${vehicles}"
@@ -66,14 +74,6 @@
         <p>
             <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
         </p>
-
-        Status:
-        <p><select th:field="*{status}">
-            <option th:each="status : ${statusOptions}"
-                    th:text="${status.getDescription()}"
-                    th:value="${status.id}">
-            </option>
-        </select></p>
 
         <input type="submit" name="action" value="Update" class="button">
         <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="button" value="Cancel"/></a>

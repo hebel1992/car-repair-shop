@@ -15,6 +15,7 @@ import pl.coderslab.servicestation.repositories.StatusRepository;
 import pl.coderslab.servicestation.repositories.VehicleRepository;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ public class OrderController {
     }
 
     @PostMapping("/add-execute")
-    public String addOrder(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
+    public String addOrder(@ModelAttribute("order") @Valid Order order,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "orders/addOrder";
         }

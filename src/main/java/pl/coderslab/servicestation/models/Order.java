@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class Order {
     @Column(name = "title")
     private String title;
 
-    @NotBlank
+    @Size(min = 10)
     @Column(name = "initial_diagnosis")
     private String initialDiagnosis;
 

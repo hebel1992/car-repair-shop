@@ -14,7 +14,8 @@
         <a class="panel" th:href="'/orders/details/'+ ${startedOrder.id}">
             <h3 th:text="${startedOrder.title}"></h3>
             <div th:text="'Status: ' + ${startedOrder.status.description}"></div>
-            <span class="left" th:text="'Vehicle: ' + ${startedOrder.vehicle.model}"></span>
+            <span class="left" th:text="'Vehicle: ' + ${startedOrder.vehicle.brand + ' ' +
+            startedOrder.vehicle.model + ' ' + startedOrder.vehicle.plateNumber}"></span>
             <span class="right" th:text="'Start date: ' + ${startedOrder.actualRepairStart}"></span>
         </a>
     </tr>
@@ -23,7 +24,8 @@
         <a class="panel" th:href="'/orders/details/'+${plannedOrder.id}">
             <h3 th:text="${plannedOrder.title}"></h3>
             <div th:text="'Status: ' + ${plannedOrder.status.description}"></div>
-            <span class="left" th:text="'Vehicle: ' + ${plannedOrder.vehicle.model}"></span>
+            <span class="left" th:text="'Vehicle: ' + ${plannedOrder.vehicle.brand + ' ' +
+            plannedOrder.vehicle.model + ' ' + plannedOrder.vehicle.plateNumber}"></span>
             <span class="right" th:text="'Planned starting date: ' + ${plannedOrder.plannedRepairStart}"></span>
         </a>
     </tr>

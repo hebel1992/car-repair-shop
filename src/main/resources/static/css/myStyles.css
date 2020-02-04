@@ -165,6 +165,32 @@ table.blueTable tfoot .links a {
     color: white;
 }
 
+.plus{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    color: green;
+    width: 80px;
+}
+
+.plus:hover{
+    background-color: green; /* Green */
+    color: white;
+}
+
+.minus{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    color: red;
+    width: 30px;
+}
+
+.minus:hover{
+    background-color: red; /* Green */
+    color: white;
+}
+
 .addRowButton {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -244,4 +270,9 @@ div.main p span:first-child {
 .right {
     float: right;
     margin-right: 5px;
+}
+
+.nextPartInput{
+    margin-top: 1px;
+    margin-bottom: 15px;
 }

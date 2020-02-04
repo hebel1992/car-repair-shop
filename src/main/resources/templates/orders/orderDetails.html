@@ -22,9 +22,6 @@
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
-    <p><span>Ordered parts:</span> <span th:text="${order.orderedParts}"></span></p>
-
-    <p><span>Costs of parts:</span> <span th:text="${order.costsOfParts}"></span></p>
 
     <p><span>Price of service:</span> <span th:text="${order.priceOfService}"></span></p>
 
@@ -43,7 +40,7 @@
     </ul>
     </p>
 
-    <p><span>Note:</span> <span th:text="${order.note}"></span></p>
+    <p><span>Additional notes:</span> <span th:text="${order.note}"></span></p>
 
     <p><a class="editLink" th:href="@{'/orders/update/' + ${order.id}}">Edit mode</a></p>
 

@@ -5,14 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.servicestation.models.Employee;
-import pl.coderslab.servicestation.models.Order;
-import pl.coderslab.servicestation.models.Status;
-import pl.coderslab.servicestation.models.Vehicle;
-import pl.coderslab.servicestation.repositories.EmployeeRepository;
-import pl.coderslab.servicestation.repositories.OrderRepository;
-import pl.coderslab.servicestation.repositories.StatusRepository;
-import pl.coderslab.servicestation.repositories.VehicleRepository;
+import pl.coderslab.servicestation.models.*;
+import pl.coderslab.servicestation.repositories.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -27,22 +21,87 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private final EmployeeRepository employeeRepository;
     private final StatusRepository statusRepository;
+    private final PartRepository partRepository;
 
     @GetMapping("/add")
     public String addOrder(Model model) {
         Order order = new Order();
         model.addAttribute("order", order);
-        return "orders/addOrder";
+        return "/orders/addOrderStep1";
     }
 
     @PostMapping("/add-execute")
-    public String addOrder(@ModelAttribute("order") @Valid Order order,BindingResult bindingResult) {
+    public String addOrderExecute(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "orders/addOrder";
+            return "/orders/addOrderStep1";
+        }
+        if (order.getPlannedRepairStart().equals(LocalDate.now())) {
+            order.setActualRepairStart(LocalDate.now());
+            order.setStatus(statusRepository.findById(2).get());
+        } else {
+            order.setStatus(statusRepository.findById(1).get());
+        }
+
+        orderRepository.save(order);
+        return "redirect:/orders/add-part/" + order.getId();
+    }
+
+    @GetMapping("/add-part/{orderId}")
+    public String addPartsToOrder(Model model, @PathVariable Long orderId) {
+        Part part = new Part();
+        Order order = orderRepository.findById(orderId).get();
+        model.addAttribute("part", part);
+        model.addAttribute("addedParts", order.getParts());
+        return "/orders/addOrderStep2";
+    }
+
+    @PostMapping("/add-part-execute/{orderId}")
+    public String addPartExecute(Model model, @PathVariable Long orderId, @ModelAttribute("part") @Valid Part part, BindingResult bindingResult) {
+        Order order = orderRepository.findById(orderId).get();
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("addedParts", order.getParts());
+            return "/orders/addOrderStep2";
+        }
+        partRepository.save(part);
+
+        order.getParts().add(part);
+
+        order.getParts().stream()
+                .forEach(v->{v.setOrder(order);
+                    partRepository.save(v);
+                });
+
+        orderRepository.save(order);
+
+        model.addAttribute("addedParts", order.getParts());
+
+        return "redirect:/orders/add-part/"+orderId;
+    }
+
+    @GetMapping("/add-last-page/{orderId}")
+    public String addOrderLastPage(Model model, @PathVariable Long orderId) {
+        Order order = orderRepository.findById(orderId).get();
+        model.addAttribute("order", order);
+        return "/orders/addOrderStep3";
+    }
+
+    @PostMapping("/add-last-page-execute")
+    public String addOrderLastPageExecute(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "/orders/addOrderStep3";
         }
         orderRepository.save(order);
         return "redirect:/";
     }
+
+
+    @GetMapping("/delete-part/{partId}/{orderId}")
+    public String deletePart(@PathVariable Integer partId, @PathVariable Integer orderId){
+        Part part = partRepository.findById(partId).get();
+        partRepository.delete(part);
+        return  "redirect:/orders/add-part/"+orderId;
+    }
+
 
     @GetMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
@@ -92,13 +151,13 @@ public class OrderController {
     }
 
     @GetMapping("/detachEmployee/{employeeId}/{orderId}")
-    public String detachVehicle(@PathVariable Long employeeId, @PathVariable Long orderId, Model model){
+    public String detachVehicle(@PathVariable Long employeeId, @PathVariable Long orderId, Model model) {
         Order order = orderRepository.findById(orderId).get();
         Employee employee = employeeRepository.findById(employeeId).get();
         order.getEmployees().remove(employee);
         orderRepository.save(order);
 
-        return "redirect:/orders/update/"+orderId;
+        return "redirect:/orders/update/" + orderId;
     }
 
     @RequestMapping("/historyOrders")
@@ -119,10 +178,5 @@ public class OrderController {
     @ModelAttribute("statusOptions")
     public List<Status> getStatusList() {
         return statusRepository.findAll();
-    }
-
-    @ModelAttribute("historyOrders")
-    public List<Order> historyOrders(){
-        return orderRepository.findHistoryOrders();
     }
 }

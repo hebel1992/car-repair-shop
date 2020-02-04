@@ -1,9 +1,7 @@
-INSERT INTO status (id, description) VALUES (1, 'order created - waiting for vehicle');
-INSERT INTO status (id, description) VALUES (2, 'vehicle arrived - ready to start');
-INSERT INTO status (id, description) VALUES (3, 'repair started');
-INSERT INTO status (id, description) VALUES (4, 'vehicle ready to collect');
-INSERT INTO status (id, description) VALUES (5, 'order finished and closed');
-INSERT INTO status (id, description) VALUES (6, 'order cancelled and closed');
+INSERT INTO status (id, description) VALUES (1, 'order created');
+INSERT INTO status (id, description) VALUES (2, 'repair started');
+INSERT INTO status (id, description) VALUES (3, 'order finished');
+INSERT INTO status (id, description) VALUES (4, 'order cancelled');
 
 INSERT INTO customers (first_name, last_name, phone_number) VALUES ('Rafal', 'Glowacki', '0444887901');
 INSERT INTO customers (address, date_of_birth, first_name, last_name, note, phone_number) VALUES ('ul. Sienkiewicza 15, Warszawa', '1990-05-05', 'Bartosz', 'Nowacki', 'This is short about order of Bartosz', '0567621321');
@@ -20,4 +18,5 @@ INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_numb
 INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Nowa 1, Ketrzyn', '1980-03-02', 'Mariusz', 'Fredzel', 2211116731, 6.0);
 INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Fioletowa 5, Morawa', '1999-01-06', 'Kamil', 'Gniazdo', 412123123, 12.0);
 INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Krucha 115, Oborniki', '1978-12-11', 'Jaroslaw', 'Mily', 991000111, 4.0);
+
 

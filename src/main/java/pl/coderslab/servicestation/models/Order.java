@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -42,11 +43,8 @@ public class Order {
     @Column(name = "actual_repair_start")
     private LocalDate actualRepairStart;
 
-    @Column(name = "ordered_parts")
-    private String orderedParts;
-
-    @Column(name = "costs_of_parts")
-    private Double costsOfParts;
+    @OneToMany(mappedBy = "order")
+    private List<Part> parts;
 
     @Column(name = "price_of_service")
     private Double priceOfService;
@@ -60,7 +58,6 @@ public class Order {
     @Column(name = "note")
     private String note;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
@@ -83,5 +80,10 @@ public class Order {
     @PreUpdate
     public void update() {
         updated = LocalDate.now();
+    }
+
+    @PreRemove
+    private void preRemove() {
+        parts.forEach(child -> child.setOrder(null));
     }
 }

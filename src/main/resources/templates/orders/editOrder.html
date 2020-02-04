@@ -18,7 +18,7 @@
         </p>
 
         Initial diagnosis:<span class="requiredFiled">*</span>
-        <p><textarea th:field="*{initialDiagnosis}"/>
+        <p><textarea th:field="*{initialDiagnosis}" rows="13" cols="80"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
                   th:errors="*{initialDiagnosis}"></span>
         </p>
@@ -46,12 +46,6 @@
                   th:errors="*{plannedRepairStart}"></span>
         </p>
 
-        <p>Required parts: <input th:field="*{orderedParts}" type="text" maxlength="15"/></p>
-
-        <p>Costs of parts: <input th:field="*{costsOfParts}" type="number" step="0.01" maxlength="15"/></p>
-
-        <p>Total price of service(parts + service): <input th:field="*{costsOfParts}" type="number" step="0.01"
-                                                     maxlength="15"/></p>
 
         <p>Assigned employee(s):
         <ul>

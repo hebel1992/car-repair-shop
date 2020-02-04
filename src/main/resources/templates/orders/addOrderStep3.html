@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Order</title>
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Create Order</h3>
+    <form method="post" th:action="@{/orders/add-last-page-execute}" th:object="${order}">
+        <p>Price of service: <input th:field="*{priceOfService}" type="number" step="0.01"
+                                    maxlength="15"/><span class="alert alert-danger"
+                                                          th:if="${#fields.hasErrors('priceOfService')}"
+                                                          th:errors="*{priceOfService}"></span></p>
+
+        Assign employee(s):<span class="alert alert-danger"
+                                 th:if="${#fields.hasErrors('employees')}"
+                                 th:errors="*{employees}"></span>
+        <p><select th:field="*{employees}" th:multiple="true">
+            <option th:each="employee : ${employees}"
+                    th:text="${employee.firstName + ' ' +employee.lastName}"
+                    th:value="${employee.id}">
+            </option>
+        </select></p>
+
+        Additional notes:<span class="alert alert-danger"
+                               th:if="${#fields.hasErrors('note')}"
+                               th:errors="*{note}"></span>
+        <p>
+            <textarea th:field="*{note}" rows="10" cols="100" placeholder="optional"/>
+        </p>
+
+        <input type="submit" value="Finish" class="button"><input type="button" value="Back" class="button"
+                                                                  onclick="window.location.href='/'">
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:src="@{/js/addOrderScript.js}"></script>
+</body>
+</html>

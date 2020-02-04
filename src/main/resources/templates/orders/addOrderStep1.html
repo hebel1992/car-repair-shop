@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Order</title>
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Create Order</h3>
+    <form method="post" th:action="@{/orders/add-execute}" th:object="${order}">
+
+        <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </p>
+
+        Initial diagnosis:<span class="requiredFiled">*</span>
+        <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
+              th:errors="*{initialDiagnosis}"></span>
+        <p><textarea th:field="*{initialDiagnosis}" rows="10" cols="100"/></p>
+
+        <p>Vehicle:<span class="requiredFiled">*</span> <select th:field="*{vehicle}">
+            <option th:text="--Select--" th:value="null"></option>
+            <option th:each="vehicle : ${vehicles}"
+                    th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
+                    th:value="${vehicle.id}">
+            </option>
+        </select>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('vehicle')}"
+                  th:errors="*{vehicle}"></span>
+        </p>
+
+        <p>Planned repair start:<span class="requiredFiled">*</span><input id="plannedDate"
+                                                                           th:field="*{plannedRepairStart}" type="date">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"
+                  th:errors="*{plannedRepairStart}"></span>
+            <span>Start immediately: <input type="checkbox" id="checkBox" name="checkBox"></span>
+        </p>
+
+        <input type="submit" value="Next" class="button"><input type="button" value="Cancel" class="button"
+                                                               onclick="window.location.href='/'">
+    </form>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:src="@{/js/addOrderScript.js}"></script>
+</body>
+</html>

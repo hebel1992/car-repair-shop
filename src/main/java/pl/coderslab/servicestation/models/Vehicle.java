@@ -53,6 +53,11 @@ public class Vehicle {
     private String note;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
+    
 }

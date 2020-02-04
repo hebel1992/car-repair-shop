@@ -23,10 +23,16 @@ public class OrderController {
     private final StatusRepository statusRepository;
     private final PartRepository partRepository;
 
-    @GetMapping("/add")
-    public String addOrder(Model model) {
-        Order order = new Order();
-        model.addAttribute("order", order);
+    @GetMapping("/add/{orderId}")
+    public String addOrder(Model model, @PathVariable String orderId) {
+        if ("empty".equals(orderId)) {
+            Order order = new Order();
+            model.addAttribute("order", order);
+            return "/orders/addOrderStep1";
+        } else {
+            Order order = orderRepository.findById(Long.parseLong(orderId)).get();
+            model.addAttribute("order", order);
+        }
         return "/orders/addOrderStep1";
     }
 
@@ -67,7 +73,8 @@ public class OrderController {
         order.getParts().add(part);
 
         order.getParts().stream()
-                .forEach(v->{v.setOrder(order);
+                .forEach(v -> {
+                    v.setOrder(order);
                     partRepository.save(v);
                 });
 
@@ -75,7 +82,7 @@ public class OrderController {
 
         model.addAttribute("addedParts", order.getParts());
 
-        return "redirect:/orders/add-part/"+orderId;
+        return "redirect:/orders/add-part/" + orderId;
     }
 
     @GetMapping("/add-last-page/{orderId}")
@@ -87,7 +94,7 @@ public class OrderController {
 
     @PostMapping("/add-last-page-execute")
     public String addOrderLastPageExecute(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "/orders/addOrderStep3";
         }
         orderRepository.save(order);
@@ -96,10 +103,10 @@ public class OrderController {
 
 
     @GetMapping("/delete-part/{partId}/{orderId}")
-    public String deletePart(@PathVariable Integer partId, @PathVariable Integer orderId){
+    public String deletePart(@PathVariable Integer partId, @PathVariable Integer orderId) {
         Part part = partRepository.findById(partId).get();
         partRepository.delete(part);
-        return  "redirect:/orders/add-part/"+orderId;
+        return "redirect:/orders/add-part/" + orderId;
     }
 
 

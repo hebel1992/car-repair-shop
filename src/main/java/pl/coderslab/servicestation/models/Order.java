@@ -43,7 +43,7 @@ public class Order {
     @Column(name = "actual_repair_start")
     private LocalDate actualRepairStart;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<Part> parts;
 
     @Column(name = "price_of_service")
@@ -80,10 +80,5 @@ public class Order {
     @PreUpdate
     public void update() {
         updated = LocalDate.now();
-    }
-
-    @PreRemove
-    private void preRemove() {
-        parts.forEach(child -> child.setOrder(null));
     }
 }

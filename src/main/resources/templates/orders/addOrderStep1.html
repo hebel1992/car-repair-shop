@@ -10,6 +10,7 @@
 <div class="main">
     <h3 class="title">Create Order</h3>
     <form method="post" th:action="@{/orders/add-execute}" th:object="${order}">
+        <input type="hidden" th:field="*{id}">
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>

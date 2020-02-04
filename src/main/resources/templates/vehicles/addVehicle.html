@@ -11,6 +11,15 @@
     <h3 class="title">Add Vehicle</h3>
     <form method="post" th:action="@{/vehicles/add-execute}" th:object="${vehicle}">
 
+        Customer:
+        <p><select th:field="*{customer}">
+            <option th:text="Select" th:value="null"></option>
+            <option th:each="customer : ${customers}"
+                    th:text="${customer.firstName + ' ' + customer.lastName}"
+                    th:value="${customer.id}">
+            </option>
+        </select><span class="alert alert-danger" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></span></p>
+
         <p>Brand: <span class="requiredFiled">*</span> <input th:field="*{brand}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>
         </p>

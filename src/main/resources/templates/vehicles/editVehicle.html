@@ -10,7 +10,13 @@
 <div class="main">
     <h3 class="title">Edit Vehicle</h3>
     <form method="post" th:action="@{/vehicles/update}" th:object="${vehicle}">
+
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{customer}">
+
+        <p>Owner : <span th:field="*{customer}" th:text="${vehicle.customer.firstName + ' ' + vehicle.customer.lastName}"></span></p>
+        <span class="alert alert-danger" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></span>
+        </p>
 
         <p>Brand: <span class="requiredFiled">*</span> <input th:field="*{brand}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></span>

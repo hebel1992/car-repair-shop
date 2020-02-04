@@ -57,7 +57,7 @@ public class EmployeeController {
     @PostMapping("/update")
     public String updateEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "employees/edit";
+            return "employees/editEmployee";
         }
         employeeRepository.save(employee);
         return "redirect:list";

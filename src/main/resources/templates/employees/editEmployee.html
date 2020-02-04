@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Edit Employee</h3>
-    <form method="post" th:action="@{/employees/add-execute}" th:object="${employee}">
+    <form method="post" th:action="@{/employees/update}" th:object="${employee}">
 
         <input type="hidden" th:field="*{id}">
 

@@ -50,11 +50,6 @@ public class Customer {
     @Column(name = "note")
     private String note;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
     private List<Vehicle> vehicles;
-
-    @PreRemove
-    private void preRemove() {
-        vehicles.forEach(child -> child.setCustomer(null));
-    }
 }

@@ -8,18 +8,19 @@
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h3 class="title">Add parts to order</h3>
+    <h3 class="title">Create order</h3>
+    <h5>Add parts</h5>
     <form method="post" th:action="@{'/orders/add-part-execute/'+ ${orderId}}" th:object="${part}">
 
-        <p>Name: <span class="requiredFiled">*</span> <input th:field="*{name}" type="text"/>
+        <p>Name: <input th:field="*{name}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
         </p>
 
-        <p>Price: <span class="requiredFiled">*</span> <input th:field="*{price}" type="number" step="0.01"/>
+        <p>Price: <input th:field="*{price}" type="number" step="0.01"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
         </p>
 
-        <p>Quantity: <span class="requiredFiled">*</span> <input th:field="*{quantity}" type="number" step="1"/>
+        <p>Quantity: <input th:field="*{quantity}" type="number" step="1"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
         </p>
 
@@ -39,8 +40,8 @@
         </ul>
         </p>
 
-        <a type="button" th:href="@{'/orders/add-last-page/'+ ${orderId}}">Next</a><input type="button" value="Back" class="button"
-                                                               onclick="history.back()">
+        <a th:href="@{'/orders/add-last-page/'+ ${orderId}}"><input type="button" class="button" value="Next"/></a>
+        <a th:href="@{'/orders/add/' + ${orderId}}"><input type="button" class="button" value="Back"/></a>
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

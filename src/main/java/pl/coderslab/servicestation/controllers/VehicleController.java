@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.servicestation.models.Customer;
 import pl.coderslab.servicestation.models.FuelType;
 import pl.coderslab.servicestation.models.Vehicle;
+import pl.coderslab.servicestation.repositories.CustomerRepository;
 import pl.coderslab.servicestation.repositories.VehicleRepository;
 
 import javax.validation.Valid;
@@ -20,6 +22,7 @@ import java.util.Set;
 public class VehicleController {
 
     private final VehicleRepository vehicleRepository;
+    private final CustomerRepository customerRepository;
 
     @RequestMapping("/list")
     public String allVehicles() {
@@ -59,10 +62,10 @@ public class VehicleController {
     @PostMapping("/update")
     public String updateVehicle(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "vehicles/edit";
+            return "vehicles/editVehicle";
         }
         vehicleRepository.save(vehicle);
-        return "redirect:list";
+        return "redirect:/vehicles/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -90,5 +93,10 @@ public class VehicleController {
     @ModelAttribute("fuelTypes")
     public Set<FuelType> getFuelTypes() {
         return EnumSet.allOf(FuelType.class);
+    }
+
+    @ModelAttribute("customers")
+    public List<Customer> getCustomers(){
+        return customerRepository.findAll();
     }
 }

@@ -65,7 +65,7 @@ public class VehicleController {
             return "vehicles/editVehicle";
         }
         vehicleRepository.save(vehicle);
-        return "redirect:/vehicles/list";
+        return "redirect:/vehicles/details/" + vehicle.getId();
     }
 
     @GetMapping("/delete/{id}")
@@ -96,7 +96,7 @@ public class VehicleController {
     }
 
     @ModelAttribute("customers")
-    public List<Customer> getCustomers(){
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 }

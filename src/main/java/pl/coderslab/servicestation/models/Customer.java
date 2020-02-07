@@ -19,12 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "customers")
-public class Customer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Customer extends AbstractEntity {
 
     @Size(min = 2, message = "min 2 characters")
     @Column(name = "first_name")

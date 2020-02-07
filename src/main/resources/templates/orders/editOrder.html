@@ -64,6 +64,10 @@
             </option>
         </select></p>
 
+        <p>Price of service: <input th:field="*{priceOfService}" type="number" step="0.01"
+                                    maxlength="15" placeholder="not set"/><span class="alert alert-danger"
+                                                          th:if="${#fields.hasErrors('priceOfService')}"
+                                                          th:errors="*{priceOfService}"></span></p>
         Additional notes:
         <p>
             <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>

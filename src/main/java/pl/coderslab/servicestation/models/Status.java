@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Getter
@@ -16,10 +15,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "status")
-public class Status {
-
-    @Id
-    private Integer id;
+public class Status extends AbstractEntity {
 
     @Column(name = "description")
     private String description;

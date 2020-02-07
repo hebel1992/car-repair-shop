@@ -39,8 +39,10 @@ public class CustomerController {
         }
         customerRepository.save(customer);
         customer.getVehicles().stream()
-                .forEach(v -> {v.setCustomer(customer);
-                    vehicleRepository.save(v);});
+                .forEach(v -> {
+                    v.setCustomer(customer);
+                    vehicleRepository.save(v);
+                });
         return "redirect:/customers/list";
     }
 
@@ -54,7 +56,7 @@ public class CustomerController {
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
         Customer customer = customerRepository.findById(id).get();
-        model.addAttribute( "customer", customer);
+        model.addAttribute("customer", customer);
         return "customers/editCustomer";
     }
 
@@ -64,8 +66,10 @@ public class CustomerController {
             return "customers/editCustomer";
         }
         customer.getVehicles().stream()
-                .forEach(v -> {v.setCustomer(customer);
-                                vehicleRepository.save(v);});
+                .forEach(v -> {
+                    v.setCustomer(customer);
+                    vehicleRepository.save(v);
+                });
         customerRepository.save(customer);
         return "redirect:/customers/details/" + customer.getId();
     }
@@ -88,11 +92,11 @@ public class CustomerController {
     }
 
     @GetMapping("/detachVehicle/{vehicleId}/{customerId}")
-    public String detachVehicle(@PathVariable Long vehicleId, @PathVariable Long customerId){
+    public String detachVehicle(@PathVariable Long vehicleId, @PathVariable Long customerId) {
         Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
         vehicle.setCustomer(null);
         vehicleRepository.save(vehicle);
-        return "redirect:/customers/update/"+customerId;
+        return "redirect:/customers/update/" + customerId;
     }
 
     @ModelAttribute("customers")

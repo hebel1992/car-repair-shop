@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,11 +21,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "orders")
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Order extends AbstractEntity {
 
     @NotBlank
     @Column(name = "title")
@@ -46,6 +43,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<Part> parts;
 
+    @Min(1)
     @Column(name = "price_of_service")
     private Double priceOfService;
 
@@ -75,10 +73,5 @@ public class Order {
     @PrePersist
     public void create() {
         created = LocalDate.now();
-    }
-
-    @PreUpdate
-    public void update() {
-        updated = LocalDate.now();
     }
 }

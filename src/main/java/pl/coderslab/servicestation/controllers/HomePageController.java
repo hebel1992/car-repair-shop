@@ -1,7 +1,6 @@
 package pl.coderslab.servicestation.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +22,17 @@ public class HomePageController {
     }
 
     @ModelAttribute("ordersStarted")
-    public List<Order> ordersStarted(){
-       return orderRepository.findStartedOrders();
+    public List<Order> ordersStarted() {
+        return orderRepository.findStartedOrders();
     }
 
     @ModelAttribute("plannedOrders")
-    public List<Order> plannedOrders(){
+    public List<Order> plannedOrders() {
         return orderRepository.findPlannedOrders();
     }
 
     @ModelAttribute("historyOrders")
-    public List<Order> historyOrders(){
+    public List<Order> historyOrders() {
         return orderRepository.findFinishedAndCancelledOrders();
     }
 }

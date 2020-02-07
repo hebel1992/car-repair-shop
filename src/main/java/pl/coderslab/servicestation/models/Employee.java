@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -17,10 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "employees")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Employee extends AbstractEntity {
 
     @Size(min = 2, message = "min 2 characters")
     @Column(name = "first_name")

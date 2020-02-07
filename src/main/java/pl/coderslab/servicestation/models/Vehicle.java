@@ -17,11 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "vehicles")
-public class Vehicle {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Vehicle extends AbstractEntity {
 
     @Column(name = "brand")
     @NotBlank
@@ -59,5 +55,5 @@ public class Vehicle {
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.REMOVE)
     private List<Order> orders;
-    
+
 }

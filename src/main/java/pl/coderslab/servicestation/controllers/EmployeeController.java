@@ -42,7 +42,6 @@ public class EmployeeController {
     @GetMapping("/details/{id}")
     public String employeeDetails(@PathVariable Long id, Model model) {
         Employee employee = employeeRepository.findById(id).get();
-//        List<Order> employeeOrders = .findByCustomerId(id);
         model.addAttribute("employee", employee);
         return "/employees/employeeDetails";
     }
@@ -60,7 +59,7 @@ public class EmployeeController {
             return "employees/editEmployee";
         }
         employeeRepository.save(employee);
-        return "redirect:list";
+        return "redirect:/employees/details/" + employee.getId();
     }
 
     @GetMapping("/delete/{id}")

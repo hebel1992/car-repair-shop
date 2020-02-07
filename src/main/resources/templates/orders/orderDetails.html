@@ -17,11 +17,10 @@
 
     <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
-    <p><span>Actual repair start:</span> <span th:text="${order.actualRepairStart != null} ?
-    ${order.actualRepairStart} : 'Not yet started'"></span></p>
+    <p><span>Actual repair start:</span> <data th:if="${order.status.id==1}"> <a th:href="@{'/orders/change-status/2/'+${order.id}}">Click to start</a> </data>
+        <span th:if="${order.status.id>1}"> <data th:text="${order.actualRepairStart}"></data> </span></p>
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
-
 
     <p><span>Price of service:</span> <span th:text="${order.priceOfService}"></span></p>
 

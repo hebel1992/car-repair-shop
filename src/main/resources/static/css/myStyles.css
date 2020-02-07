@@ -232,6 +232,11 @@ table.blueTable tfoot .links a {
     font-weight: bold
 }
 
+.historyLink{
+    color: blue;
+    font-weight: bold;
+}
+
 .requiredFiled {
     color: red;
 }

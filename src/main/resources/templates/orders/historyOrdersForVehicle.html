@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>History Orders</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <link rel="stylesheet" href="css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h1 th:text="${vehicleInHistory.brand} + ' ' + ${vehicleInHistory.model} + ' - history of repairs'"></h1>
+    <div th:if="${vehicleHistoryOrders.size()<1}" th:text="'No history available'"></div>
+    <tr th:each="historyOrder : ${vehicleHistoryOrders}">
+        <a class="panel" th:href="'/orders/details/'+ ${historyOrder.id}">
+            <h3 th:text="${historyOrder.title}"></h3>
+            <div th:text="'Status: ' + ${historyOrder.status.description}"></div>
+            <span class="left" th:text="'Vehicle: ' + ${historyOrder.vehicle.model}"></span>
+            <span class="right" th:text="'Start date: ' + ${historyOrder.actualRepairStart}"></span>
+        </a>
+    </tr>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

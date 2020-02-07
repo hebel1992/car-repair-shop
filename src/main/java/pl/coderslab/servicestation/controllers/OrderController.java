@@ -43,9 +43,9 @@ public class OrderController {
         }
         if (order.getPlannedRepairStart().equals(LocalDate.now())) {
             order.setActualRepairStart(LocalDate.now());
-            order.setStatus(statusRepository.findById(2).get());
+            order.setStatus(statusRepository.findById(2L).get());
         } else {
-            order.setStatus(statusRepository.findById(1).get());
+            order.setStatus(statusRepository.findById(1L).get());
         }
 
         orderRepository.save(order);
@@ -103,7 +103,7 @@ public class OrderController {
 
 
     @GetMapping("/delete-part/{partId}/{orderId}")
-    public String deletePart(@PathVariable Integer partId, @PathVariable Integer orderId) {
+    public String deletePart(@PathVariable Long partId, @PathVariable Integer orderId) {
         Part part = partRepository.findById(partId).get();
         partRepository.delete(part);
         return "redirect:/orders/add-part/" + orderId;
@@ -117,6 +117,25 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
         return "/orders/orderDetails";
+    }
+
+    @GetMapping("/change-status/{statusId}/{orderId}")
+    public String changeStatus(Model model, @PathVariable("statusId") Integer statusId, @PathVariable("orderId") Long orderId) {
+        model.addAttribute("statusId", statusId);
+        model.addAttribute("orderId", orderId);
+        return "/orders/changeStatus";
+    }
+
+    @GetMapping("/change-status-action/{statusId}/{orderId}")
+    public String changeStatusAction(@PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {
+        if (action) {
+            Order order = orderRepository.findById(orderId).get();
+            order.setStatus(statusRepository.findById(statusId).get());
+            orderRepository.save(order);
+        } else {
+            return "redirect:/orders/details/" + orderId;
+        }
+        return "redirect:/orders/details/" + orderId;
     }
 
     @GetMapping("/update/{id}")
@@ -136,6 +155,8 @@ public class OrderController {
         Order orderBeforeUpdate = orderRepository.findById(order.getId()).get();
 
         order.getEmployees().addAll(orderBeforeUpdate.getEmployees());
+        order.setUpdated(LocalDate.now());
+        order.setActualRepairStart(LocalDate.now());
         orderRepository.save(order);
         return "redirect:/orders/details/" + order.getId();
     }
@@ -170,6 +191,20 @@ public class OrderController {
     @RequestMapping("/historyOrders")
     public String historyOrdersView() {
         return "orders/historyOrders";
+    }
+
+    @RequestMapping("/vehicleHistoryOrders/{vehicleId}")
+    public String vehicleHistoryOrdersView(Model model, @PathVariable("vehicleId") Long vehicleId) {
+        List<Order> vehicleHistoryOrders = orderRepository.findHistoryOrdersByVehicleId(vehicleId);
+        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
+        model.addAttribute("vehicleHistoryOrders", vehicleHistoryOrders);
+        model.addAttribute("vehicleInHistory", vehicle);
+        return "/orders/historyOrdersForVehicle";
+    }
+
+    @ModelAttribute("historyOrders")
+    public List<Order> historyOrders() {
+        return orderRepository.findFinishedAndCancelledOrders();
     }
 
     @ModelAttribute("vehicles")

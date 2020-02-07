@@ -18,7 +18,7 @@ public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
 
-    @RequestMapping("/list")
+    @GetMapping
     public String allEmployees() {
         return "employees/employeesList";
     }
@@ -30,13 +30,13 @@ public class EmployeeController {
         return "employees/addEmployee";
     }
 
-    @PostMapping("/add-execute")
+    @PostMapping("/add-action")
     public String addEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "employees/addEmployee";
         }
         employeeRepository.save(employee);
-        return "redirect:/employees/list";
+        return "redirect:/employees";
     }
 
     @GetMapping("/details/{id}")
@@ -53,7 +53,7 @@ public class EmployeeController {
         return "employees/editEmployee";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update-action")
     public String updateEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "employees/editEmployee";
@@ -73,7 +73,7 @@ public class EmployeeController {
         if (action) {
             Employee employee = employeeRepository.findById(id).get();
             employeeRepository.delete(employee);
-            return "redirect:/employees/list";
+            return "redirect:/employees";
         } else {
             return "redirect:/employees/details/" + id;
         }

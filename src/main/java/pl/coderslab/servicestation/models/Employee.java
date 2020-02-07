@@ -6,11 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -49,4 +48,12 @@ public class Employee extends AbstractEntity {
 
     @Column(name = "note")
     private String note;
+
+    @ManyToMany(mappedBy = "employees")
+    private Set<Order> orders;
+
+    @PreRemove
+    private void preRemove() {
+        orders.forEach(o -> o.getEmployees().remove(this));
+    }
 }

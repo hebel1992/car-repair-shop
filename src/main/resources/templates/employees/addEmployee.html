@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Add Employee</h3>
-    <form method="post" th:action="@{/employees/add-execute}" th:object="${employee}">
+    <form method="post" th:action="@{/employees/add-action}" th:object="${employee}">
 
         <p>First name:<span class="requiredFiled">*</span> <input th:field="*{firstName}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
@@ -46,7 +46,7 @@
         </p>
 
         <input type="submit" value="Add" class="button"><input type="button" value="Cancel" class="button"
-                                                               onclick="window.location.href='/employees/list'">
+                                                               onclick="window.location.href='/employees'">
     </form>
 </div>
 <div th:include="footer.html"></div>

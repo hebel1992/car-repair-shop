@@ -20,7 +20,7 @@ public class CustomerController {
     private final CustomerRepository customerRepository;
     private final VehicleRepository vehicleRepository;
 
-    @RequestMapping("/list")
+    @RequestMapping
     public String allCustomers() {
         return "customers/customersList";
     }
@@ -32,7 +32,7 @@ public class CustomerController {
         return "customers/addCustomer";
     }
 
-    @PostMapping("/add-execute")
+    @PostMapping("/add-action")
     public String addCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "customers/addCustomer";
@@ -43,7 +43,7 @@ public class CustomerController {
                     v.setCustomer(customer);
                     vehicleRepository.save(v);
                 });
-        return "redirect:/customers/list";
+        return "redirect:/customers";
     }
 
     @GetMapping("/details/{id}")
@@ -60,16 +60,18 @@ public class CustomerController {
         return "customers/editCustomer";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update-action")
     public String updateCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "customers/editCustomer";
         }
-        customer.getVehicles().stream()
-                .forEach(v -> {
-                    v.setCustomer(customer);
-                    vehicleRepository.save(v);
-                });
+        if (customer.getVehicles() != null) {
+            customer.getVehicles().stream()
+                    .forEach(v -> {
+                        v.setCustomer(customer);
+                        vehicleRepository.save(v);
+                    });
+        }
         customerRepository.save(customer);
         return "redirect:/customers/details/" + customer.getId();
     }
@@ -85,27 +87,14 @@ public class CustomerController {
         if (action) {
             Customer customer = customerRepository.findById(id).get();
             customerRepository.delete(customer);
-            return "redirect:/customers/list";
+            return "redirect:/customers";
         } else {
             return "redirect:/customers/details/" + id;
         }
     }
 
-    @GetMapping("/detachVehicle/{vehicleId}/{customerId}")
-    public String detachVehicle(@PathVariable Long vehicleId, @PathVariable Long customerId) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
-        vehicle.setCustomer(null);
-        vehicleRepository.save(vehicle);
-        return "redirect:/customers/update/" + customerId;
-    }
-
     @ModelAttribute("customers")
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
-    }
-
-    @ModelAttribute("vehiclesWithoutOwner")
-    public List<Vehicle> getVehicles() {
-        return vehicleRepository.findWithoutCustomer();
     }
 }

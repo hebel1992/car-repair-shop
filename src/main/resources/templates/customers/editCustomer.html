@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Edit Customer</h3>
-    <form method="post" th:action="@{/customers/update}" th:object="${customer}">
+    <form method="post" th:action="@{/customers/update-action}" th:object="${customer}">
 
         <input type="hidden" th:field="*{id}">
 
@@ -37,20 +37,10 @@
         <p>Vehicles:
         <ul>
             <li th:each="vehicle : ${customer.vehicles}">
-                <span th:text="${vehicle.brand + ' ' + vehicle.model}"></span>
-                <a th:href="@{'/customers/detachVehicle/'+${vehicle.id}+'/'+${customer.id}}">Detach</a>
+                <a th:href="@{'/vehicles/details/' + ${vehicle.id}}"><span th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"></span></a>
             </li>
         </ul>
         </p>
-
-        Attach vehicles:
-
-        <p><select th:field="*{vehicles}" th:multiple="true">
-            <option th:each="vehicle : ${vehiclesWithoutOwner}"
-                    th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
-                    th:value="${vehicle.id}">
-            </option>
-        </select></p>
 
         Additional notes:
         <p>

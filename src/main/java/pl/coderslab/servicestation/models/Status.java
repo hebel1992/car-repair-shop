@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Getter
@@ -16,6 +17,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "status")
 public class Status extends AbstractEntity {
+    @Id
+    private Long id;
 
     @Column(name = "description")
     private String description;

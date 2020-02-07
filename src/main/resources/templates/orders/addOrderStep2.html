@@ -10,7 +10,7 @@
 <div class="main">
     <h3 class="title">Create order</h3>
     <h5>Add parts</h5>
-    <form method="post" th:action="@{'/orders/add-part-execute/'+ ${orderId}}" th:object="${part}">
+    <form method="post" th:action="@{'/orders/add-part-to-order-action/'+ ${orderId}}" th:object="${part}">
 
         <p>Name: <input th:field="*{name}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>

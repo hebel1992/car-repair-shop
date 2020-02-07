@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Create Order</h3>
-    <form method="post" th:action="@{/orders/add-execute}" th:object="${order}">
+    <form method="post" th:action="@{/orders/add-action}" th:object="${order}">
         <input type="hidden" th:field="*{id}">
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
@@ -34,13 +34,13 @@
 
         <p>Planned repair start:<span class="requiredFiled">*</span><input id="plannedDate"
                                                                            th:field="*{plannedRepairStart}" type="date">
+            <span>Start immediately: <input type="checkbox" id="checkBox" name="checkBox"></span>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"
                   th:errors="*{plannedRepairStart}"></span>
-            <span>Start immediately: <input type="checkbox" id="checkBox" name="checkBox"></span>
         </p>
 
         <input type="submit" value="Next" class="button"><input type="button" value="Cancel" class="button"
-                                                               onclick="window.location.href='/'">
+                                                                onclick="window.location.href='/'">
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

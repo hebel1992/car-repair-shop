@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Edit Order</h3>
-    <form method="post" th:action="@{/orders/update}" th:object="${order}">
+    <form method="post" th:action="@{/orders/update-action}" th:object="${order}">
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{created}" />
 

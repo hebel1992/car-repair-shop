@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Create Order</h3>
-    <form method="post" th:action="@{/orders/add-last-page-execute}" th:object="${order}">
+    <form method="post" th:action="@{/orders/add-last-page-action}" th:object="${order}">
 
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{title}">
@@ -18,8 +18,8 @@
         <input type="hidden" th:field="*{plannedRepairStart}">
         <input type="hidden" th:field="*{actualRepairStart}">
         <input type="hidden" th:field="*{parts}">
-        <input type="hidden" th:field="*{status}">
         <input type="hidden" th:field="*{created}">
+        <input type="hidden" th:field="*{status}">
 
         <p>Price of service: <input th:field="*{priceOfService}" type="number" step="0.01"
                                     maxlength="15"/><span class="alert alert-danger"
@@ -43,7 +43,7 @@
             <textarea th:field="*{note}" rows="10" cols="100" placeholder="optional"/>
         </p>
         <input type="submit" value="Finish" class="button">
-        <a th:href="@{'/orders/add-part/' + ${order.id}}"><input type="button" class="button" value="Back"/></a>
+        <a th:href="@{'/orders/add-part-to-order/' + ${order.id}}"><input type="button" class="button" value="Back"/></a>
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

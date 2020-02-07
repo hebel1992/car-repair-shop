@@ -36,7 +36,7 @@ public class OrderController {
         return "/orders/addOrderStep1";
     }
 
-    @PostMapping("/add-execute")
+    @PostMapping("/add-action")
     public String addOrderExecute(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/orders/addOrderStep1";
@@ -49,10 +49,10 @@ public class OrderController {
         }
 
         orderRepository.save(order);
-        return "redirect:/orders/add-part/" + order.getId();
+        return "redirect:/orders/add-part-to-order/" + order.getId();
     }
 
-    @GetMapping("/add-part/{orderId}")
+    @GetMapping("/add-part-to-order/{orderId}")
     public String addPartsToOrder(Model model, @PathVariable Long orderId) {
         Part part = new Part();
         Order order = orderRepository.findById(orderId).get();
@@ -61,7 +61,7 @@ public class OrderController {
         return "/orders/addOrderStep2";
     }
 
-    @PostMapping("/add-part-execute/{orderId}")
+    @PostMapping("/add-part-to-order-action/{orderId}")
     public String addPartExecute(Model model, @PathVariable Long orderId, @ModelAttribute("part") @Valid Part part, BindingResult bindingResult) {
         Order order = orderRepository.findById(orderId).get();
         if (bindingResult.hasErrors()) {
@@ -82,7 +82,7 @@ public class OrderController {
 
         model.addAttribute("addedParts", order.getParts());
 
-        return "redirect:/orders/add-part/" + orderId;
+        return "redirect:/orders/add-part-to-order/" + orderId;
     }
 
     @GetMapping("/add-last-page/{orderId}")
@@ -92,8 +92,8 @@ public class OrderController {
         return "/orders/addOrderStep3";
     }
 
-    @PostMapping("/add-last-page-execute")
-    public String addOrderLastPageExecute(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
+    @PostMapping("/add-last-page-action")
+    public String addOrderLastPageAction(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/orders/addOrderStep3";
         }
@@ -106,7 +106,7 @@ public class OrderController {
     public String deletePart(@PathVariable Long partId, @PathVariable Integer orderId) {
         Part part = partRepository.findById(partId).get();
         partRepository.delete(part);
-        return "redirect:/orders/add-part/" + orderId;
+        return "redirect:/orders/add-part-to-order/" + orderId;
     }
 
 
@@ -147,7 +147,7 @@ public class OrderController {
         return "orders/editOrder";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update-action")
     public String updateCustomer(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "orders/editOrder";

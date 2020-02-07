@@ -24,7 +24,7 @@ public class VehicleController {
     private final VehicleRepository vehicleRepository;
     private final CustomerRepository customerRepository;
 
-    @RequestMapping("/list")
+    @GetMapping
     public String allVehicles() {
         return "vehicles/vehiclesList";
     }
@@ -36,13 +36,13 @@ public class VehicleController {
         return "vehicles/addVehicle";
     }
 
-    @PostMapping("/add-execute")
+    @PostMapping("/add-action")
     public String addVehicle(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "vehicles/addVehicle";
         }
         vehicleRepository.save(vehicle);
-        return "redirect:/vehicles/list";
+        return "redirect:/vehicles";
     }
 
     @GetMapping("/details/{id}")
@@ -59,7 +59,7 @@ public class VehicleController {
         return "vehicles/editVehicle";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/update-action")
     public String updateVehicle(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "vehicles/editVehicle";
@@ -79,7 +79,7 @@ public class VehicleController {
         if (action) {
             Vehicle vehicle = vehicleRepository.findById(id).get();
             vehicleRepository.delete(vehicle);
-            return "redirect:/vehicles/list";
+            return "redirect:/vehicles";
         } else {
             return "redirect:/vehicles/details/" + id;
         }

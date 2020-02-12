@@ -46,7 +46,8 @@ public class Employee extends AbstractEntity {
     @Column(name = "rate_per_hour")
     private Double ratePerHour;
 
-    @Column(name = "note")
+    @Size(max = 10000, message = "maximum 10000 characters")
+    @Column(name = "note", columnDefinition = "text")
     private String note;
 
     @ManyToMany(mappedBy = "employees")

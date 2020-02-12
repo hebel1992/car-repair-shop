@@ -18,10 +18,9 @@
         </p>
 
         Initial diagnosis:<span class="requiredFiled">*</span>
-        <p><textarea th:field="*{initialDiagnosis}" rows="13" cols="80"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
-                  th:errors="*{initialDiagnosis}"></span>
-        </p>
+        <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
+                                                                    th:errors="*{initialDiagnosis}"></span>
+        <p><textarea th:field="*{initialDiagnosis}" rows="13" cols="80"/></p>
 
         Set status:
         <p><select th:field="*{status}">
@@ -68,9 +67,12 @@
                                     maxlength="15" placeholder="not set"/><span class="alert alert-danger"
                                                           th:if="${#fields.hasErrors('priceOfService')}"
                                                           th:errors="*{priceOfService}"></span></p>
-        Additional notes:
+
+        Additional notes:<span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
+                               th:errors="*{note}"></span>
         <p>
             <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
+
         </p>
 
         <input type="submit" name="action" value="Update" class="button">

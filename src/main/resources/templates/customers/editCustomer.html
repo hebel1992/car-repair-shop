@@ -37,15 +37,15 @@
         <p>Vehicles:
         <ul>
             <li th:each="vehicle : ${customer.vehicles}">
-                <a th:href="@{'/vehicles/details/' + ${vehicle.id}}"><span th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"></span></a>
+                <a th:href="@{'/vehicles/details/' + ${vehicle.id}}"><span
+                        th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"></span></a>
             </li>
         </ul>
         </p>
 
-        Additional notes:
-        <p>
-            <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
-        </p>
+        Additional notes: <span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
+                                th:errors="*{note}"></span>
+        <p><textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/></p>
 
         <input type="submit" name="action" value="Update" class="button">
         <a th:href="@{'/customers/details/' + ${customer.id}}"><input type="button" class="button" value="Cancel"/></a>

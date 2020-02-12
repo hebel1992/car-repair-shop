@@ -34,10 +34,9 @@
                   th:errors="*{phoneNumber}"></span>
         </p>
 
-        Additional notes:
-        <p>
-            <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
-        </p>
+        Additional notes: <span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
+                                th:errors="*{note}"></span>
+        <p><textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/></p>
 
         <input type="submit" value="Add" class="button"><input type="button" value="Cancel" class="button"
                                                                onclick="window.location.href='/customers'">

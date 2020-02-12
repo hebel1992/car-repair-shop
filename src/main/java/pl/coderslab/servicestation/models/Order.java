@@ -27,8 +27,8 @@ public class Order extends AbstractEntity {
     @Column(name = "title")
     private String title;
 
-    @Size(min = 10)
-    @Column(name = "initial_diagnosis")
+    @Size(min = 10, max = 10000)
+    @Column(name = "initial_diagnosis", columnDefinition = "text")
     private String initialDiagnosis;
 
     @NotNull
@@ -53,7 +53,8 @@ public class Order extends AbstractEntity {
     @Column(name = "updated")
     private LocalDate updated;
 
-    @Column(name = "note")
+    @Size(max = 10000, message = "maximum 10000 characters")
+    @Column(name = "note", columnDefinition = "text")
     private String note;
 
     @ManyToOne

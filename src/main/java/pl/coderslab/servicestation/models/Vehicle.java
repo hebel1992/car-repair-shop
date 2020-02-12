@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -45,7 +46,8 @@ public class Vehicle extends AbstractEntity {
     @JoinColumn(name = "fuel_type")
     private FuelType fuelType;
 
-    @Column(name = "note")
+    @Size(max = 10000, message = "maximum 10000 characters")
+    @Column(name = "note", columnDefinition = "text")
     private String note;
 
     @ManyToOne

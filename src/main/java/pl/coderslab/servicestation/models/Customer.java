@@ -41,8 +41,8 @@ public class Customer extends AbstractEntity {
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
 
-    @Size(max = 1000, message = "maximum 1000 characters")
-    @Column(name = "note")
+    @Size(max = 10000, message = "maximum 10000 characters")
+    @Column(name = "note", columnDefinition = "text")
     private String note;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)

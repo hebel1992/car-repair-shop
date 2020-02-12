@@ -184,6 +184,7 @@ table.blueTable tfoot .links a {
     background-color: white;
     color: red;
     width: 30px;
+    margin-left: 4px;
 }
 
 .minus:hover{
@@ -280,4 +281,9 @@ div.main p span:first-child {
 .nextPartInput{
     margin-top: 1px;
     margin-bottom: 15px;
+}
+
+.images{
+    display: inline;
+    margin-right: 5px;
 }

@@ -7,7 +7,7 @@
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h2>Are you sure ?</h2>
+    <h2>Are you sure you wanna start this repair?</h2>
 
     <a class="editLink" th:href="@{'/orders/change-status-action/' + ${statusId} + '/' + ${orderId} + '?action=true'}">
         <button class="button">Yes</button>

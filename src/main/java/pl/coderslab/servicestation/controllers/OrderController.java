@@ -3,13 +3,17 @@ package pl.coderslab.servicestation.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.servicestation.models.*;
 import pl.coderslab.servicestation.repositories.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +26,7 @@ public class OrderController {
     private final EmployeeRepository employeeRepository;
     private final StatusRepository statusRepository;
     private final PartRepository partRepository;
+    private final InvoiceRepository invoiceRepository;
 
     @GetMapping("/add/{orderId}")
     public String addOrder(Model model, @PathVariable String orderId) {
@@ -47,7 +52,6 @@ public class OrderController {
         } else {
             order.setStatus(statusRepository.findById(1L).get());
         }
-
         orderRepository.save(order);
         return "redirect:/orders/add-part-to-order/" + order.getId();
     }
@@ -116,6 +120,7 @@ public class OrderController {
         Set<Employee> employeesAssignedToOrder = employeeRepository.findEmployeesByOrderId(id);
         model.addAttribute("order", order);
         model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
+
         return "/orders/orderDetails";
     }
 
@@ -123,7 +128,7 @@ public class OrderController {
     public String changeStatus(Model model, @PathVariable("statusId") Integer statusId, @PathVariable("orderId") Long orderId) {
         model.addAttribute("statusId", statusId);
         model.addAttribute("orderId", orderId);
-        return "/orders/changeStatus";
+        return "orders/startRepair";
     }
 
     @GetMapping("/change-status-action/{statusId}/{orderId}")
@@ -200,6 +205,61 @@ public class OrderController {
         model.addAttribute("vehicleHistoryOrders", vehicleHistoryOrders);
         model.addAttribute("vehicleInHistory", vehicle);
         return "/orders/historyOrdersForVehicle";
+    }
+
+    @GetMapping("/upload-invoice/{orderId}")
+    public String uploadInvoice(@PathVariable("orderId") Long orderId, Model model) {
+        model.addAttribute("orderId", orderId);
+        return "/orders/uploadInvoiceForm";
+    }
+
+    @PostMapping("/upload-invoice-execute/{orderId}")
+    public String uploadInvoiceExecute(@PathVariable("orderId") Long orderId, @RequestParam("file") MultipartFile file) {
+
+        Order order = orderRepository.findById(orderId).get();
+
+        if (!file.isEmpty()) {
+            StringUtils.cleanPath(file.getOriginalFilename());
+            try {
+                Invoice invoiceToAdd = new Invoice();
+                invoiceToAdd.setFile(file.getBytes());
+
+                order.getInvoices().add(invoiceToAdd);
+
+                order.getInvoices().stream()
+                        .forEach(i -> {
+                            i.setOrder(order);
+                            invoiceRepository.save(i);
+                        });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        orderRepository.save(order);
+
+        return "redirect:/orders/details/" + orderId;
+    }
+
+    @GetMapping("/full-screen-invoice/{imageId}")
+    public String getFullScreenInvoice(@PathVariable("imageId") Long imageId, Model model) {
+        Invoice invoice = invoiceRepository.findById(imageId).get();
+
+        byte[] file = invoice.getFile();
+        String image = "";
+        if (file != null && file.length > 0) {
+            image = Base64.getEncoder().encodeToString(file);
+        }
+        model.addAttribute("image", image);
+        return "/orders/fullScreenInvoice";
+    }
+
+    @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
+    public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
+        Invoice invoice = invoiceRepository.findById(invoiceId).get();
+        invoiceRepository.delete(invoice);
+
+        return "redirect:/orders/details/" + orderId;
     }
 
     @ModelAttribute("historyOrders")

@@ -17,7 +17,9 @@
 
     <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
-    <p><span>Actual repair start:</span> <data th:if="${order.status.id==1}"> <a th:href="@{'/orders/change-status/2/'+${order.id}}">Click to start</a> </data>
+    <p><span>Actual repair start:</span>
+        <data th:if="${order.status.id==1}"><a th:href="@{'/orders/change-status/2/'+${order.id}}">Click to start</a>
+        </data>
         <span th:if="${order.status.id>1}"> <data th:text="${order.actualRepairStart}"></data> </span></p>
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
@@ -36,6 +38,17 @@
         </li>
     </ul>
     </p>
+
+    <p><span>Invoices:</span></p>
+
+    <div>
+        <ul>
+            <li th:each="image : ${order.invoices}" class="images">
+                <a th:href="@{'/orders/full-screen-invoice/' + ${image.id}}"><img height="100" width="100" alt="sample"
+                                                                                  th:src="*{'data:image/png;base64,' + image.code}"/></a><a th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}"><button class="minus"> - </button></a></li>
+        </ul>
+    </div>
+    <p><a th:href="@{'/orders/upload-invoice/' + ${order.id}}">Upload invoice</a></p>
 
     <p><span>Additional notes:</span> <span th:text="${order.note}"></span></p>
 

@@ -47,6 +47,9 @@ public class Order extends AbstractEntity {
     @Column(name = "price_of_service")
     private Double priceOfService;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    private List<Invoice> invoices;
+
     @Column(name = "created")
     private LocalDate created;
 

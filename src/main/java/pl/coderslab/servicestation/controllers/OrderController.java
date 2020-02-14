@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.servicestation.models.*;
-import pl.coderslab.servicestation.repositories.*;
 import pl.coderslab.servicestation.services.*;
 
 import javax.validation.Valid;
@@ -147,7 +146,8 @@ public class OrderController {
         order.getEmployees().addAll(orderBeforeUpdate.getEmployees());
         order.setUpdated(LocalDate.now());
         order.setActualRepairStart(LocalDate.now());
-        orderService.saveOrder(order);
+
+        orderService.updateOrder(order);
 
         return "redirect:/orders/details/" + order.getId();
     }

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Customer;
 import pl.coderslab.servicestation.models.FuelType;
 import pl.coderslab.servicestation.models.Vehicle;
-import pl.coderslab.servicestation.repositories.CustomerRepository;
-import pl.coderslab.servicestation.repositories.VehicleRepository;
+import pl.coderslab.servicestation.services.CustomerService;
+import pl.coderslab.servicestation.services.VehicleService;
 
 import javax.validation.Valid;
 import java.util.EnumSet;
@@ -21,8 +21,8 @@ import java.util.Set;
 @RequestMapping("/vehicles")
 public class VehicleController {
 
-    private final VehicleRepository vehicleRepository;
-    private final CustomerRepository customerRepository;
+    private final VehicleService vehicleService;
+    private final CustomerService customerService;
 
     @GetMapping
     public String allVehicles() {
@@ -41,20 +41,20 @@ public class VehicleController {
         if (bindingResult.hasErrors()) {
             return "vehicles/addVehicle";
         }
-        vehicleRepository.save(vehicle);
+        vehicleService.saveVehicle(vehicle);
         return "redirect:/vehicles";
     }
 
     @GetMapping("/details/{id}")
     public String vehicleDetails(@PathVariable Long id, Model model) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
+        Vehicle vehicle = vehicleService.findById(id);
         model.addAttribute("vehicle", vehicle);
         return "/vehicles/vehicleDetails";
     }
 
     @GetMapping("/update/{id}")
     public String updateVehicle(Model model, @PathVariable Long id) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
+        Vehicle vehicle = vehicleService.findById(id);
         model.addAttribute("vehicle", vehicle);
         return "vehicles/editVehicle";
     }
@@ -64,21 +64,20 @@ public class VehicleController {
         if (bindingResult.hasErrors()) {
             return "vehicles/editVehicle";
         }
-        vehicleRepository.save(vehicle);
+        vehicleService.saveVehicle(vehicle);
         return "redirect:/vehicles/details/" + vehicle.getId();
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteEmployee(Model model, @PathVariable Long id) {
+    public String deleteVehicle(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
         return "vehicles/deleteVehicle";
     }
 
     @GetMapping("/delete-action/{id}")
-    public String deleteEmployeeAction(@PathVariable Long id, @RequestParam("action") boolean action) {
+    public String deleteVehicleAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {
-            Vehicle vehicle = vehicleRepository.findById(id).get();
-            vehicleRepository.delete(vehicle);
+            vehicleService.deleteVehicle(id);
             return "redirect:/vehicles";
         } else {
             return "redirect:/vehicles/details/" + id;
@@ -86,8 +85,8 @@ public class VehicleController {
     }
 
     @ModelAttribute("vehicles")
-    public List<Vehicle> getEmployees() {
-        return vehicleRepository.findAll();
+    public List<Vehicle> getVehicles() {
+        return vehicleService.findAll();
     }
 
     @ModelAttribute("fuelTypes")
@@ -97,6 +96,6 @@ public class VehicleController {
 
     @ModelAttribute("customers")
     public List<Customer> getCustomers() {
-        return customerRepository.findAll();
+        return customerService.findAll();
     }
 }

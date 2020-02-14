@@ -34,7 +34,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
-    public void deleteCustomer(Long id){
+    public void deleteCustomer(Long id) {
         Customer customer = customerRepository.findById(id).get();
         customerRepository.delete(customer);
     }
@@ -44,7 +44,7 @@ public class CustomerService {
         return customer;
     }
 
-    public List<Customer> findAll(){
+    public List<Customer> findAll() {
         return customerRepository.findAll();
     }
 }

@@ -67,7 +67,8 @@ public class OrderService {
     public void changeStatus(Long orderId, Long statusId) {
         Order order = findById(orderId);
         order.setStatus(statusRepository.findById(statusId).get());
-        orderRepository.save(order);
+        order.setUpdated(LocalDate.now());
+        updateOrder(order);
     }
 
     public List<Order> getFinishedAndCancelledOrders() {
@@ -93,6 +94,9 @@ public class OrderService {
                             i.setOrder(order);
                             invoiceRepository.save(i);
                         });
+
+                order.setUpdated(LocalDate.now());
+                updateOrder(order);
             } catch (IOException e) {
                 e.printStackTrace();
             }

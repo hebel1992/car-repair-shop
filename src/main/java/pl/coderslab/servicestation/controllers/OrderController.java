@@ -174,7 +174,7 @@ public class OrderController {
         Employee employee = employeeService.findById(employeeId);
 
         order.getEmployees().remove(employee);
-        orderService.saveOrder(order);
+        orderService.updateOrder(order);
 
         return "redirect:/orders/update/" + orderId;
     }

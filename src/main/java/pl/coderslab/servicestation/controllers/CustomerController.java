@@ -6,9 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Customer;
-import pl.coderslab.servicestation.models.Vehicle;
-import pl.coderslab.servicestation.repositories.CustomerRepository;
-import pl.coderslab.servicestation.repositories.VehicleRepository;
+import pl.coderslab.servicestation.services.CustomerService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,8 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/customers")
 public class CustomerController {
-    private final CustomerRepository customerRepository;
-    private final VehicleRepository vehicleRepository;
+
+    private final CustomerService customerService;
 
     @RequestMapping
     public String allCustomers() {
@@ -37,25 +35,22 @@ public class CustomerController {
         if (bindingResult.hasErrors()) {
             return "customers/addCustomer";
         }
-        customerRepository.save(customer);
-        customer.getVehicles().stream()
-                .forEach(v -> {
-                    v.setCustomer(customer);
-                    vehicleRepository.save(v);
-                });
+
+        customerService.saveCustomer(customer);
+
         return "redirect:/customers";
     }
 
     @GetMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = customerService.findById(id);
         model.addAttribute("customer", customer);
         return "/customers/customerDetails";
     }
 
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = customerService.findById(id);
         model.addAttribute("customer", customer);
         return "customers/editCustomer";
     }
@@ -65,14 +60,9 @@ public class CustomerController {
         if (bindingResult.hasErrors()) {
             return "customers/editCustomer";
         }
-        if (customer.getVehicles() != null) {
-            customer.getVehicles().stream()
-                    .forEach(v -> {
-                        v.setCustomer(customer);
-                        vehicleRepository.save(v);
-                    });
-        }
-        customerRepository.save(customer);
+
+        customerService.saveCustomer(customer);
+
         return "redirect:/customers/details/" + customer.getId();
     }
 
@@ -85,8 +75,7 @@ public class CustomerController {
     @GetMapping("/delete-action/{id}")
     public String deleteCustomerAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {
-            Customer customer = customerRepository.findById(id).get();
-            customerRepository.delete(customer);
+            customerService.deleteCustomer(id);
             return "redirect:/customers";
         } else {
             return "redirect:/customers/details/" + id;
@@ -95,6 +84,6 @@ public class CustomerController {
 
     @ModelAttribute("customers")
     public List<Customer> getCustomers() {
-        return customerRepository.findAll();
+        return customerService.findAll();
     }
 }

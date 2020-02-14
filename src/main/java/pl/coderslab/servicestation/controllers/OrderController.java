@@ -33,18 +33,18 @@ public class OrderController {
         if ("empty".equals(orderId)) {
             Order order = new Order();
             model.addAttribute("order", order);
-            return "/orders/addOrderStep1";
+            return "orders/addOrder";
         } else {
             Order order = orderRepository.findById(Long.parseLong(orderId)).get();
             model.addAttribute("order", order);
         }
-        return "/orders/addOrderStep1";
+        return "orders/addOrder";
     }
 
     @PostMapping("/add-action")
     public String addOrderExecute(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/orders/addOrderStep1";
+            return "orders/addOrder";
         }
         if (order.getPlannedRepairStart().equals(LocalDate.now())) {
             order.setActualRepairStart(LocalDate.now());
@@ -62,7 +62,7 @@ public class OrderController {
         Order order = orderRepository.findById(orderId).get();
         model.addAttribute("part", part);
         model.addAttribute("addedParts", order.getParts());
-        return "/orders/addOrderStep2";
+        return "orders/addPartsToOrder";
     }
 
     @PostMapping("/add-part-to-order-action/{orderId}")
@@ -70,7 +70,7 @@ public class OrderController {
         Order order = orderRepository.findById(orderId).get();
         if (bindingResult.hasErrors()) {
             model.addAttribute("addedParts", order.getParts());
-            return "/orders/addOrderStep2";
+            return "orders/addPartsToOrder";
         }
         partRepository.save(part);
 
@@ -93,13 +93,13 @@ public class OrderController {
     public String addOrderLastPage(Model model, @PathVariable Long orderId) {
         Order order = orderRepository.findById(orderId).get();
         model.addAttribute("order", order);
-        return "/orders/addOrderStep3";
+        return "orders/addOrderFinalPage";
     }
 
     @PostMapping("/add-last-page-action")
     public String addOrderLastPageAction(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/orders/addOrderStep3";
+            return "orders/addOrderFinalPage";
         }
         orderRepository.save(order);
         return "redirect:/";

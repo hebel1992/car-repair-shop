@@ -6,6 +6,7 @@ import pl.coderslab.servicestation.models.Employee;
 import pl.coderslab.servicestation.repositories.EmployeeRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +29,13 @@ public class EmployeeService {
 
     public List<Employee> findAll() {
         return employeeRepository.findAll();
+    }
+
+    public Set<Employee> findEmployeesByOrderId(Long orderId){
+        return employeeRepository.findEmployeesByOrderId(orderId);
+    }
+
+    public Set<Employee> findAllEmployeesNotInThisOrder(Long orderId){
+        return employeeRepository.findAllEmployeesNotInOrder(orderId);
     }
 }

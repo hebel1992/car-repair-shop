@@ -3,16 +3,14 @@ package pl.coderslab.servicestation.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.servicestation.models.*;
 import pl.coderslab.servicestation.repositories.*;
-import pl.coderslab.servicestation.services.OrderService;
+import pl.coderslab.servicestation.services.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Base64;
 import java.util.List;
@@ -22,14 +20,12 @@ import java.util.Set;
 @RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
-    private final VehicleRepository vehicleRepository;
-    private final OrderRepository orderRepository;
-    private final EmployeeRepository employeeRepository;
-    private final StatusRepository statusRepository;
-    private final PartRepository partRepository;
-    private final InvoiceRepository invoiceRepository;
 
     private final OrderService orderService;
+    private final EmployeeService employeeService;
+    private final VehicleService vehicleService;
+    private final StatusService statusService;
+    private final InvoiceService invoiceService;
 
     @GetMapping("/add/{orderId}")
     public String addOrder(Model model, @PathVariable String orderId) {
@@ -72,7 +68,7 @@ public class OrderController {
             return "orders/addPartsToOrder";
         }
 
-        orderService.attachPartsToOrder(order, part);
+        orderService.attachPartToOrder(order, part);
 
         model.addAttribute("addedParts", order.getParts());
 
@@ -98,16 +94,16 @@ public class OrderController {
 
     @GetMapping("/delete-part/{partId}/{orderId}")
     public String deletePart(@PathVariable Long partId, @PathVariable Integer orderId) {
-        Part part = partRepository.findById(partId).get();
-        partRepository.delete(part);
+        orderService.deletePart(partId);
+
         return "redirect:/orders/add-part-to-order/" + orderId;
     }
 
 
     @GetMapping("/details/{id}")
-    public String customerDetails(@PathVariable("id") Long id, Model model) {
-        Order order = orderRepository.findById(id).get();
-        Set<Employee> employeesAssignedToOrder = employeeRepository.findEmployeesByOrderId(id);
+    public String orderDetails(@PathVariable("id") Long id, Model model) {
+        Order order = orderService.findById(id);
+        Set<Employee> employeesAssignedToOrder = employeeService.findEmployeesByOrderId(id);
         model.addAttribute("order", order);
         model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
 
@@ -115,7 +111,7 @@ public class OrderController {
     }
 
     @GetMapping("/change-status/{statusId}/{orderId}")
-    public String changeStatus(Model model, @PathVariable("statusId") Integer statusId, @PathVariable("orderId") Long orderId) {
+    public String changeStatus(Model model, @PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId) {
         model.addAttribute("statusId", statusId);
         model.addAttribute("orderId", orderId);
         return "orders/startRepair";
@@ -124,9 +120,7 @@ public class OrderController {
     @GetMapping("/change-status-action/{statusId}/{orderId}")
     public String changeStatusAction(@PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {
         if (action) {
-            Order order = orderRepository.findById(orderId).get();
-            order.setStatus(statusRepository.findById(statusId).get());
-            orderRepository.save(order);
+            orderService.changeStatus(orderId, statusId);
         } else {
             return "redirect:/orders/details/" + orderId;
         }
@@ -135,8 +129,8 @@ public class OrderController {
 
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
-        Order order = orderRepository.findById(id).get();
-        Set<Employee> employeesNotInOrder = employeeRepository.findAllEmployeesNotInOrder(id);
+        Order order = orderService.findById(id);
+        Set<Employee> employeesNotInOrder = employeeService.findAllEmployeesNotInThisOrder(id);
         model.addAttribute("order", order);
         model.addAttribute("employeesNotInOrder", employeesNotInOrder);
         return "orders/editOrder";
@@ -147,12 +141,14 @@ public class OrderController {
         if (bindingResult.hasErrors()) {
             return "orders/editOrder";
         }
-        Order orderBeforeUpdate = orderRepository.findById(order.getId()).get();
+
+        Order orderBeforeUpdate = orderService.findById(order.getId());
 
         order.getEmployees().addAll(orderBeforeUpdate.getEmployees());
         order.setUpdated(LocalDate.now());
         order.setActualRepairStart(LocalDate.now());
-        orderRepository.save(order);
+        orderService.saveOrder(order);
+
         return "redirect:/orders/details/" + order.getId();
     }
 
@@ -165,8 +161,7 @@ public class OrderController {
     @GetMapping("/delete-action/{id}")
     public String deleteCustomerAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {
-            Order order = orderRepository.findById(id).get();
-            orderRepository.delete(order);
+            orderService.deleteOrder(id);
             return "redirect:/";
         } else {
             return "redirect:/orders/details/" + id;
@@ -175,10 +170,11 @@ public class OrderController {
 
     @GetMapping("/detachEmployee/{employeeId}/{orderId}")
     public String detachVehicle(@PathVariable Long employeeId, @PathVariable Long orderId, Model model) {
-        Order order = orderRepository.findById(orderId).get();
-        Employee employee = employeeRepository.findById(employeeId).get();
+        Order order = orderService.findById(orderId);
+        Employee employee = employeeService.findById(employeeId);
+
         order.getEmployees().remove(employee);
-        orderRepository.save(order);
+        orderService.saveOrder(order);
 
         return "redirect:/orders/update/" + orderId;
     }
@@ -190,8 +186,8 @@ public class OrderController {
 
     @RequestMapping("/vehicleHistoryOrders/{vehicleId}")
     public String vehicleHistoryOrdersView(Model model, @PathVariable("vehicleId") Long vehicleId) {
-        List<Order> vehicleHistoryOrders = orderRepository.findHistoryOrdersByVehicleId(vehicleId);
-        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
+        List<Order> vehicleHistoryOrders = orderService.getHistoricalOrdersByVehicleId(vehicleId);
+        Vehicle vehicle = vehicleService.findById(vehicleId);
         model.addAttribute("vehicleHistoryOrders", vehicleHistoryOrders);
         model.addAttribute("vehicleInHistory", vehicle);
         return "/orders/historyOrdersForVehicle";
@@ -206,34 +202,14 @@ public class OrderController {
     @PostMapping("/upload-invoice-execute/{orderId}")
     public String uploadInvoiceExecute(@PathVariable("orderId") Long orderId, @RequestParam("file") MultipartFile file) {
 
-        Order order = orderRepository.findById(orderId).get();
-
-        if (!file.isEmpty()) {
-            StringUtils.cleanPath(file.getOriginalFilename());
-            try {
-                Invoice invoiceToAdd = new Invoice();
-                invoiceToAdd.setFile(file.getBytes());
-
-                order.getInvoices().add(invoiceToAdd);
-
-                order.getInvoices().stream()
-                        .forEach(i -> {
-                            i.setOrder(order);
-                            invoiceRepository.save(i);
-                        });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        orderRepository.save(order);
+        orderService.addInvoiceToOrder(orderId, file);
 
         return "redirect:/orders/details/" + orderId;
     }
 
     @GetMapping("/full-screen-invoice/{imageId}")
     public String getFullScreenInvoice(@PathVariable("imageId") Long imageId, Model model) {
-        Invoice invoice = invoiceRepository.findById(imageId).get();
+        Invoice invoice = invoiceService.findById(imageId);
 
         byte[] file = invoice.getFile();
         String image = "";
@@ -246,29 +222,29 @@ public class OrderController {
 
     @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
     public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
-        Invoice invoice = invoiceRepository.findById(invoiceId).get();
-        invoiceRepository.delete(invoice);
+        Invoice invoice = invoiceService.findById(invoiceId);
+        invoiceService.deleteInvoice(invoiceId);
 
         return "redirect:/orders/details/" + orderId;
     }
 
     @ModelAttribute("historyOrders")
     public List<Order> historyOrders() {
-        return orderRepository.findFinishedAndCancelledOrders();
+        return orderService.getFinishedAndCancelledOrders();
     }
 
     @ModelAttribute("vehicles")
     public List<Vehicle> getCustomers() {
-        return vehicleRepository.findAll();
+        return vehicleService.findAll();
     }
 
     @ModelAttribute("employees")
     public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+        return employeeService.findAll();
     }
 
     @ModelAttribute("statusOptions")
     public List<Status> getStatusList() {
-        return statusRepository.findAll();
+        return statusService.statusList();
     }
 }

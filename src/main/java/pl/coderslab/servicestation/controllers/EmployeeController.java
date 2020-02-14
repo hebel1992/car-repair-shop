@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Employee;
 import pl.coderslab.servicestation.repositories.EmployeeRepository;
+import pl.coderslab.servicestation.services.EmployeeService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
     @GetMapping
     public String allEmployees() {
@@ -35,20 +37,20 @@ public class EmployeeController {
         if (bindingResult.hasErrors()) {
             return "employees/addEmployee";
         }
-        employeeRepository.save(employee);
+        employeeService.saveEmployee(employee);
         return "redirect:/employees";
     }
 
     @GetMapping("/details/{id}")
     public String employeeDetails(@PathVariable Long id, Model model) {
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeService.findById(id);
         model.addAttribute("employee", employee);
         return "/employees/employeeDetails";
     }
 
     @GetMapping("/update/{id}")
     public String updateEmployee(Model model, @PathVariable Long id) {
-        Employee employee = employeeRepository.findById(id).get();
+        Employee employee = employeeService.findById(id);
         model.addAttribute("employee", employee);
         return "employees/editEmployee";
     }
@@ -58,7 +60,7 @@ public class EmployeeController {
         if (bindingResult.hasErrors()) {
             return "employees/editEmployee";
         }
-        employeeRepository.save(employee);
+        employeeService.saveEmployee(employee);
         return "redirect:/employees/details/" + employee.getId();
     }
 
@@ -71,8 +73,7 @@ public class EmployeeController {
     @GetMapping("/delete-action/{id}")
     public String deleteEmployeeAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {
-            Employee employee = employeeRepository.findById(id).get();
-            employeeRepository.delete(employee);
+            employeeService.deleteEmployee(id);
             return "redirect:/employees";
         } else {
             return "redirect:/employees/details/" + id;
@@ -81,6 +82,6 @@ public class EmployeeController {
 
     @ModelAttribute("employees")
     public List<Employee> getEmployees() {
-        return employeeRepository.findAll();
+        return employeeService.findAll();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.servicestation.models.*;
 import pl.coderslab.servicestation.repositories.*;
+import pl.coderslab.servicestation.services.OrderService;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -28,6 +29,8 @@ public class OrderController {
     private final PartRepository partRepository;
     private final InvoiceRepository invoiceRepository;
 
+    private final OrderService orderService;
+
     @GetMapping("/add/{orderId}")
     public String addOrder(Model model, @PathVariable String orderId) {
         if ("empty".equals(orderId)) {
@@ -35,7 +38,7 @@ public class OrderController {
             model.addAttribute("order", order);
             return "orders/addOrder";
         } else {
-            Order order = orderRepository.findById(Long.parseLong(orderId)).get();
+            Order order = orderService.findById(Long.parseLong(orderId));
             model.addAttribute("order", order);
         }
         return "orders/addOrder";
@@ -46,20 +49,16 @@ public class OrderController {
         if (bindingResult.hasErrors()) {
             return "orders/addOrder";
         }
-        if (order.getPlannedRepairStart().equals(LocalDate.now())) {
-            order.setActualRepairStart(LocalDate.now());
-            order.setStatus(statusRepository.findById(2L).get());
-        } else {
-            order.setStatus(statusRepository.findById(1L).get());
-        }
-        orderRepository.save(order);
+
+        orderService.saveOrder(order);
+
         return "redirect:/orders/add-part-to-order/" + order.getId();
     }
 
     @GetMapping("/add-part-to-order/{orderId}")
     public String addPartsToOrder(Model model, @PathVariable Long orderId) {
         Part part = new Part();
-        Order order = orderRepository.findById(orderId).get();
+        Order order = orderService.findById(orderId);
         model.addAttribute("part", part);
         model.addAttribute("addedParts", order.getParts());
         return "orders/addPartsToOrder";
@@ -67,22 +66,13 @@ public class OrderController {
 
     @PostMapping("/add-part-to-order-action/{orderId}")
     public String addPartExecute(Model model, @PathVariable Long orderId, @ModelAttribute("part") @Valid Part part, BindingResult bindingResult) {
-        Order order = orderRepository.findById(orderId).get();
+        Order order = orderService.findById(orderId);
         if (bindingResult.hasErrors()) {
             model.addAttribute("addedParts", order.getParts());
             return "orders/addPartsToOrder";
         }
-        partRepository.save(part);
 
-        order.getParts().add(part);
-
-        order.getParts().stream()
-                .forEach(v -> {
-                    v.setOrder(order);
-                    partRepository.save(v);
-                });
-
-        orderRepository.save(order);
+        orderService.attachPartsToOrder(order, part);
 
         model.addAttribute("addedParts", order.getParts());
 
@@ -91,7 +81,7 @@ public class OrderController {
 
     @GetMapping("/add-last-page/{orderId}")
     public String addOrderLastPage(Model model, @PathVariable Long orderId) {
-        Order order = orderRepository.findById(orderId).get();
+        Order order = orderService.findById(orderId);
         model.addAttribute("order", order);
         return "orders/addOrderFinalPage";
     }
@@ -101,7 +91,7 @@ public class OrderController {
         if (bindingResult.hasErrors()) {
             return "orders/addOrderFinalPage";
         }
-        orderRepository.save(order);
+        orderService.saveOrder(order);
         return "redirect:/";
     }
 

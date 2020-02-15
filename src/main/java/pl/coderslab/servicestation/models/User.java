@@ -16,7 +16,7 @@ public class User {
 
     @Column(nullable = false, unique = true, length = 60)
     private String username;
-
+    
     private String password;
 
     private int enabled;

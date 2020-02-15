@@ -22,7 +22,7 @@ import java.util.List;
 public class Customer extends AbstractEntity {
 
     @Size(min = 2, message = "min 2 characters")
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Size(min = 2, message = "min 2 characters")
@@ -38,7 +38,7 @@ public class Customer extends AbstractEntity {
     private String address;
 
     @Pattern(regexp = "\\d{9,15}", message = "9 characters minimum(only digits)")
-    @Column(name = "phone_number", unique = true)
+    @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;
 
     @Size(max = 10000, message = "maximum 10000 characters")

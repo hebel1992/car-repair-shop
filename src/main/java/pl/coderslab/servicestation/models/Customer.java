@@ -26,7 +26,7 @@ public class Customer extends AbstractEntity {
     private String firstName;
 
     @Size(min = 2, message = "min 2 characters")
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Past(message = "must be date from the past")

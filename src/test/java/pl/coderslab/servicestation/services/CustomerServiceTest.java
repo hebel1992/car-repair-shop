@@ -34,11 +34,10 @@ class CustomerServiceTest {
         customerRepository.save(customer2);
 
         long count  = customerRepository.count();
-        Assertions.assertThat(customer1.getId()).isNotNull();
         Assertions.assertThat(count).isEqualTo(2);
+        Assertions.assertThat(customer1.getId()).isNotNull();
 
         Optional<Customer> c = customerRepository.findById(customer2.getId());
         Assertions.assertThat(c).isPresent();
     }
-
 }

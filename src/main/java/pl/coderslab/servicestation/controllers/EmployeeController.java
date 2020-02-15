@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Employee;
-import pl.coderslab.servicestation.repositories.EmployeeRepository;
 import pl.coderslab.servicestation.services.EmployeeService;
 
 import javax.validation.Valid;
@@ -18,7 +17,6 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-    private final EmployeeRepository employeeRepository;
     private final EmployeeService employeeService;
 
     @GetMapping
@@ -26,6 +24,7 @@ public class EmployeeController {
         return "employees/employeesList";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/add")
     public String addEmployee(Model model) {
         Employee employee = new Employee();
@@ -33,6 +32,7 @@ public class EmployeeController {
         return "employees/addEmployee";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/add-action")
     public String addEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

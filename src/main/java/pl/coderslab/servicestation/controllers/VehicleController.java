@@ -1,6 +1,7 @@
 package pl.coderslab.servicestation.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,6 +53,7 @@ public class VehicleController {
         return "/vehicles/vehicleDetails";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateVehicle(Model model, @PathVariable Long id) {
         Vehicle vehicle = vehicleService.findById(id);
@@ -59,6 +61,7 @@ public class VehicleController {
         return "vehicles/editVehicle";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateVehicle(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -68,12 +71,14 @@ public class VehicleController {
         return "redirect:/vehicles/details/" + vehicle.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete/{id}")
     public String deleteVehicle(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
         return "vehicles/deleteVehicle";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteVehicleAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

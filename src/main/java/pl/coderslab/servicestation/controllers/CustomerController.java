@@ -1,6 +1,7 @@
 package pl.coderslab.servicestation.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +42,7 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
         Customer customer = customerService.findById(id);
@@ -48,6 +50,7 @@ public class CustomerController {
         return "/customers/customerDetails";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
         Customer customer = customerService.findById(id);
@@ -55,6 +58,7 @@ public class CustomerController {
         return "customers/editCustomer";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -66,12 +70,14 @@ public class CustomerController {
         return "redirect:/customers/details/" + customer.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete/{id}")
     public String deleteCustomer(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
         return "customers/deleteCustomer";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteCustomerAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

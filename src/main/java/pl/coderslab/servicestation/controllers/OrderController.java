@@ -1,6 +1,7 @@
 package pl.coderslab.servicestation.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,7 +88,7 @@ public class OrderController {
             return "orders/addOrderFinalPage";
         }
         orderService.saveOrder(order);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 
@@ -152,17 +153,19 @@ public class OrderController {
         return "redirect:/orders/details/" + order.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete/{id}")
     public String deleteCustomer(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
         return "orders/deleteOrder";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteCustomerAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {
             orderService.deleteOrder(id);
-            return "redirect:/";
+            return "redirect:/home";
         } else {
             return "redirect:/orders/details/" + id;
         }

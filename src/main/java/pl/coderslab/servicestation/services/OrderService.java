@@ -64,9 +64,10 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
-    public void changeStatus(Long orderId, Long statusId) {
+    public void startRepair(Long orderId, Long statusId) {
         Order order = findById(orderId);
         order.setStatus(statusRepository.findById(statusId).get());
+        order.setActualRepairStart(LocalDate.now());
         order.setUpdated(LocalDate.now());
         updateOrder(order);
     }

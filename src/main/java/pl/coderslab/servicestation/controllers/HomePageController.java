@@ -10,7 +10,7 @@ import pl.coderslab.servicestation.repositories.OrderRepository;
 import java.util.List;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/home")
 @RequiredArgsConstructor
 public class HomePageController {
 

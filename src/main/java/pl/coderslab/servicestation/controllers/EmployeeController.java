@@ -1,6 +1,7 @@
 package pl.coderslab.servicestation.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,6 +49,7 @@ public class EmployeeController {
         return "/employees/employeeDetails";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateEmployee(Model model, @PathVariable Long id) {
         Employee employee = employeeService.findById(id);
@@ -55,6 +57,7 @@ public class EmployeeController {
         return "employees/editEmployee";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -64,12 +67,14 @@ public class EmployeeController {
         return "redirect:/employees/details/" + employee.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete/{id}")
     public String deleteEmployee(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
         return "employees/deleteEmployee";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteEmployeeAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

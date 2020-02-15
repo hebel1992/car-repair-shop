@@ -119,7 +119,7 @@ public class OrderController {
     @GetMapping("/change-status-action/{statusId}/{orderId}")
     public String changeStatusAction(@PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {
         if (action) {
-            orderService.changeStatus(orderId, statusId);
+            orderService.startRepair(orderId, statusId);
         } else {
             return "redirect:/orders/details/" + orderId;
         }

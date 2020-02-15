@@ -11,7 +11,7 @@
     <h3 class="title">Add Vehicle</h3>
     <form method="post" th:action="@{/vehicles/add-action}" th:object="${vehicle}">
 
-        Customer:
+        Owner:
         <p><select th:field="*{customer}">
             <option th:text="Select" th:value="null"></option>
             <option th:each="customer : ${customers}"

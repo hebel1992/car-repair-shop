@@ -45,21 +45,22 @@ public class EmployeeController {
             return "employees/addEmployee";
         }
         employeeService.saveEmployee(employee);
-        return "redirect:/employees";
+        return "redirect:/employees/create-user/"+employee.getId();
     }
 
     @Secured("ROLE_ADMIN")
     @GetMapping("/create-user/{employeeId}")
     public String addUserToEmployee(Model model, @PathVariable("employeeId") Long employeeId) {
-        model.addAttribute("employeeId", employeeId);
-        model.addAttribute("user", new User());
+        Employee employee = employeeService.findById(employeeId);
+        User user = new User();
+        user.setEmployee(employee);
+        model.addAttribute("user", user);
         return "/employees/createUserForm";
     }
 
     @Secured("ROLE_ADMIN")
-    @PostMapping("/create-user-action/{employeeId}")
-    public String addUserToEmployeeAction(Model model, @PathVariable("employeeId") Long employeeId,
-                                          @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    @PostMapping("/create-user-action")
+    public String addUserToEmployeeAction(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/employees/createUserForm";
         }

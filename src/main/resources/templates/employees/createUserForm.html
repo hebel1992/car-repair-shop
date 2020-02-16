@@ -9,7 +9,9 @@
 <div th:include="header.html"></div>
 <div class="main">
     <h3 class="title">Create User Account</h3>
-    <form method="post" th:action="@{'/employees/create-user-action' + ${employeeId}}" th:object="${user}">
+    <form method="post" th:action="@{/employees/create-user-action}" th:object="${user}">
+
+        <input type="hidden" th:field="*{employee}" th:value="${user.employee.id}">
 
         <p>Username:<span class="requiredFiled">*</span> <input th:field="*{username}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>

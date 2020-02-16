@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Header</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -8,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
 </head>
 <body>
-<h1 class="main title-style">SERVICE STATION</h1>
+<h1 class="main title-style">SERVICE STATION <span style="font-size: 20px">Logged as: <span sec:authentication="principal.username"></span></span></h1>
 <div class="sidenav">
     <p><strong><a href="/home">HOME</a></strong></p>
     <p><strong><a href="/employees">Employees</a></strong></p>

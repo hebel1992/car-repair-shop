@@ -9,4 +9,5 @@ public class ServiceStationApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceStationApplication.class, args);
     }
+
 }

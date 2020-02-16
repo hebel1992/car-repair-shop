@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SpringDataUserDetailsService customUserDetailsService(){
+    public SpringDataUserDetailsService customUserDetailsService() {
         return new SpringDataUserDetailsService();
     }
 }

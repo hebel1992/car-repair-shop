@@ -12,7 +12,6 @@ import pl.coderslab.servicestation.services.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Base64;
 import java.util.List;
 import java.util.Set;
 
@@ -214,18 +213,12 @@ public class OrderController {
     public String getFullScreenInvoice(@PathVariable("imageId") Long imageId, Model model) {
         Invoice invoice = invoiceService.findById(imageId);
 
-        byte[] file = invoice.getFile();
-        String image = "";
-        if (file != null && file.length > 0) {
-            image = Base64.getEncoder().encodeToString(file);
-        }
-        model.addAttribute("image", image);
+        model.addAttribute("image", invoice.getCode());
         return "/orders/fullScreenInvoice";
     }
 
     @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
     public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
-        Invoice invoice = invoiceService.findById(invoiceId);
         invoiceService.deleteInvoice(invoiceId);
 
         return "redirect:/orders/details/" + orderId;

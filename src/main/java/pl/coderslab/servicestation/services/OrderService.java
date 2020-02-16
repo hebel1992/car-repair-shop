@@ -14,6 +14,7 @@ import pl.coderslab.servicestation.repositories.StatusRepository;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public void updateOrder(Order order){
+    public void updateOrder(Order order) {
         orderRepository.save(order);
     }
 
@@ -84,9 +85,10 @@ public class OrderService {
         if (!file.isEmpty()) {
             Order order = findById(orderId);
             StringUtils.cleanPath(file.getOriginalFilename());
+            Invoice invoiceToAdd = new Invoice();
             try {
-                Invoice invoiceToAdd = new Invoice();
-                invoiceToAdd.setFile(file.getBytes());
+                String code = Base64.getEncoder().encodeToString(file.getBytes());
+                invoiceToAdd.setCode(code);
 
                 order.getInvoices().add(invoiceToAdd);
 

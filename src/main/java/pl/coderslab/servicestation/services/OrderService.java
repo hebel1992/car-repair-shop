@@ -11,7 +11,6 @@ import pl.coderslab.servicestation.models.Part;
 import pl.coderslab.servicestation.repositories.InvoiceRepository;
 import pl.coderslab.servicestation.repositories.OrderRepository;
 import pl.coderslab.servicestation.repositories.PartRepository;
-import pl.coderslab.servicestation.repositories.StatusRepository;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -22,16 +21,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final StatusRepository statusRepository;
+    private final StatusService statusService;
     private final PartRepository partRepository;
     private final InvoiceRepository invoiceRepository;
 
     public void saveOrder(Order order) {
         if (order.getPlannedRepairStart().equals(LocalDate.now())) {
             order.setActualRepairStart(LocalDate.now());
-            order.setStatus(statusRepository.findById(2L).get());
+            order.setStatus(statusService.findById(2L));
         } else {
-            order.setStatus(statusRepository.findById(1L).get());
+            order.setStatus(statusService.findById(1L));
         }
         orderRepository.save(order);
     }
@@ -45,14 +44,14 @@ public class OrderService {
         order.getParts().add(part);
 
         order.getParts().stream()
-                .forEach(v -> {
-                    v.setOrder(order);
-                    partRepository.save(v);
+                .forEach(p -> {
+                    p.setOrder(order);
+                    partRepository.save(p);
                 });
     }
 
     public void deletePart(Long partId) {
-        Part part = partRepository.findById(partId).get();
+        Part part = partRepository.findById(partId).orElseThrow(() -> new EntityNotFoundException(partId));
         partRepository.delete(part);
     }
 
@@ -67,7 +66,7 @@ public class OrderService {
 
     public void startRepair(Long orderId, Long statusId) {
         Order order = findById(orderId);
-        order.setStatus(statusRepository.findById(statusId).get());
+        order.setStatus(statusService.findById(statusId));
         order.setActualRepairStart(LocalDate.now());
         order.setUpdated(LocalDate.now());
         updateOrder(order);

@@ -9,10 +9,10 @@
 <div class="main">
     <h2>Are you sure you wanna start this repair?</h2>
 
-    <a class="editLink" th:href="@{'/orders/change-status-action/' + ${statusId} + '/' + ${orderId} + '?action=true'}">
+    <a class="editLink" th:href="@{'/orders/start-repair-action/' + ${statusId} + '/' + ${orderId} + '?action=true'}">
         <button class="button">Yes</button>
     </a>
-    <a class="editLink" th:href="@{'/orders/change-status-action/' + ${statusId} + '/' + ${orderId} + '?action=false'}">
+    <a class="editLink" th:href="@{'/orders/start-repair-action/' + ${statusId} + '/' + ${orderId} + '?action=false'}">
         <button class="button">No</button>
     </a>
 </div>

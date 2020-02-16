@@ -109,14 +109,14 @@ public class OrderController {
         return "/orders/orderDetails";
     }
 
-    @GetMapping("/change-status/{statusId}/{orderId}")
+    @GetMapping("/start-repair/{statusId}/{orderId}")
     public String changeStatus(Model model, @PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId) {
         model.addAttribute("statusId", statusId);
         model.addAttribute("orderId", orderId);
         return "orders/startRepair";
     }
 
-    @GetMapping("/change-status-action/{statusId}/{orderId}")
+    @GetMapping("/start-repair-action/{statusId}/{orderId}")
     public String changeStatusAction(@PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {
         if (action) {
             orderService.startRepair(orderId, statusId);

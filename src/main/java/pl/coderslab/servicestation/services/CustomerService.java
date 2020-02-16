@@ -2,6 +2,7 @@ package pl.coderslab.servicestation.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.coderslab.servicestation.EntityNotFoundException;
 import pl.coderslab.servicestation.models.Customer;
 import pl.coderslab.servicestation.repositories.CustomerRepository;
 
@@ -17,13 +18,12 @@ public class CustomerService {
     }
 
     public void deleteCustomer(Long id) {
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = findById(id);
         customerRepository.delete(customer);
     }
 
     public Customer findById(Long id) {
-        Customer customer = customerRepository.findById(id).get();
-        return customer;
+        return customerRepository.findById(id).orElseThrow(() ->  new EntityNotFoundException(id));
     }
 
     public List<Customer> findAll() {

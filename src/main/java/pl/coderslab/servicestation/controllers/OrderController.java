@@ -170,6 +170,7 @@ public class OrderController {
         }
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/detachEmployee/{employeeId}/{orderId}")
     public String detachVehicle(@PathVariable Long employeeId, @PathVariable Long orderId, Model model) {
         Order order = orderService.findById(orderId);

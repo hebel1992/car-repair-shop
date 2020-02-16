@@ -2,6 +2,7 @@ package pl.coderslab.servicestation.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.coderslab.servicestation.EntityNotFoundException;
 import pl.coderslab.servicestation.models.Vehicle;
 import pl.coderslab.servicestation.repositories.VehicleRepository;
 
@@ -18,17 +19,15 @@ public class VehicleService {
     }
 
     public void deleteVehicle(Long id) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
+        Vehicle vehicle = findById(id);
         vehicleRepository.delete(vehicle);
     }
 
     public Vehicle findById(Long id) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
-        return vehicle;
+        return vehicleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     }
 
     public List<Vehicle> findAll() {
         return vehicleRepository.findAll();
     }
-
 }

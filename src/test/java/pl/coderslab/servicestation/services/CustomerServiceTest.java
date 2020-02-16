@@ -1,6 +1,8 @@
 package pl.coderslab.servicestation.services;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,11 @@ class CustomerServiceTest {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Before
+    void clearTable(){
+        customerRepository.deleteAll();
+    }
 
     @Test
     void shouldSaveNewCustomers() {
@@ -39,5 +46,24 @@ class CustomerServiceTest {
 
         Optional<Customer> c = customerRepository.findById(customer2.getId());
         Assertions.assertThat(c).isPresent();
+    }
+
+    @Test
+    void shouldDeleteCustomer(){
+        Customer customer = new Customer();
+        customer.setFirstName("Michal");
+        customer.setLastName("Karolak");
+        customer.setPhoneNumber("5551234561");
+
+        customerRepository.save(customer);
+        Long id = customer.getId();
+
+        Assertions.assertThat(customer).isNotNull();
+
+        customerRepository.delete(customer);
+
+        Optional<Customer> deletedCustomer = customerRepository.findById(id);
+
+        Assertions.assertThat(deletedCustomer).isEmpty();
     }
 }

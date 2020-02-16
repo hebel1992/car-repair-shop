@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import pl.coderslab.servicestation.EntityNotFoundException;
 import pl.coderslab.servicestation.models.Invoice;
 import pl.coderslab.servicestation.models.Order;
 import pl.coderslab.servicestation.models.Part;
@@ -56,12 +57,11 @@ public class OrderService {
     }
 
     public Order findById(Long id) {
-        Order order = orderRepository.findById(id).get();
-        return order;
+        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     }
 
     public void deleteOrder(Long id) {
-        Order order = orderRepository.findById(id).get();
+        Order order = findById(id);
         orderRepository.delete(order);
     }
 

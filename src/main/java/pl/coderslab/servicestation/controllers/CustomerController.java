@@ -58,7 +58,6 @@ public class CustomerController {
         return "customers/editCustomer";
     }
 
-    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import pl.coderslab.servicestation.repositories.RoleRepository;
-import pl.coderslab.servicestation.services.EmployeeService;
 import pl.coderslab.servicestation.services.SpringDataUserDetailsService;
 
 @Configuration
@@ -23,12 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SpringDataUserDetailsService springDataUserDetailsService;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private EmployeeService employeeService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

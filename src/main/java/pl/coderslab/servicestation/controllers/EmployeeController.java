@@ -64,7 +64,7 @@ public class EmployeeController {
         if (bindingResult.hasErrors()) {
             return "/employees/createUserForm";
         }
-        user.setEnabled(1);
+
         userService.saveUser(user);
         return "redirect:/employees";
     }

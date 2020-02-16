@@ -59,7 +59,7 @@ public class UserController {
         user.setPassword("admin");
         Employee employee = employeeService.findById(1L);
         user.setEmployee(employee);
-        userService.saveUser(user);
+        userService.saveAdmin(user);
         return "admin";
     }
 

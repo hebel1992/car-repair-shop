@@ -10,19 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.servicestation.models.CurrentUser;
-import pl.coderslab.servicestation.models.Employee;
 import pl.coderslab.servicestation.models.User;
-import pl.coderslab.servicestation.services.EmployeeService;
-import pl.coderslab.servicestation.services.UserService;
 
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class UserController {
+public class LoginViewController {
 
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final UserService userService;
-    private final EmployeeService employeeService;
+    private final Logger logger = LoggerFactory.getLogger(LoginViewController.class);
 
     @GetMapping
     public String landingPage() {
@@ -49,18 +44,6 @@ public class UserController {
     @GetMapping("/access-denied")
     public String accessDenied() {
         return "accessDeniedPage";
-    }
-
-    @GetMapping("/create-user")
-    @ResponseBody
-    public String createUser() {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword("admin");
-        Employee employee = employeeService.findById(1L);
-        user.setEmployee(employee);
-        userService.saveAdmin(user);
-        return "admin";
     }
 
     @GetMapping("/admin")

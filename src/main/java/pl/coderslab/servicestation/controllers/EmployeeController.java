@@ -7,7 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Employee;
+import pl.coderslab.servicestation.models.Role;
+import pl.coderslab.servicestation.models.User;
+import pl.coderslab.servicestation.repositories.RoleRepository;
 import pl.coderslab.servicestation.services.EmployeeService;
+import pl.coderslab.servicestation.services.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,6 +22,8 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final UserService userService;
+    private final RoleRepository roleRepository;
 
     @GetMapping
     public String allEmployees() {
@@ -39,6 +45,26 @@ public class EmployeeController {
             return "employees/addEmployee";
         }
         employeeService.saveEmployee(employee);
+        return "redirect:/employees";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/create-user/{employeeId}")
+    public String addUserToEmployee(Model model, @PathVariable("employeeId") Long employeeId) {
+        model.addAttribute("employeeId", employeeId);
+        model.addAttribute("user", new User());
+        return "/employees/createUserForm";
+    }
+
+    @Secured("ROLE_ADMIN")
+    @PostMapping("/create-user-action/{employeeId}")
+    public String addUserToEmployeeAction(Model model, @PathVariable("employeeId") Long employeeId,
+                                          @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/employees/createUserForm";
+        }
+        user.setEnabled(1);
+        userService.saveUser(user);
         return "redirect:/employees";
     }
 
@@ -88,5 +114,10 @@ public class EmployeeController {
     @ModelAttribute("employees")
     public List<Employee> getEmployees() {
         return employeeService.findAll();
+    }
+
+    @ModelAttribute("roles")
+    public List<Role> getRoles() {
+        return roleRepository.findAll();
     }
 }

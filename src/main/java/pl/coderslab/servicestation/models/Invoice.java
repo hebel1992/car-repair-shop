@@ -20,18 +20,9 @@ public class Invoice {
     Long id;
 
     @Lob
-    @Column(name = "file")
-    private byte[] file;
-
-    @Lob
     @Column(name = "code")
     private String code;
 
     @ManyToOne
     private Order order;
-
-    @PrePersist
-    public void createCode(){
-        code = Base64.getEncoder().encodeToString(file);
-    }
 }

@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pl.coderslab.servicestation.models.CurrentUser;
 import pl.coderslab.servicestation.models.User;
 import pl.coderslab.servicestation.services.UserService;
 
@@ -60,8 +60,9 @@ public class UserController {
 
     @GetMapping("/admin")
     @ResponseBody
-    public String userInfo(@AuthenticationPrincipal UserDetails customUser) {
-        logger.info("customUser class {} " , customUser.getClass());
-        return "You are logged as " + customUser;
+    public String userInfo(@AuthenticationPrincipal CurrentUser customUser) {
+        logger.info("customUser class {} ", customUser.getClass());
+        User entityUser = customUser.getUser();
+        return "Hello " + entityUser.getUsername();
     }
 }

@@ -11,7 +11,7 @@ import pl.coderslab.servicestation.repositories.UserRepository;
 import java.util.Arrays;
 import java.util.HashSet;
 
-//@Service
+@Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;

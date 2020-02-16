@@ -19,4 +19,5 @@ INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_numb
 INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Fioletowa 5, Morawa', '1999-01-06', 'Kamil', 'Gniazdo', 412123123, 12.0);
 INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Krucha 115, Oborniki', '1978-12-11', 'Jaroslaw', 'Mily', 991000111, 4.0);
 
-
+INSERT INTO role (`id`, `name`) VALUES (NULL, 'ROLE_ADMIN');
+INSERT INTO role (`id`, `name`) VALUES (NULL, 'ROLE_USER');

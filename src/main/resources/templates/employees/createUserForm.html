@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User Account</title>
+    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Create User Account</h3>
+    <form method="post" th:action="@{/employees/create-user-action}" th:object="${user}">
+
+        <input type="hidden" th:field="*{employee}" th:value="${user.employee.id}">
+
+        <p>Username:<span class="requiredFiled">*</span> <input th:field="*{username}" type="text"/>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+        </p>
+
+        <p>Password:<span class="requiredFiled">*</span> <input th:field="*{password}" type="password">
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </p>
+
+        <p>Role:<span class="requiredFiled">*</span> <select th:field="*{roles}">
+            <option th:text="--Select--" th:value="null"></option>
+            <option th:each="role : ${roles}"
+                    th:text="${role.name}"
+                    th:value="${role.id}">
+            </option>
+        </select>
+            <span class="alert alert-danger" th:if="${#fields.hasErrors('roles')}"
+                  th:errors="*{roles}"></span>
+        </p>
+
+        <input type="submit" value="Add" class="button"><input type="button" value="Back" class="button"
+                                                               onclick="window.location.href='/employees'">
+    </form>
+</div>
+<div th:include="footer.html"></div>
+</body>
+</html>

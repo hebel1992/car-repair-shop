@@ -53,6 +53,9 @@ public class Employee extends AbstractEntity {
     @ManyToMany(mappedBy = "employees")
     private Set<Order> orders;
 
+    @OneToOne(mappedBy = "employee",cascade = CascadeType.REMOVE)
+    private User user;
+
     @PreRemove
     private void preRemove() {
         orders.forEach(o -> o.getEmployees().remove(this));

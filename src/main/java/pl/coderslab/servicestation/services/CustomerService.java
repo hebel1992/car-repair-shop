@@ -23,7 +23,7 @@ public class CustomerService {
     }
 
     public Customer findById(Long id) {
-        return customerRepository.findById(id).orElseThrow(() ->  new EntityNotFoundException(id));
+        return customerRepository.findById(id).orElseThrow(() ->  new EntityNotFoundException(id, Customer.class.getSimpleName()));
     }
 
     public List<Customer> findAll() {

@@ -24,7 +24,7 @@ public class VehicleService {
     }
 
     public Vehicle findById(Long id) {
-        return vehicleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        return vehicleRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Vehicle.class.getSimpleName()));
     }
 
     public List<Vehicle> findAll() {

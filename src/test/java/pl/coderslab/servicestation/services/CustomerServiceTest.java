@@ -1,28 +1,25 @@
 package pl.coderslab.servicestation.services;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.coderslab.servicestation.EntityNotFoundException;
 import pl.coderslab.servicestation.models.Customer;
-import pl.coderslab.servicestation.repositories.CustomerRepository;
-
-import java.util.Optional;
+import pl.coderslab.servicestation.models.FuelType;
+import pl.coderslab.servicestation.models.Vehicle;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class CustomerServiceTest {
 
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerService customerService;
 
-    @Before
-    void clearTable() {
-        customerRepository.deleteAll();
-    }
+    @Autowired
+    VehicleService vehicleService;
 
     @Test
     void shouldSaveNewCustomers() {
@@ -36,33 +33,46 @@ class CustomerServiceTest {
         customer2.setLastName("Nowak");
         customer2.setPhoneNumber("9879871231");
 
-        customerRepository.save(customer1);
-        customerRepository.save(customer2);
+        customerService.saveCustomer(customer1);
+        customerService.saveCustomer(customer2);
 
-        long count = customerRepository.count();
+        long count = customerService.findAll().size();
         Assertions.assertThat(count).isEqualTo(2);
         Assertions.assertThat(customer1.getId()).isNotNull();
 
-        Optional<Customer> c = customerRepository.findById(customer2.getId());
-        Assertions.assertThat(c).isPresent();
+        Customer c = customerService.findById(customer2.getId());
+        Assertions.assertThat(c).isNotNull();
     }
 
     @Test
-    void shouldDeleteCustomer() {
+    void shouldDeleteCustomerWithAllHisCars() {
         Customer customer = new Customer();
         customer.setFirstName("Michal");
         customer.setLastName("Karolak");
         customer.setPhoneNumber("5551234561");
 
-        customerRepository.save(customer);
-        Long id = customer.getId();
+        customerService.saveCustomer(customer);
+        Long customerId = customer.getId();
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Audi");
+        vehicle.setModel("A6");
+        vehicle.setPlateNumber("AU64 GB9");
+        vehicle.setFuelType(FuelType.DIESEL);
+        vehicle.setCustomer(customer);
+
+        vehicleService.saveVehicle(vehicle);
+        Long vehicleId = vehicle.getId();
 
         Assertions.assertThat(customer).isNotNull();
 
-        customerRepository.delete(customer);
+        customerService.deleteCustomer(customer.getId());
 
-        Optional<Customer> deletedCustomer = customerRepository.findById(id);
+        try {
+            customerService.findById(customerId);
+            vehicleService.findById(vehicleId);
+        } catch (EntityNotFoundException ex) {
 
-        Assertions.assertThat(deletedCustomer).isEmpty();
+        }
     }
 }

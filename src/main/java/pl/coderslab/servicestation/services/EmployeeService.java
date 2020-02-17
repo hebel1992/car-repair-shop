@@ -19,7 +19,7 @@ public class EmployeeService {
     }
 
     public Employee findById(Long id) {
-        return employeeRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(id));
+        return employeeRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(id, Employee.class.getSimpleName()));
     }
 
     public void deleteEmployee(Long id) {

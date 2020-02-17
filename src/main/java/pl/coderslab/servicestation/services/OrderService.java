@@ -51,12 +51,12 @@ public class OrderService {
     }
 
     public void deletePart(Long partId) {
-        Part part = partRepository.findById(partId).orElseThrow(() -> new EntityNotFoundException(partId));
+        Part part = partRepository.findById(partId).orElseThrow(() -> new EntityNotFoundException(partId, Part.class.getSimpleName()));
         partRepository.delete(part);
     }
 
     public Order findById(Long id) {
-        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        return orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Order.class.getSimpleName()));
     }
 
     public void deleteOrder(Long id) {

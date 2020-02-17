@@ -18,6 +18,6 @@ public class StatusService {
     }
 
     public Status findById(Long id) {
-        return statusRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        return statusRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Status.class.getSimpleName()));
     }
 }

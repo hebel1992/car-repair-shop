@@ -12,7 +12,7 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
 
     public Invoice findById(Long id) {
-        return invoiceRepository.findById(id).orElseThrow(()->new EntityNotFoundException(id));
+        return invoiceRepository.findById(id).orElseThrow(()->new EntityNotFoundException(id, Invoice.class.getSimpleName()));
     }
 
     public void deleteInvoice(Long id) {

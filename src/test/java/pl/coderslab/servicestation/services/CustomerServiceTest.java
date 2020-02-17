@@ -2,7 +2,6 @@ package pl.coderslab.servicestation.services;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ class CustomerServiceTest {
     CustomerRepository customerRepository;
 
     @Before
-    void clearTable(){
+    void clearTable() {
         customerRepository.deleteAll();
     }
 
@@ -40,7 +39,7 @@ class CustomerServiceTest {
         customerRepository.save(customer1);
         customerRepository.save(customer2);
 
-        long count  = customerRepository.count();
+        long count = customerRepository.count();
         Assertions.assertThat(count).isEqualTo(2);
         Assertions.assertThat(customer1.getId()).isNotNull();
 
@@ -49,7 +48,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void shouldDeleteCustomer(){
+    void shouldDeleteCustomer() {
         Customer customer = new Customer();
         customer.setFirstName("Michal");
         customer.setLastName("Karolak");

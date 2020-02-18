@@ -13,7 +13,8 @@
 
     <p><span>Title:</span> <span th:text="${order.title}"></span></p>
 
-    <p><span>Diagnosis:</span> <span th:text="${order.initialDiagnosis}"></span></p>
+    <span style="font-weight: bold">Initial diagnosis:</span>
+    <p><textarea disabled th:field="*{order.initialDiagnosis}" rows="5" cols="60"/></p>
 
     <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
@@ -24,13 +25,13 @@
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
-    <p><span>Price of service:</span> <span th:text="${order.priceOfService}"></span></p>
+    <p><span>Price of service:</span> <span
+            th:if="${order.priceOfService==null}"><data
+            class="noValueStyle">Not set</data></span><span
+            th:text="${order.priceOfService}"></span></p>
 
-    <p><span>Created:</span> <span th:text="${order.created}"></span></p>
 
-    <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
-
-    <p><span>Employee(s) assigned to order:</span>
+    <p><span>Employee(s) assigned to order:</span> <span class="noValueStyle" th:if="${order.employees.size()==0}">No employee assigned to this order yet</span>
     <ul>
         <li th:each="employee : ${employeesAssignedToOrder}">
             <a th:text="${employee.firstName + ' ' + employee.lastName}"
@@ -39,18 +40,27 @@
     </ul>
     </p>
 
-    <p><span>Invoices:</span></p>
+    <p><span>Invoices:</span> <span class="noValueStyle"
+                                    th:if="${order.invoices.size()==0}">
+            No invoice attached to this order</span></p>
 
     <div>
         <ul>
             <li th:each="image : ${order.invoices}" class="images">
                 <a th:href="@{'/orders/full-screen-invoice/' + ${image.id}}"><img height="100" width="100" alt="sample"
-                                                                                  th:src="*{'data:image/png;base64,' + image.code}"/></a><a th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}"><button class="minus"> - </button></a></li>
+                                                                                  th:src="*{'data:image/png;base64,' + image.code}"/></a><a
+                    th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
+                <button class="minus"> -</button>
+            </a></li>
         </ul>
     </div>
     <p><a th:href="@{'/orders/upload-invoice/' + ${order.id}}">Upload invoice</a></p>
 
     <p><span>Additional notes:</span> <span th:text="${order.note}"></span></p>
+
+    <p><span>Created:</span> <span th:text="${order.created}"></span></p>
+
+    <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
 
     <p><a class="editLink" th:href="@{'/orders/update/' + ${order.id}}">Edit mode</a></p>
 

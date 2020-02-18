@@ -2,6 +2,7 @@ package pl.coderslab.servicestation.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.servicestation.validationGroups.UserGroup;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -31,7 +32,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @NotNull
+    @NotNull(groups = {UserGroup.class})
     @OneToOne
     private Employee employee;
 }

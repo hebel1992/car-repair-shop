@@ -5,6 +5,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Employee;
 import pl.coderslab.servicestation.models.Role;
@@ -12,8 +13,10 @@ import pl.coderslab.servicestation.models.User;
 import pl.coderslab.servicestation.repositories.RoleRepository;
 import pl.coderslab.servicestation.services.EmployeeService;
 import pl.coderslab.servicestation.services.UserService;
+import pl.coderslab.servicestation.validationGroups.UserGroup;
 
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 import java.util.List;
 
 @Secured("ROLE_ADMIN")
@@ -58,7 +61,8 @@ public class EmployeeController {
 
 
     @PostMapping("/create-user-action")
-    public String addUserToEmployeeAction(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public String addUserToEmployeeAction(@ModelAttribute("user") @Validated({UserGroup.class, Default.class}) User user,
+                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/employees/createUserForm";
         }

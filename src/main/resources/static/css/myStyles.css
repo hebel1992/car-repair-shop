@@ -295,3 +295,8 @@ div.main p span:first-child {
     display: inline;
     margin-right: 5px;
 }
+
+.noValueStyle{
+    font-style: italic;
+    color: darkred;
+}

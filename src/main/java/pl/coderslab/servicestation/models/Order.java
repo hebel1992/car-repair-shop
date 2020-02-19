@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.coderslab.servicestation.validationGroups.CancelledOrderGroup;
+import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -24,10 +26,12 @@ import java.util.Set;
 public class Order extends AbstractEntity {
 
     @NotBlank
+    @NotNull
     @Column(name = "title")
     private String title;
 
     @Size(min = 10, max = 10000)
+    @NotNull
     @Column(name = "initial_diagnosis", columnDefinition = "text")
     private String initialDiagnosis;
 
@@ -43,7 +47,8 @@ public class Order extends AbstractEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<Part> parts;
 
-    @Min(1)
+    @NotNull(groups = {FinishedOrderGroup.class}, message = "Finished repair must have price")
+    @Min(value = 1, groups = {FinishedOrderGroup.class})
     @Column(name = "price_of_service")
     private Double priceOfService;
 
@@ -60,6 +65,11 @@ public class Order extends AbstractEntity {
     @Column(name = "note", columnDefinition = "text")
     private String note;
 
+    @NotNull(groups = {CancelledOrderGroup.class})
+    @Size(min = 10, max = 10000, message = "min 10 and max 10000 characters", groups = {CancelledOrderGroup.class})
+    @Column(name = "cancel_reason", columnDefinition = "text")
+    private String cancelReason;
+
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
@@ -69,6 +79,7 @@ public class Order extends AbstractEntity {
     @ManyToOne
     private Vehicle vehicle;
 
+    @Size(min = 1, message = "Please assign at least one employee")
     @ManyToMany
     @JoinTable(name = "orders_employees", joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))

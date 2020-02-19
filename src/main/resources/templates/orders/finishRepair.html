@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Finish Order</title>
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Finish Order</h3>
+
+    <h4>In order to finish this repair all fields with '<span style="color: red">*</span>' are required</h4>
+
+    <form method="post" th:action="@{/orders/finish-repair-action}" th:object="${order}">
+
+        <p><span>Title</span>: <span th:text="${order.title}" th:field="*{title}"></span>
+        </p>
+
+        <span style="font-weight: bold">Initial diagnosis</span>:<span class="requiredFiled">*</span>
+        <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
+              th:errors="*{initialDiagnosis}"></span>
+        <p><textarea th:field="*{initialDiagnosis}" rows="5" cols="60"/></p>
+
+        <p><span>Vehicle</span>: <span th:text="${order.vehicle.getBrand() + ' ' + order.vehicle.model + ' '
+        + order.vehicle.plateNumber}"></span></p>
+
+        <p><span>Planned repair start</span>: <span th:text="${order.plannedRepairStart}" ></span></p>
+
+        <p><span>Actual repair start</span>: <span th:text="${order.actualRepairStart}"></span></p>
+
+        <p><span>Assigned employee(s)</span>:
+        <ul>
+            <li th:each="employee : ${order.employees}">
+                <span th:text="${employee.firstName + ' ' + employee.lastName}"></span>
+            </li>
+        </ul>
+        </p>
+
+        <p><span>Price of service</span>:<span class="requiredFiled">*</span> <input th:field="*{priceOfService}" type="number" step="0.01" maxlength="15"
+                                    placeholder="not set"/><span class="alert alert-danger" th:if="${#fields.hasErrors('priceOfService')}"
+                                                                                th:errors="*{priceOfService}"></span></p>
+
+        <span style="font-weight: bold">Additional notes</span>:<span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
+                               th:errors="*{note}"></span>
+        <p>
+            <textarea th:field="*{note}" rows="5" cols="60" placeholder="optional"/>
+
+        </p>
+
+        <p><span>Created:</span> <span th:text="${order.created}"></span></p>
+
+        <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
+
+        <input type="submit" name="action" value="Finish" class="button">
+        <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="button" value="Cancel"/></a>
+
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{title}"/>
+        <input type="hidden" th:field="*{employees}"/>
+        <input type="hidden" th:field="*{plannedRepairStart}"/>
+        <input type="hidden" th:field="*{actualRepairStart}"/>
+        <input type="hidden" th:field="*{created}"/>
+        <input type="hidden" th:field="*{updated}"/>
+        <input type="hidden" th:field="*{vehicle}"/>
+    </form>
+</div>
+</body>
+</html>

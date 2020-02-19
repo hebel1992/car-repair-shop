@@ -1,6 +1,7 @@
 package pl.coderslab.servicestation.services;
 
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,10 +65,22 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
-    public void startRepair(Long orderId, Long statusId) {
-        Order order = findById(orderId);
-        order.setStatus(statusService.findById(statusId));
+    public void startRepair(Long id) {
+        Order order = findById(id);
+        order.setStatus(statusService.findById(2L));
         order.setActualRepairStart(LocalDate.now());
+        order.setUpdated(LocalDate.now());
+        updateOrder(order);
+    }
+
+    public void finishRepair(Order order){
+        order.setStatus(statusService.findById(3L));
+        order.setUpdated(LocalDate.now());
+        updateOrder(order);
+    }
+
+    public void cancelRepair(Order order){
+        order.setStatus(statusService.findById(4L));
         order.setUpdated(LocalDate.now());
         updateOrder(order);
     }

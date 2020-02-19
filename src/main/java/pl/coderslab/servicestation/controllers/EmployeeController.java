@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.servicestation.models.Employee;
 import pl.coderslab.servicestation.models.Role;
 import pl.coderslab.servicestation.models.User;
-import pl.coderslab.servicestation.repositories.RoleRepository;
 import pl.coderslab.servicestation.services.EmployeeService;
+import pl.coderslab.servicestation.services.RoleService;
 import pl.coderslab.servicestation.services.UserService;
 import pl.coderslab.servicestation.validationGroups.UserGroup;
 
@@ -27,7 +27,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
     private final UserService userService;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @GetMapping
     public String allEmployees() {
@@ -47,7 +47,7 @@ public class EmployeeController {
             return "employees/addEmployee";
         }
         employeeService.saveEmployee(employee);
-        return "redirect:/employees/create-user/"+employee.getId();
+        return "redirect:/employees/create-user/" + employee.getId();
     }
 
     @GetMapping("/create-user/{employeeId}")
@@ -117,6 +117,6 @@ public class EmployeeController {
 
     @ModelAttribute("roles")
     public List<Role> getRoles() {
-        return roleRepository.findAll();
+        return roleService.findAllRoles();
     }
 }

@@ -10,8 +10,10 @@
 <div class="main">
     <h3 class="title">Edit Order</h3>
     <form method="post" th:action="@{/orders/update-action}" th:object="${order}">
+
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{created}" />
+        <input type="hidden" th:field="*{vehicle}" />
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -30,15 +32,8 @@
             </option>
         </select></p>
 
-        <p>Vehicle:<span class="requiredFiled">*</span> <select th:field="*{vehicle}">
-            <option th:each="vehicle : ${vehicles}"
-                    th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
-                    th:value="${vehicle.id}">
-            </option>
-        </select>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('vehicle')}"
-                  th:errors="*{vehicle}"></span>
-        </p>
+        <p>Vehicle: <span th:text="${order.vehicle.getBrand() + ' ' + order.vehicle.model + ' '
+        + order.vehicle.plateNumber}"></span></p>
 
         <p>Planned repair start:<span class="requiredFiled">*</span><input th:field="*{plannedRepairStart}" type="date">
             <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cancel Order</title>
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Cancel Order</h3>
+
+    <h4>Please provide reason for cancellation</h4>
+
+    <form method="post" th:action="@{/orders/cancel-repair-action}" th:object="${order}">
+
+        <span style="font-weight: bold">Reason:<span class="requiredFiled">*</span></span>:<span class="alert alert-danger" th:if="${#fields.hasErrors('cancelReason')}"
+                                                                      th:errors="*{cancelReason}"></span>
+        <p>
+            <textarea th:field="*{cancelReason}" rows="5" cols="60"/>
+        </p>
+
+        <input type="submit" name="action" value="Finish" class="button">
+        <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="button" value="Cancel"/></a>
+
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{title}"/>
+        <input type="hidden" th:field="*{initialDiagnosis}"/>
+        <input type="hidden" th:field="*{vehicle}"/>
+        <input type="hidden" th:field="*{parts}"/>
+        <input type="hidden" th:field="*{invoices}"/>
+        <input type="hidden" th:field="*{employees}"/>
+        <input type="hidden" th:field="*{plannedRepairStart}"/>
+        <input type="hidden" th:field="*{actualRepairStart}"/>
+        <input type="hidden" th:field="*{priceOfService}"/>
+        <input type="hidden" th:field="*{note}"/>
+        <input type="hidden" th:field="*{created}"/>
+        <input type="hidden" th:field="*{updated}"/>
+
+    </form>
+</div>
+</body>
+</html>

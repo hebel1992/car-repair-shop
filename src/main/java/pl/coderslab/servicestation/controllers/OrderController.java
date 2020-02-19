@@ -5,12 +5,16 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.servicestation.models.*;
 import pl.coderslab.servicestation.services.*;
+import pl.coderslab.servicestation.validationGroups.CancelledOrderGroup;
+import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -109,21 +113,59 @@ public class OrderController {
         return "/orders/orderDetails";
     }
 
-    @GetMapping("/start-repair/{statusId}/{orderId}")
-    public String changeStatus(Model model, @PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId) {
-        model.addAttribute("statusId", statusId);
-        model.addAttribute("orderId", orderId);
+    @GetMapping("/start-repair/{orderId}")
+    public String startRepair(Model model, @PathVariable("orderId") Long orderId) {
+        Order order = orderService.findById(orderId);
+        model.addAttribute("order", order);
         return "orders/startRepair";
     }
 
-    @GetMapping("/start-repair-action/{statusId}/{orderId}")
-    public String changeStatusAction(@PathVariable("statusId") Long statusId, @PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {
+    @GetMapping("/start-repair-action/{orderId}")
+    public String changeStatusAction(@PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {
         if (action) {
-            orderService.startRepair(orderId, statusId);
+            orderService.startRepair(orderId);
         } else {
             return "redirect:/orders/details/" + orderId;
         }
         return "redirect:/orders/details/" + orderId;
+    }
+
+    @GetMapping("/finish-repair/{orderId}")
+    public String finishRepair(Model model, @PathVariable("orderId") Long orderId) {
+        Order order = orderService.findById(orderId);
+        model.addAttribute("order", order);
+        return "orders/finishRepair";
+    }
+
+    @PostMapping("/finish-repair-action")
+    public String finishRepairAction(@ModelAttribute("order") @Validated({Default.class, FinishedOrderGroup.class}) Order order,
+                                     BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "orders/finishRepair";
+        }
+
+        orderService.finishRepair(order);
+
+        return "redirect:/orders/details/" + order.getId();
+    }
+
+    @GetMapping("/cancel-repair/{orderId}")
+    public String cancelRepair(Model model, @PathVariable("orderId") Long orderId) {
+        Order order = orderService.findById(orderId);
+        model.addAttribute("order", order);
+        return "orders/cancelRepair";
+    }
+
+    @PostMapping("/cancel-repair-action")
+    public String cancelRepairAction(@ModelAttribute("order") @Validated({Default.class, CancelledOrderGroup.class}) Order order,
+                                     BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "orders/cancelRepair";
+        }
+
+        orderService.cancelRepair(order);
+
+        return "redirect:/orders/details/" + order.getId();
     }
 
     @GetMapping("/update/{id}")
@@ -221,6 +263,8 @@ public class OrderController {
     @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
     public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
         invoiceService.deleteInvoice(invoiceId);
+
+        orderService.updateOrder(orderService.findById(orderId));
 
         return "redirect:/orders/details/" + orderId;
     }

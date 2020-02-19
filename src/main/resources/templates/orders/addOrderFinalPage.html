@@ -12,6 +12,7 @@
     <form method="post" th:action="@{/orders/add-last-page-action}" th:object="${order}">
 
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{employees}">
         <input type="hidden" th:field="*{title}">
         <input type="hidden" th:field="*{initialDiagnosis}">
         <input type="hidden" th:field="*{vehicle}">
@@ -26,15 +27,6 @@
                                                           th:if="${#fields.hasErrors('priceOfService')}"
                                                           th:errors="*{priceOfService}"></span></p>
 
-        Assign employee(s):<span class="alert alert-danger"
-                                 th:if="${#fields.hasErrors('employees')}"
-                                 th:errors="*{employees}"></span>
-        <p><select th:field="*{employees}" th:multiple="true">
-            <option th:each="employee : ${employees}"
-                    th:text="${employee.firstName + ' ' +employee.lastName}"
-                    th:value="${employee.id}">
-            </option>
-        </select></p>
 
         Additional notes:<span class="alert alert-danger"
                                th:if="${#fields.hasErrors('note')}"

@@ -11,6 +11,7 @@
     <h3 class="title">Create Order</h3>
     <form method="post" th:action="@{/orders/add-action}" th:object="${order}">
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{created}">
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -38,6 +39,16 @@
             <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"
                   th:errors="*{plannedRepairStart}"></span>
         </p>
+
+        Assign employee(s):<span class="requiredFiled">*</span> <span class="alert alert-danger"
+                                 th:if="${#fields.hasErrors('employees')}"
+                                 th:errors="*{employees}"></span>
+        <p><select th:field="*{employees}" th:multiple="true">
+            <option th:each="employee : ${employees}"
+                    th:text="${employee.firstName + ' ' +employee.lastName}"
+                    th:value="${employee.id}">
+            </option>
+        </select></p>
 
         <input type="submit" value="Next" class="button"><input type="button" value="Cancel" class="button"
                                                                 onclick="window.location.href='/home'">

@@ -30,14 +30,13 @@
 
     <p><span>Notes:</span> <span th:text="${vehicle.note}"></span></p>
 
+    <p><a class="historyLink" th:href="@{'/orders/vehicleCurrentOrders/' + ${vehicle.id}}">Current repairs</a></p>
+
     <p><a class="historyLink" th:href="@{'/orders/vehicleHistoryOrders/' + ${vehicle.id}}">History of repairs</a></p>
 
     <p><a class="editLink" th:href="@{'/vehicles/update/' + ${vehicle.id}}">Edit mode</a></p>
 
     <p><a class="deleteLink" th:href="@{'/vehicles/delete/' + ${vehicle.id}}">Delete vehicle</a></p>
-
-    <input type="button" value="Back" class="button"
-           onclick="window.location.href='/vehicles'">
 </div>
 <div th:include="footer.html"></div>
 </body>

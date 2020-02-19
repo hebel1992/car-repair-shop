@@ -15,7 +15,6 @@ import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 
 import javax.validation.Valid;
 import javax.validation.groups.Default;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -78,6 +77,13 @@ public class OrderController {
         return "redirect:/orders/add-part-to-order/" + orderId;
     }
 
+    @GetMapping("/delete-part/{partId}/{orderId}")
+    public String deletePart(@PathVariable Long partId, @PathVariable Integer orderId) {
+        orderService.deletePart(partId);
+
+        return "redirect:/orders/add-part-to-order/" + orderId;
+    }
+
     @GetMapping("/add-last-page/{orderId}")
     public String addOrderLastPage(Model model, @PathVariable Long orderId) {
         Order order = orderService.findById(orderId);
@@ -94,14 +100,36 @@ public class OrderController {
         return "redirect:/home";
     }
 
-
-    @GetMapping("/delete-part/{partId}/{orderId}")
-    public String deletePart(@PathVariable Long partId, @PathVariable Integer orderId) {
-        orderService.deletePart(partId);
-
-        return "redirect:/orders/add-part-to-order/" + orderId;
+    @GetMapping("/upload-invoice/{orderId}")
+    public String uploadInvoice(@PathVariable("orderId") Long orderId, Model model) {
+        model.addAttribute("orderId", orderId);
+        return "/orders/uploadInvoiceForm";
     }
 
+    @PostMapping("/upload-invoice-action/{orderId}")
+    public String uploadInvoiceAction(@PathVariable("orderId") Long orderId, @RequestParam("file") MultipartFile file) {
+
+        orderService.addInvoiceToOrder(orderId, file);
+
+        return "redirect:/orders/details/" + orderId;
+    }
+
+    @GetMapping("/full-screen-invoice/{imageId}")
+    public String getFullScreenInvoice(@PathVariable("imageId") Long imageId, Model model) {
+        Invoice invoice = invoiceService.findById(imageId);
+
+        model.addAttribute("image", invoice.getCode());
+        return "/orders/fullScreenInvoice";
+    }
+
+    @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
+    public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
+        invoiceService.deleteInvoice(invoiceId);
+
+        orderService.updateOrder(orderService.findById(orderId));
+
+        return "redirect:/orders/details/" + orderId;
+    }
 
     @GetMapping("/details/{id}")
     public String orderDetails(@PathVariable("id") Long id, Model model) {
@@ -168,6 +196,7 @@ public class OrderController {
         return "redirect:/orders/details/" + order.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
         Order order = orderService.findById(id);
@@ -175,17 +204,12 @@ public class OrderController {
         return "orders/editOrder";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateCustomer(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "orders/editOrder";
         }
-
-        Order orderBeforeUpdate = orderService.findById(order.getId());
-
-        order.getEmployees().addAll(orderBeforeUpdate.getEmployees());
-        order.setUpdated(LocalDate.now());
-        order.setActualRepairStart(LocalDate.now());
 
         orderService.updateOrder(order);
 
@@ -210,21 +234,13 @@ public class OrderController {
         }
     }
 
-    @Secured("ROLE_ADMIN")
-    @GetMapping("/detachEmployee/{employeeId}/{orderId}")
-    public String detachVehicle(@PathVariable Long employeeId, @PathVariable Long orderId, Model model) {
-        Order order = orderService.findById(orderId);
-        Employee employee = employeeService.findById(employeeId);
-
-        order.getEmployees().remove(employee);
-        orderService.updateOrder(order);
-
-        return "redirect:/orders/update/" + orderId;
-    }
-
-    @RequestMapping("/historyOrders")
-    public String historyOrdersView() {
-        return "orders/historyOrders";
+    @RequestMapping("/vehicleCurrentOrders/{vehicleId}")
+    public String vehicleCurrentOrdersView(Model model, @PathVariable("vehicleId") Long vehicleId) {
+        List<Order> vehicleCurrentOrders = orderService.getCurrentOrdersByVehicleId(vehicleId);
+        Vehicle vehicle = vehicleService.findById(vehicleId);
+        model.addAttribute("vehicleCurrentOrders", vehicleCurrentOrders);
+        model.addAttribute("vehicle", vehicle);
+        return "/orders/currentOrdersForVehicle";
     }
 
     @RequestMapping("/vehicleHistoryOrders/{vehicleId}")
@@ -232,39 +248,13 @@ public class OrderController {
         List<Order> vehicleHistoryOrders = orderService.getHistoricalOrdersByVehicleId(vehicleId);
         Vehicle vehicle = vehicleService.findById(vehicleId);
         model.addAttribute("vehicleHistoryOrders", vehicleHistoryOrders);
-        model.addAttribute("vehicleInHistory", vehicle);
+        model.addAttribute("vehicle", vehicle);
         return "/orders/historyOrdersForVehicle";
     }
 
-    @GetMapping("/upload-invoice/{orderId}")
-    public String uploadInvoice(@PathVariable("orderId") Long orderId, Model model) {
-        model.addAttribute("orderId", orderId);
-        return "/orders/uploadInvoiceForm";
-    }
-
-    @PostMapping("/upload-invoice-execute/{orderId}")
-    public String uploadInvoiceExecute(@PathVariable("orderId") Long orderId, @RequestParam("file") MultipartFile file) {
-
-        orderService.addInvoiceToOrder(orderId, file);
-
-        return "redirect:/orders/details/" + orderId;
-    }
-
-    @GetMapping("/full-screen-invoice/{imageId}")
-    public String getFullScreenInvoice(@PathVariable("imageId") Long imageId, Model model) {
-        Invoice invoice = invoiceService.findById(imageId);
-
-        model.addAttribute("image", invoice.getCode());
-        return "/orders/fullScreenInvoice";
-    }
-
-    @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
-    public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
-        invoiceService.deleteInvoice(invoiceId);
-
-        orderService.updateOrder(orderService.findById(orderId));
-
-        return "redirect:/orders/details/" + orderId;
+    @RequestMapping("/historyOrders")
+    public String historyOrdersView() {
+        return "orders/historyOrders";
     }
 
     @ModelAttribute("historyOrders")

@@ -34,9 +34,6 @@
     <p><a class="editLink" th:href="@{'/customers/update/' + ${customer.id}}">Edit mode</a></p>
 
     <p><a class="deleteLink" th:href="@{'/customers/delete/' + ${customer.id}}">Delete customer</a></p>
-
-    <input type="button" value="Back" class="button"
-           onclick="window.location.href='/customers'">
 </div>
 <div th:include="footer.html"></div>
 </body>

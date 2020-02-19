@@ -8,7 +8,7 @@
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h1 th:text="${vehicleInHistory.brand} + ' ' + ${vehicleInHistory.model} + ' - history of repairs'"></h1>
+    <h1 th:text="${vehicle.brand} + ' ' + ${vehicle.model} + ' - history of repairs'"></h1>
     <div th:if="${vehicleHistoryOrders.size()<1}" th:text="'No history available'"></div>
     <tr th:each="historyOrder : ${vehicleHistoryOrders}">
         <a class="panel" th:href="'/orders/details/'+ ${historyOrder.id}">

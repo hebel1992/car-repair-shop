@@ -14,6 +14,7 @@
         <input type="hidden" th:field="*{id}" />
         <input type="hidden" th:field="*{created}" />
         <input type="hidden" th:field="*{vehicle}" />
+        <input type="hidden" th:field="*{actualRepairStart}" />
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>

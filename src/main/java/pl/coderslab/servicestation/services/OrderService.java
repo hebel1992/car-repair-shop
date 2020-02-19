@@ -37,6 +37,17 @@ public class OrderService {
     }
 
     public void updateOrder(Order order) {
+        order.setUpdated(LocalDate.now());
+
+        if (order.getStatus().getId() == 1) {
+            order.setActualRepairStart(null);
+        }
+
+        if (order.getStatus().getId() == 2) {
+            if (order.getActualRepairStart() == null) {
+                order.setActualRepairStart(LocalDate.now());
+            }
+        }
         orderRepository.save(order);
     }
 
@@ -87,6 +98,10 @@ public class OrderService {
 
     public List<Order> getFinishedAndCancelledOrders() {
         return orderRepository.findFinishedAndCancelledOrders();
+    }
+
+    public List<Order> getCurrentOrdersByVehicleId(Long id) {
+        return orderRepository.findCurrentOrdersByVehicleId(id);
     }
 
     public List<Order> getHistoricalOrdersByVehicleId(Long id) {

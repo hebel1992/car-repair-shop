@@ -16,6 +16,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT o FROM Order o WHERE o.status.id=3 OR o.status.id=4")
     List<Order> findFinishedAndCancelledOrders();
 
+    @Query(value = "SELECT o FROM Order o WHERE o.vehicle.id = :vehicleId AND (o.status.id=1 OR o.status.id=2)")
+    List<Order> findCurrentOrdersByVehicleId(Long vehicleId);
+
     @Query(value = "SELECT o FROM Order o WHERE o.vehicle.id = :vehicleId AND (o.status.id=3 OR o.status.id=4)")
     List<Order> findHistoryOrdersByVehicleId(Long vehicleId);
 }

@@ -25,7 +25,7 @@
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
     <div th:if="${order.cancelReason!=null}"><span style="font-weight: bold">Cancellation reason: </span>
-    <p><textarea disabled th:field="*{order.cancelReason}" rows="5" cols="60"/></p></div>
+        <p><textarea disabled th:field="*{order.cancelReason}" rows="5" cols="60"/></p></div>
 
     <p><span>Price of service:</span> <span
             th:if="${order.priceOfService==null}"><data
@@ -41,6 +41,17 @@
         </li>
     </ul>
     </p>
+
+    <p><span>Parts: </span><span class="noValueStyle"
+                                 th:if="${order.parts.size()<1}">No parts added to this order</span>
+    <ul>
+        <li th:each="part : ${order.parts}">
+            <span th:text="${part.name + ' ' + part.price + ' ' + part.quantity}"></span>
+            <a th:href="@{'/orders/delete-part/'+${part.id}+'/'+${order.id}}">Delete</a>
+        </li>
+    </ul>
+    </p>
+    <p><a th:href="@{'/orders/addPartsToOrder/' + ${order.id}}">Add parts</a></p>
 
     <p><span>Invoices:</span> <span class="noValueStyle"
                                     th:if="${order.invoices.size()==0}">
@@ -73,9 +84,6 @@
     <p><a class="editLink" th:href="@{'/orders/update/' + ${order.id}}">Edit mode</a></p>
 
     <p><a class="deleteLink" th:href="@{'/orders/delete/' + ${order.id}}">Delete order</a></p>
-
-    <input type="button" value="Back" class="button"
-           onclick="window.location.href='/'">
 </div>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <div th:include="header.html"></div>
 <div class="main">
     <div>
-        <form method="POST" enctype="multipart/form-data" th:action="@{'/orders/upload-invoice-execute/' + ${orderId}}">
+        <form method="POST" enctype="multipart/form-data" th:action="@{'/orders/upload-invoice-action/' + ${orderId}}">
             <table>
                 <tr>
                     <td>File to upload:</td>

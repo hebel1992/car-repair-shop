@@ -41,18 +41,11 @@
         </p>
 
 
-        <p>Assigned employee(s):
-        <ul>
-            <li th:each="employee : ${order.employees}">
-                <span th:text="${employee.firstName + ' ' + employee.lastName}"></span>
-                <a th:href="@{'/orders/detachEmployee/'+${employee.id}+'/'+${order.id}}">Detach</a>
-            </li>
-        </ul>
-        </p>
-
-        Assign another employee(s):
+        Assign employee(s):<span class="requiredFiled">*</span> <span class="alert alert-danger"
+                                                                      th:if="${#fields.hasErrors('employees')}"
+                                                                      th:errors="*{employees}"></span>
         <p><select th:field="*{employees}" th:multiple="true">
-            <option th:each="employee : ${employeesNotInOrder}"
+            <option th:each="employee : ${employees}"
                     th:text="${employee.firstName + ' ' +employee.lastName}"
                     th:value="${employee.id}">
             </option>

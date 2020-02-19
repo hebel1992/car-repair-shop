@@ -171,9 +171,7 @@ public class OrderController {
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
         Order order = orderService.findById(id);
-        Set<Employee> employeesNotInOrder = employeeService.findAllEmployeesNotInThisOrder(id);
         model.addAttribute("order", order);
-        model.addAttribute("employeesNotInOrder", employeesNotInOrder);
         return "orders/editOrder";
     }
 

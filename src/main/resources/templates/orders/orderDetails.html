@@ -33,7 +33,7 @@
             th:text="${order.priceOfService}"></span></p>
 
 
-    <p><span>Employee(s) assigned to order:</span> <span class="noValueStyle" th:if="${order.employees.size()==0}">No employee assigned to this order yet</span>
+    <p><span>Employee(s) assigned to order:</span>
     <ul>
         <li th:each="employee : ${employeesAssignedToOrder}">
             <a th:text="${employee.firstName + ' ' + employee.lastName}"

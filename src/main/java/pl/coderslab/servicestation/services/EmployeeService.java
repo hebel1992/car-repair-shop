@@ -34,8 +34,4 @@ public class EmployeeService {
     public Set<Employee> findEmployeesByOrderId(Long orderId){
         return employeeRepository.findEmployeesByOrderId(orderId);
     }
-
-    public Set<Employee> findAllEmployeesNotInThisOrder(Long orderId){
-        return employeeRepository.findAllEmployeesNotInOrder(orderId);
-    }
 }

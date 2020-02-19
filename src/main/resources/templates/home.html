@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<a th:href="@{'/orders/add/empty'}"><input type="button" class="addRowButton" value="Create order"/></a>
+<a th:href="@{'/orders/add'}"><input type="button" class="addRowButton" value="Create order"/></a>
 <div class="main">
     <h1>Current repairs</h1>
     <tr th:each="startedOrder : ${ordersStarted}">

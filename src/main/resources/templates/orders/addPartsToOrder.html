@@ -8,8 +8,7 @@
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h3 class="title">Create order</h3>
-    <h5>Add parts</h5>
+    <h3 class="title">Add parts to order</h3>
     <form method="post" th:action="@{'/orders/add-part-to-order-action/'+ ${orderId}}" th:object="${part}">
 
         <p>Name: <input th:field="*{name}" type="text"/>
@@ -35,13 +34,14 @@
         <ul>
             <li th:each="part : ${addedParts}">
                 <span th:text="${part.name + ' ' + part.price + ' ' + part.quantity}"></span>
-                <a th:href="@{'/orders/delete-part/'+${part.id}+'/'+${orderId}}">Delete</a>
+                <a th:href="@{'/orders/delete-part-then-back-to-add-part/' + ${part.id} + '/' + ${orderId}}">
+                    <input type="button" class="minus" value="-"/>
+                </a>
             </li>
         </ul>
         </p>
 
-        <a th:href="@{'/orders/add-last-page/'+ ${orderId}}"><input type="button" class="button" value="Next"/></a>
-        <a th:href="@{'/orders/add/' + ${orderId}}"><input type="button" class="button" value="Back"/></a>
+        <a th:href="@{'/orders/details/'+ ${orderId}}"><input type="button" class="button" value="Finish"/></a>
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

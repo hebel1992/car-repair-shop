@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Order Details</title>
+    <title>Repair Progress</title>
     <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="main">
 
-    <h3 class="title">Order Details</h3>
+    <h3 class="title">Repair Progress</h3>
 
     <p><span>Title:</span> <span th:text="${order.title}"></span></p>
 
@@ -47,11 +47,13 @@
     <ul>
         <li th:each="part : ${order.parts}">
             <span th:text="${part.name + ' ' + part.price + ' ' + part.quantity}"></span>
-            <a th:href="@{'/orders/delete-part/'+${part.id}+'/'+${order.id}}">Delete</a>
+            <a th:href="@{'/orders/delete-part-then-back-to-order/' + ${part.id} + '/' + ${order.id}}">
+                <button class="minus"> -</button>
+            </a>
         </li>
     </ul>
     </p>
-    <p><a th:href="@{'/orders/addPartsToOrder/' + ${order.id}}">Add parts</a></p>
+    <p><a th:href="@{'/orders/add-part-to-order/' + ${order.id}}">Add parts</a></p>
 
     <p><span>Invoices:</span> <span class="noValueStyle"
                                     th:if="${order.invoices.size()==0}">

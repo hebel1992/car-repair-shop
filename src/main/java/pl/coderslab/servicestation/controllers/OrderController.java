@@ -29,16 +29,11 @@ public class OrderController {
     private final StatusService statusService;
     private final InvoiceService invoiceService;
 
-    @GetMapping("/add/{orderId}")
-    public String addOrder(Model model, @PathVariable String orderId) {
-        if ("empty".equals(orderId)) {
-            Order order = new Order();
-            model.addAttribute("order", order);
-            return "orders/addOrder";
-        } else {
-            Order order = orderService.findById(Long.parseLong(orderId));
-            model.addAttribute("order", order);
-        }
+    @GetMapping("/add")
+    public String addOrder(Model model) {
+        Order order = new Order();
+        model.addAttribute("order", order);
+
         return "orders/addOrder";
     }
 
@@ -50,7 +45,7 @@ public class OrderController {
 
         orderService.saveOrder(order);
 
-        return "redirect:/orders/add-part-to-order/" + order.getId();
+        return "redirect:/home";
     }
 
     @GetMapping("/add-part-to-order/{orderId}")
@@ -77,27 +72,18 @@ public class OrderController {
         return "redirect:/orders/add-part-to-order/" + orderId;
     }
 
-    @GetMapping("/delete-part/{partId}/{orderId}")
-    public String deletePart(@PathVariable Long partId, @PathVariable Integer orderId) {
+    @GetMapping("/delete-part-then-back-to-order/{partId}/{orderId}")
+    public String deletePart1(@PathVariable Long partId, @PathVariable Integer orderId) {
+        orderService.deletePart(partId);
+
+        return "redirect:/orders/details/" + orderId;
+    }
+
+    @GetMapping("/delete-part-then-back-to-add-part/{partId}/{orderId}")
+    public String deletePart2(@PathVariable Long partId, @PathVariable Integer orderId) {
         orderService.deletePart(partId);
 
         return "redirect:/orders/add-part-to-order/" + orderId;
-    }
-
-    @GetMapping("/add-last-page/{orderId}")
-    public String addOrderLastPage(Model model, @PathVariable Long orderId) {
-        Order order = orderService.findById(orderId);
-        model.addAttribute("order", order);
-        return "orders/addOrderFinalPage";
-    }
-
-    @PostMapping("/add-last-page-action")
-    public String addOrderLastPageAction(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "orders/addOrderFinalPage";
-        }
-        orderService.saveOrder(order);
-        return "redirect:/home";
     }
 
     @GetMapping("/upload-invoice/{orderId}")
@@ -138,7 +124,7 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
 
-        return "/orders/orderDetails";
+        return "/orders/repairProgress";
     }
 
     @GetMapping("/start-repair/{orderId}")

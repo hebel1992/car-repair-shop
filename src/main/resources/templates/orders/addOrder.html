@@ -10,8 +10,6 @@
 <div class="main">
     <h3 class="title">Create Order</h3>
     <form method="post" th:action="@{/orders/add-action}" th:object="${order}">
-        <input type="hidden" th:field="*{id}">
-        <input type="hidden" th:field="*{created}">
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -50,8 +48,14 @@
             </option>
         </select></p>
 
-        <input type="submit" value="Next" class="button"><input type="button" value="Cancel" class="button"
-                                                                onclick="window.location.href='/home'">
+        Additional notes:<span class="alert alert-danger"
+                               th:if="${#fields.hasErrors('note')}"
+                               th:errors="*{note}"></span>
+        <p>
+            <textarea th:field="*{note}" rows="10" cols="100" placeholder="optional"/>
+        </p>
+        <input type="submit" value="Finish" class="button">
+        <a th:href="@{/home}"><input type="button" class="button" value="Cancel"/></a>
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

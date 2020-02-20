@@ -16,6 +16,8 @@
     <span style="font-weight: bold">Initial diagnosis:</span>
     <p><textarea disabled th:field="*{order.initialDiagnosis}" rows="5" cols="60"/></p>
 
+    <p><span>Vehicle:</span> <span th:text="${order.vehicle.brand + ' ' + order.vehicle.model + ' reg:' +order.vehicle.plateNumber}"></span></p>
+
     <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
     <p><span>Actual repair start:</span>

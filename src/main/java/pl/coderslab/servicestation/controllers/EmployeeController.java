@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.List;
 
-@Secured("ROLE_ADMIN")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/employees")
@@ -74,6 +73,7 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/details/{id}")
     public String employeeDetails(@PathVariable Long id, Model model) {
         Employee employee = employeeService.findById(id);

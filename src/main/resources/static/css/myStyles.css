@@ -91,6 +91,35 @@
     text-align: center;
 }
 
+table.parts {
+    border: 1px solid #1C6EA4;
+    background-color: #EEEEEE;
+    width: 30%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+table.parts td, table.parts th {
+    border: 1px solid #AAAAAA;
+    padding: 5px 5px;
+}
+
+table.parts tbody td {
+    font-size: 13px;
+}
+
+table.parts tr:nth-child(even) {
+    background: #D0E4F5;
+}
+
+table.parts thead {
+    background: #1C6EA4;
+    background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+    border-bottom: 2px solid #444444;
+}
+
 table.blueTable {
     border: 1px solid #1C6EA4;
     background-color: #EEEEEE;

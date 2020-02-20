@@ -29,7 +29,7 @@
 
     <p><span>Price of service:</span> <span
             th:if="${order.priceOfService==null}"><data
-            class="noValueStyle">Not set</data></span><span
+            class="noValueStyle">To be set at the end of the service</data></span><span
             th:text="${order.priceOfService}"></span></p>
 
 
@@ -44,20 +44,33 @@
 
     <p><span>Parts: </span><span class="noValueStyle"
                                  th:if="${order.parts.size()<1}">No parts added to this order</span>
-    <ul>
-        <li th:each="part : ${order.parts}">
-            <span th:text="${part.name + ' ' + part.price + ' ' + part.quantity}"></span>
-            <a th:href="@{'/orders/delete-part-then-back-to-order/' + ${part.id} + '/' + ${order.id}}">
-                <button class="minus"> -</button>
-            </a>
-        </li>
-    </ul>
+        <p><a th:href="@{'/orders/add-part-to-order/' + ${order.id}}">Add parts</a></p>
+    <div th:if="${order.parts.size()>0}">
+        <table border="1" class="parts">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tr th:each="part : ${order.parts}">
+                <td th:text="${part.name}"></td>
+                <td th:text="${part.price}"></td>
+                <td th:text="${part.quantity}"></td>
+                <td><a th:href="@{'/orders/delete-part-then-back-to-order/' + ${part.id} + '/' + ${order.id}}">
+                    <button class="minus"> -</button>
+                </a></td>
+            </tr>
+        </table>
+    </div>
     </p>
-    <p><a th:href="@{'/orders/add-part-to-order/' + ${order.id}}">Add parts</a></p>
 
     <p><span>Invoices:</span> <span class="noValueStyle"
                                     th:if="${order.invoices.size()==0}">
             No invoice attached to this order</span></p>
+    <p><a th:href="@{'/orders/upload-invoice/' + ${order.id}}">Upload invoice</a></p>
 
     <div>
         <ul>
@@ -69,7 +82,7 @@
             </a></li>
         </ul>
     </div>
-    <p><a th:href="@{'/orders/upload-invoice/' + ${order.id}}">Upload invoice</a></p>
+
 
     <p><span>Additional notes:</span> <span th:text="${order.note}"></span></p>
 

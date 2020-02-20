@@ -15,9 +15,9 @@ INSERT INTO vehicles (customer_id, brand, engine_size, fuel_type, model, note, p
 INSERT INTO vehicles (customer_id, brand, engine_size, fuel_type, model, note, plate_number, year_of_production) VALUES (3, 'Audi', 3.0, 0, 'A5', 'another short note', 'GF67AW1', 2015);
 
 INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Mila 16a, Jarmurz', '1985-01-01', 'Jolanta', 'Skorzycka', 3411236781, 15.0);
-INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Nowa 1, Ketrzyn', '1980-03-02', 'Mariusz', 'Fredzel', 2211116731, 6.0);
-INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Fioletowa 5, Morawa', '1999-01-06', 'Kamil', 'Gniazdo', 412123123, 12.0);
-INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Krucha 115, Oborniki', '1978-12-11', 'Jaroslaw', 'Mily', 991000111, 4.0);
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Nowa 1, Ketrzyn', '1980-03-02', 'Mariusz', 'Fijalkowski', 2211116731, 6.0);
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Fioletowa 5, Morawa', '1999-01-06', 'Kamil', 'Gierek', 412123123, 12.0);
+INSERT INTO employees (address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES ('ul. Krucha 115, Oborniki', '1978-12-11', 'Jaroslaw', 'Polanski', 991000111, 4.0);
 
 INSERT INTO role (`id`, `name`) VALUES (NULL, 'ROLE_ADMIN');
 INSERT INTO role (`id`, `name`) VALUES (NULL, 'ROLE_USER');

@@ -8,9 +8,9 @@
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h3 class="title">Finish Order</h3>
+    <h2 class="title">Finish Order</h2>
 
-    <h4>In order to finish this repair all fields with '<span style="color: red">*</span>' are required</h4>
+    <h5>Make sure all fields with '<span style="color: red">*</span>' are filled</h5><br/>
 
     <form method="post" th:action="@{/orders/finish-repair-action}" th:object="${order}">
 

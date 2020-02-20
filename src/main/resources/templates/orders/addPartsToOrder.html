@@ -30,16 +30,27 @@
             <span id="last"></span>
         </div>
 
-        <p>
-        <ul>
-            <li th:each="part : ${addedParts}">
-                <span th:text="${part.name + ' ' + part.price + ' ' + part.quantity}"></span>
-                <a th:href="@{'/orders/delete-part-then-back-to-add-part/' + ${part.id} + '/' + ${orderId}}">
-                    <input type="button" class="minus" value="-"/>
-                </a>
-            </li>
-        </ul>
-        </p>
+
+
+            <table border="1" class="parts">
+                <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tr th:each="part : ${addedParts}">
+                    <td th:text="${part.name}"></td>
+                    <td th:text="${part.price}"></td>
+                    <td th:text="${part.quantity}"></td>
+                    <td><a th:href="@{'/orders/delete-part-then-back-to-add-part/' + ${part.id} + '/' + ${orderId}}">
+                        <input type="button" class="minus" value="-"/>
+                    </a>
+                    </a></td>
+                </tr>
+            </table><br/>
 
         <a th:href="@{'/orders/details/'+ ${orderId}}"><input type="button" class="button" value="Finish"/></a>
     </form>

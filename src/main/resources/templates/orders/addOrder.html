@@ -8,7 +8,7 @@
 <body>
 <div th:include="header.html"></div>
 <div class="main">
-    <h3 class="title">Create Order</h3>
+    <h3 class="title">Create order</h3>
     <form method="post" th:action="@{/orders/add-action}" th:object="${order}">
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>

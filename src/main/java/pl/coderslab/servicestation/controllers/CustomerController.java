@@ -42,7 +42,6 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @Secured("ROLE_ADMIN")
     @GetMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
         Customer customer = customerService.findById(id);
@@ -50,7 +49,6 @@ public class CustomerController {
         return "/customers/customerDetails";
     }
 
-    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateCustomer(Model model, @PathVariable Long id) {
         Customer customer = customerService.findById(id);

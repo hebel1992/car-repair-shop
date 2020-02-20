@@ -34,6 +34,7 @@ public class EmployeeController {
         return "employees/employeesList";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/add")
     public String addEmployee(Model model) {
         Employee employee = new Employee();
@@ -41,6 +42,7 @@ public class EmployeeController {
         return "employees/addEmployee";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/add-action")
     public String addEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -50,6 +52,7 @@ public class EmployeeController {
         return "redirect:/employees/create-user/" + employee.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/create-user/{employeeId}")
     public String addUserToEmployee(Model model, @PathVariable("employeeId") Long employeeId) {
         Employee employee = employeeService.findById(employeeId);
@@ -59,7 +62,7 @@ public class EmployeeController {
         return "/employees/createUserForm";
     }
 
-
+    @Secured("ROLE_ADMIN")
     @PostMapping("/create-user-action")
     public String addUserToEmployeeAction(@ModelAttribute("user") @Validated({UserGroup.class, Default.class}) User user,
                                           BindingResult bindingResult) {
@@ -78,6 +81,7 @@ public class EmployeeController {
         return "/employees/employeeDetails";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateEmployee(Model model, @PathVariable Long id) {
         Employee employee = employeeService.findById(id);
@@ -85,6 +89,7 @@ public class EmployeeController {
         return "employees/editEmployee";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -94,12 +99,14 @@ public class EmployeeController {
         return "redirect:/employees/details/" + employee.getId();
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete/{id}")
     public String deleteEmployee(Model model, @PathVariable Long id) {
         model.addAttribute("id", id);
         return "employees/deleteEmployee";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteEmployeeAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

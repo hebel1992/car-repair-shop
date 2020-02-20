@@ -53,7 +53,6 @@ public class VehicleController {
         return "/vehicles/vehicleDetails";
     }
 
-    @Secured("ROLE_ADMIN")
     @GetMapping("/update/{id}")
     public String updateVehicle(Model model, @PathVariable Long id) {
         Vehicle vehicle = vehicleService.findById(id);
@@ -61,7 +60,6 @@ public class VehicleController {
         return "vehicles/editVehicle";
     }
 
-    @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
     public String updateVehicle(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

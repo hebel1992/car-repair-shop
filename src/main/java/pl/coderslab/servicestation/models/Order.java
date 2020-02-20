@@ -61,9 +61,9 @@ public class Order extends AbstractEntity {
     @Column(name = "updated")
     private LocalDate updated;
 
-    @Size(max = 10000, message = "maximum 10000 characters")
-    @Column(name = "note", columnDefinition = "text")
-    private String note;
+    @Size(min = 100, max = 10000, message = "min 100 and max 10000 characters", groups = {FinishedOrderGroup.class})
+    @Column(name = "repair_progress_report", columnDefinition = "text")
+    private String repairProgressReport;
 
     @NotNull(groups = {CancelledOrderGroup.class})
     @Size(min = 10, max = 10000, message = "min 10 and max 10000 characters", groups = {CancelledOrderGroup.class})

@@ -15,6 +15,7 @@
         <input type="hidden" th:field="*{created}" />
         <input type="hidden" th:field="*{vehicle}" />
         <input type="hidden" th:field="*{actualRepairStart}" />
+        <input type="hidden" th:field="*{repairProgressReport}" />
 
         <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
             <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
@@ -56,13 +57,6 @@
                                     maxlength="15" placeholder="not set"/><span class="alert alert-danger"
                                                           th:if="${#fields.hasErrors('priceOfService')}"
                                                           th:errors="*{priceOfService}"></span></p>
-
-        Additional notes:<span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
-                               th:errors="*{note}"></span>
-        <p>
-            <textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/>
-
-        </p>
 
         <input type="submit" name="action" value="Update" class="button">
         <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="button" value="Cancel"/></a>

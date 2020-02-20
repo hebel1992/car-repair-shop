@@ -48,12 +48,6 @@
             </option>
         </select></p>
 
-        Additional notes:<span class="alert alert-danger"
-                               th:if="${#fields.hasErrors('note')}"
-                               th:errors="*{note}"></span>
-        <p>
-            <textarea th:field="*{note}" rows="10" cols="100" placeholder="optional"/>
-        </p>
         <input type="submit" value="Finish" class="button">
         <a th:href="@{/home}"><input type="button" class="button" value="Cancel"/></a>
     </form>

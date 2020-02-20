@@ -41,10 +41,10 @@
                                     placeholder="not set"/><span class="alert alert-danger" th:if="${#fields.hasErrors('priceOfService')}"
                                                                                 th:errors="*{priceOfService}"></span></p>
 
-        <span style="font-weight: bold">Additional notes</span>:<span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
-                               th:errors="*{note}"></span>
+        <span style="font-weight: bold">Repair progress report</span>:<span class="alert alert-danger" th:if="${#fields.hasErrors('repairProgressReport')}"
+                               th:errors="*{repairProgressReport}"></span>
         <p>
-            <textarea th:field="*{note}" rows="5" cols="60" placeholder="optional"/>
+            <textarea th:field="*{repairProgressReport}" rows="5" cols="60" placeholder="optional"/>
 
         </p>
 

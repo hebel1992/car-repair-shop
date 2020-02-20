@@ -124,7 +124,26 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
 
-        return "/orders/repairProgress";
+        return "/orders/orderCourse";
+    }
+
+    @GetMapping("/repair-progress-report-update/{orderId}")
+    public String getRepairProgressReport(Model model, @PathVariable("orderId") Long orderId) {
+        String report = orderService.findById(orderId).getRepairProgressReport();
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("report", report);
+
+        return "/orders/orderRepairProgress";
+    }
+
+    @PostMapping("/repair-progress-report-update-action/{orderId}")
+    public String getRepairProgressReportAction(@PathVariable("orderId") Long orderId,
+                                                @RequestParam("report") String report) {
+        Order order = orderService.findById(orderId);
+        order.setRepairProgressReport(report);
+        orderService.updateOrder(order);
+
+        return "redirect:/orders/details/"+orderId;
     }
 
     @GetMapping("/start-repair/{orderId}")

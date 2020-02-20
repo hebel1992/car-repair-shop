@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Repair Progress</title>
+    <title>Course of the service</title>
     <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <div class="main">
 
-    <h3 class="title">Repair Progress</h3>
+    <h3 class="title">Course of the service</h3>
 
     <p><span>Title:</span> <span th:text="${order.title}"></span></p>
 
@@ -23,6 +23,8 @@
         <span th:if="${order.actualRepairStart!=null}"> <data th:text="${order.actualRepairStart}"></data> </span></p>
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
+
+    <p><a th:href="@{'/orders/repair-progress-report-update/' + ${order.id}}" class="editLink">Repair progress report</a></p>
 
     <div th:if="${order.cancelReason!=null}"><span style="font-weight: bold">Cancellation reason: </span>
         <p><textarea disabled th:field="*{order.cancelReason}" rows="5" cols="60"/></p></div>
@@ -82,9 +84,6 @@
             </a></li>
         </ul>
     </div>
-
-
-    <p><span>Additional notes:</span> <span th:text="${order.note}"></span></p>
 
     <p><span>Created:</span> <span th:text="${order.created}"></span></p>
 

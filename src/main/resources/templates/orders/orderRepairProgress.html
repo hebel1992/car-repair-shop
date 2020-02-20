@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Repair progress report</title>
+    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+</head>
+<body>
+<div th:include="header.html"></div>
+<div class="main">
+    <h3 class="title">Repair progress report</h3>
+
+    <form method="post" th:action="@{'/orders/repair-progress-report-update-action/' +  ${orderId}}">
+
+        <div><textarea th:name="report" th:text="${report}" rows="25" cols="100"></textarea></div>
+
+        <input type="submit" name="action" value="Update" class="button">
+        <a th:href="@{'/orders/details/' + ${orderId}}"><input type="button" class="button" value="Cancel"/></a>
+    </form>
+</div>
+</body>
+</html>

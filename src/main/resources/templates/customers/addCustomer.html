@@ -2,46 +2,93 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add Customers</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
+    <title>Create Customer</title>
 </head>
 <body>
+
 <div th:include="header.html"></div>
-<div class="main">
-    <h3 class="title">Add Customer</h3>
+
+<section class="container section">
+    <h2>Create Customer</h2>
+
     <form method="post" th:action="@{/customers/add-action}" th:object="${customer}">
 
-        <p>First name:<span class="requiredFiled">*</span> <input th:field="*{firstName}" type="text"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-        </p>
+        <div class="input-field">
+            <input type="text" id="firstName" th:field="*{firstName}">
+            <label for="firstName">First Name</label>
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        </div>
 
-        <p>Last name:<span class="requiredFiled">*</span> <input th:field="*{lastName}" type="text">
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-        </p>
+        <div class="input-field">
+            <input type="text" id="lastName" th:field="*{lastName}">
+            <label for="firstName">Last Name</label>
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        </div>
 
-        <p>Date of birth(optional): <input th:field="*{dateOfBirth}" type="date">
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
+        <div class="input-field">
+            <i class="material-icons prefix">date_range</i>
+            <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}">
+            <label for="dob">Date Of Birth</label>
+            <span th:if="${#fields.hasErrors('dateOfBirth')}"
                   th:errors="*{dateOfBirth}"></span>
-        </p>
+        </div>
 
+        <div class="input-field">
+            <i class="material-icons prefix">email</i>
+            <input type="email" id="email" th:field="*{email}">
+            <label for="email">Email</label>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
 
-        <p>Address: <input th:field="*{address}" type="text" placeholder="optional"/></p>
+        <div class="input-field">
+            <i class="material-icons prefix">home</i>
+            <input type="text" id="address" th:field="*{address}">
+            <label for="address">Address</label>
+            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+        </div>
 
-
-        <p>Phone number:<span class="requiredFiled">*</span> <input th:field="*{phoneNumber}" type="text"
-                                                                    maxlength="15"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+        <div class="input-field">
+            <i class="material-icons prefix">local_phone</i>
+            <input type="text" id="phone" th:field="*{phoneNumber}">
+            <span th:if="${#fields.hasErrors('phoneNumber')}"
                   th:errors="*{phoneNumber}"></span>
-        </p>
+            <label for="phone">Phone number</label>
+        </div>
 
-        Additional notes: <span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
-                                th:errors="*{note}"></span>
-        <p><textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/></p>
+        <div class="input-field">
+            <i class="material-icons prefix">note</i>
+            <textarea class="materialize-textarea" id="note" th:field="*{note}"></textarea>
+            <label for="note">Additional notes</label>
+            <span th:if="${#fields.hasErrors('note')}"
+                  th:errors="*{note}"></span>
+        </div>
 
-        <input type="submit" value="Add" class="button"><input type="button" value="Cancel" class="button"
-                                                               onclick="window.location.href='/customers'">
+        <div class="input-field center">
+            <button class="btn-large">Submit</button>
+
+            <input type="button" value="Cancel" class="btn-large"
+                   onclick="window.location.href='/customers'">
+        </div>
+
     </form>
-</div>
-<div th:include="footer.html"></div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+        $('.datepicker').datepicker();
+    });
+</script>
 </body>
 </html>

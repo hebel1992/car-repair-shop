@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,9 +32,14 @@ public class Customer extends AbstractEntity {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Email
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "address")
     private String address;
 
+    @NotNull(message = "phone number required")
     @Pattern(regexp = "\\d{9,15}", message = "9 characters minimum(only digits)")
     @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;

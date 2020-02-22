@@ -19,57 +19,57 @@
 <div th:include="header.html"></div>
 
 <section class="container section">
-    <h2>Create Customer</h2>
+    <h3>Create Customer</h3>
 
     <form method="post" th:action="@{/customers/add-action}" th:object="${customer}">
 
         <div class="input-field">
             <input type="text" id="firstName" th:field="*{firstName}">
             <label for="firstName">First Name</label>
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            <span class="error-message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
         </div>
 
         <div class="input-field">
             <input type="text" id="lastName" th:field="*{lastName}">
             <label for="firstName">Last Name</label>
-            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            <span class="error-message" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
         </div>
 
         <div class="input-field">
             <i class="material-icons prefix">date_range</i>
             <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}">
             <label for="dob">Date Of Birth</label>
-            <span th:if="${#fields.hasErrors('dateOfBirth')}"
+            <span class="error-message" th:if="${#fields.hasErrors('dateOfBirth')}"
                   th:errors="*{dateOfBirth}"></span>
         </div>
 
         <div class="input-field">
             <i class="material-icons prefix">email</i>
-            <input type="email" id="email" th:field="*{email}">
+            <input type="text" id="email" th:field="*{email}">
             <label for="email">Email</label>
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
         </div>
 
         <div class="input-field">
             <i class="material-icons prefix">home</i>
             <input type="text" id="address" th:field="*{address}">
             <label for="address">Address</label>
-            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            <span class="error-message" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
         </div>
 
         <div class="input-field">
             <i class="material-icons prefix">local_phone</i>
             <input type="text" id="phone" th:field="*{phoneNumber}">
-            <span th:if="${#fields.hasErrors('phoneNumber')}"
-                  th:errors="*{phoneNumber}"></span>
             <label for="phone">Phone number</label>
+            <span class="error-message" th:if="${#fields.hasErrors('phoneNumber')}"
+            th:errors="*{phoneNumber}"></span>
         </div>
 
         <div class="input-field">
             <i class="material-icons prefix">note</i>
             <textarea class="materialize-textarea" id="note" th:field="*{note}"></textarea>
             <label for="note">Additional notes</label>
-            <span th:if="${#fields.hasErrors('note')}"
+            <span class="error-message" th:if="${#fields.hasErrors('note')}"
                   th:errors="*{note}"></span>
         </div>
 

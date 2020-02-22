@@ -30,8 +30,8 @@ INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_rep
 INSERT INTO orders_employees (order_id, employee_id) VALUES (4,4);
 
 
-INSERT INTO role (`id`, `name`) VALUES (NULL, 'ROLE_ADMIN');
-INSERT INTO role (`id`, `name`) VALUES (NULL, 'ROLE_USER');
+INSERT INTO role (`id`, `name`, description) VALUES (NULL, 'ROLE_ADMIN', 'Admin');
+INSERT INTO role (`id`, `name`, description) VALUES (NULL, 'ROLE_USER', 'User');
 
 INSERT INTO user (enabled, password, username) VALUES (1, '$2a$10$4Eb6WIXIEYu3N0q3iGqole9hJoLuiFduwBGJgDfDezAtalJmICHjS', 'admin');
 

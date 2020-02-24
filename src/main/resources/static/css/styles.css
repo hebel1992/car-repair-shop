@@ -1,12 +1,13 @@
-div.input-field{
+div.input-field {
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
-.error-message{
+.error-message {
     color: red;
 }
 
-.left{
-    margin-top: 1px;
+.my-icon {
+    width: 35px;
+    height: 35px;
 }

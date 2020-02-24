@@ -26,37 +26,37 @@
 
         <div class="row">
 
-        <div class="input-field col s12">
-            <input type="text" id="username" th:field="*{username}">
-            <label for="username">Username</label>
-            <span class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-        </div>
+            <div class="input-field col s12">
+                <input type="text" id="username" th:field="*{username}">
+                <label for="username">Username</label>
+                <span class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </div>
 
-        <div class="input-field col s12">
-            <input type="password" id="password" th:field="*{password}">
-            <label for="password">Password</label>
-            <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-        </div>
+            <div class="input-field col s12">
+                <input type="password" id="password" th:field="*{password}">
+                <label for="password">Password</label>
+                <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
 
-        <div id="select-box" class="input-field col s5">
-            <p>Choose role</p>
-            <select th:field="*{roles}">
-                <option th:value="null" th:text="Select"></option>
-                <option th:each="role : ${roles}"
-                        th:text="${role.description}"
-                        th:value="${role.id}">
-                </option>
-            </select>
-            <span class="error-message" th:if="${#fields.hasErrors('roles')}"
-                  th:errors="*{roles}"></span>
-        </div>
+            <div id="select-box" class="input-field col s5">
+                <p>Choose role</p>
+                <select th:field="*{roles}">
+                    <option th:value="null" th:text="Select"></option>
+                    <option th:each="role : ${roles}"
+                            th:text="${role.description}"
+                            th:value="${role.id}">
+                    </option>
+                </select>
+                <span class="error-message" th:if="${#fields.hasErrors('roles')}"
+                      th:errors="*{roles}"></span>
+            </div>
 
-        <div class="left col s12">
-            <button class="btn-large">Submit</button>
+            <div class="left col s12">
+                <button class="btn-large">Submit</button>
 
-            <input type="button" value="Cancel" class="btn-large"
-                   onclick="window.location.href='/employees'">
-        </div>
+                <input type="button" value="Cancel" class="btn-large"
+                       onclick="window.location.href='/employees'">
+            </div>
         </div>
     </form>
 </section>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-<link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
 <title>Vehicles List</title>
 <body>
 <div th:include="header.html"></div>
@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col l12 s12">
             <h2>Vehicles <a class="btn waves-effect waves-light right"
-                             th:href="@{/vehicles/add}">Add new vehicle</a></h2>
+                            th:href="@{/vehicles/add}">Add new vehicle</a></h2>
         </div>
 
         <div class="col l12 s12">
@@ -40,6 +40,6 @@
         </div>
     </div>
 </section>
-
+<div th:include="footer.html"></div>
 </body>
 </html>

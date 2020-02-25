@@ -113,7 +113,7 @@ public class EmployeeController {
             employeeService.deleteEmployee(id);
             return "redirect:/employees";
         } else {
-            return "redirect:/employees/details/" + id;
+            return "redirect:/employees/update/" + id;
         }
     }
 

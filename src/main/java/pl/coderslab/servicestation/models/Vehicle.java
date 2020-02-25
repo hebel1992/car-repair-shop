@@ -40,7 +40,7 @@ public class Vehicle extends AbstractEntity {
     private String plateNumber;
 
     @Column(name = "vin")
-    private Long Vin;
+    private String Vin;
 
     @NotNull
     @JoinColumn(name = "fuel_type")

@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login Page</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <link rel="stylesheet" href="css/myStyles.css" type="text/css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous"/>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+    <title>Login Form</title>
 </head>
 <body>
-<h1 class="title-style-logged-out">SERVICE STATION</h1>
 
-<h2>Logging page</h2>
-<p th:if="${loginError}" class="error">Wrong user or password</p>
-<form th:action="@{/login}" method="post">
-    <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
-    <input type="submit" value="Log in" />
-</form>
+<div class="container section">
+    <div class="row">
 
+        <div class="col l12 s12 center-align"><h2>Login Form</h2></div>
+
+        <div class="col l12 s12">
+            <form th:action="@{/login}" method="post">
+
+                <div class="input-field">
+                    <i class="material-icons prefix">person</i>
+                    <input type="text" id="username" name="username">
+                    <label for="username">Username</label>
+                </div>
+
+                <div class="input-field">
+                    <i class="material-icons prefix">lock</i>
+                    <input type="password" id="password" name="password"/>
+                    <label for="password">Password</label>
+                </div>
+
+                <p th:if="${loginError}" style="color: red">Wrong username or password</p>
+
+                <input id="login-button" type="submit" value="Login" class="btn btn-large">
+            </form>
+        </div>
+    </div>
+    <div style="height: 177px">
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<div th:include="footer.html"></div>
 </body>
 </html>

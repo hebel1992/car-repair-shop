@@ -2,57 +2,104 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
     <title>Create Order</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
-    <h3 class="title">Create order</h3>
+<section class="container section">
+
     <form method="post" th:action="@{/orders/add-action}" th:object="${order}">
 
-        <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-        </p>
+        <div class="row">
 
-        Initial diagnosis:<span class="requiredFiled">*</span>
-        <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
-              th:errors="*{initialDiagnosis}"></span>
-        <p><textarea th:field="*{initialDiagnosis}" rows="10" cols="100"/></p>
+            <h3 class="col l12">Create order</h3>
 
-        <p>Vehicle:<span class="requiredFiled">*</span> <select th:field="*{vehicle}">
-            <option th:text="--Select--" th:value="null"></option>
-            <option th:each="vehicle : ${vehicles}"
-                    th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
-                    th:value="${vehicle.id}">
-            </option>
-        </select>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('vehicle')}"
-                  th:errors="*{vehicle}"></span>
-        </p>
 
-        <p>Planned repair start:<span class="requiredFiled">*</span><input id="plannedDate"
-                                                                           th:field="*{plannedRepairStart}" type="date">
-            <span>Start immediately: <input type="checkbox" id="checkBox" name="checkBox"></span>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"
-                  th:errors="*{plannedRepairStart}"></span>
-        </p>
+            <div class="input-field col l12">
+                <input type="text" id="title" th:field="*{title}">
+                <label for="title">Title</label>
+                <span class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
 
-        Assign employee(s):<span class="requiredFiled">*</span> <span class="alert alert-danger"
-                                 th:if="${#fields.hasErrors('employees')}"
-                                 th:errors="*{employees}"></span>
-        <p><select th:field="*{employees}" th:multiple="true">
-            <option th:each="employee : ${employees}"
-                    th:text="${employee.firstName + ' ' +employee.lastName}"
-                    th:value="${employee.id}">
-            </option>
-        </select></p>
 
-        <input type="submit" value="Finish" class="button">
-        <a th:href="@{/home}"><input type="button" class="button" value="Cancel"/></a>
+            <div class="input-field col l12">
+                <textarea class="materialize-textarea" id="initialDiagnosis" th:field="*{initialDiagnosis}"></textarea>
+                <label for="initialDiagnosis">Initial diagnosis</label>
+                <span class="error-message" th:if="${#fields.hasErrors('initialDiagnosis')}"
+                      th:errors="*{initialDiagnosis}"></span>
+            </div>
+
+            <div id="select-box" class="input-field col s7">
+                <i class="material-icons prefix">directions_car</i>
+                <select th:field="*{vehicle}">
+                    <option th:value="null" th:text="'Choose Vehicle'"></option>
+                    <option th:each="vehicle : ${vehicles}"
+                            th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
+                            th:value="${vehicle.id}">
+                    </option>
+                </select>
+                <span class="error-message" th:if="${#fields.hasErrors('vehicle')}"
+                      th:errors="*{vehicle}"></span>
+            </div>
+
+            <div class="input-field col l7">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" class="datepicker" id="plannedDate" th:field="*{plannedRepairStart}">
+                <label for="plannedDate">Planned Repair Start</label>
+                <span class="error-message" th:if="${#fields.hasErrors('plannedRepairStart')}"
+                      th:errors="*{plannedRepairStart}"></span>
+            </div>
+
+<!--            <div class="input-field col l2">-->
+<!--                <p>-->
+<!--                    <label>-->
+<!--                        <input id="check-box" type="checkbox"/>-->
+<!--                        <span>Start immediately</span>-->
+<!--                    </label>-->
+<!--                </p>-->
+<!--            </div>-->
+
+            <div class="input-field col l7">
+                <i class="prefix"><img class="my-icon" th:src="@{/img/mechanic.png}"/></i>
+                <select th:field="*{employees}" multiple>
+                    <option value="" disabled selected>Choose employee(s)</option>
+                    <option th:each="employee : ${employees}"
+                            th:text="${employee.firstName + ' ' +employee.lastName}"
+                            th:value="${employee.id}">
+                    </option>
+                </select>
+                <span class="error-message" th:if="${#fields.hasErrors('employees')}"
+                      th:errors="*{employees}"></span>
+            </div>
+        </div>
+
+
+        <div class="input-field center">
+            <button class="btn-large">Submit</button>
+
+            <a th:href="@{'/home/'}">
+                <input type="button" value="Cancel" class="btn-large"></a>
+        </div>
+
     </form>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script th:src="@{/js/addOrderScript.js}"></script>
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            showClearBtn: true
+        })
+
+        $('select').formSelect();
+    });
+</script>
 </body>
 </html>

@@ -11,14 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class LoginViewController {
 
-//    private final Logger logger = LoggerFactory.getLogger(LoginViewController.class);
-
     @GetMapping
-    public String landingPage() {
-        return "landingPage";
-    }
-
-    @GetMapping("/login")
     public String loginPage(Model model) {
         model.addAttribute("loginError", false);
         return "loginForm";

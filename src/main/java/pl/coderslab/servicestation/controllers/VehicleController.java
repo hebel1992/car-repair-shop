@@ -83,7 +83,7 @@ public class VehicleController {
             vehicleService.deleteVehicle(id);
             return "redirect:/vehicles";
         } else {
-            return "redirect:/vehicles/details/" + id;
+            return "redirect:/vehicles/update/" + id;
         }
     }
 

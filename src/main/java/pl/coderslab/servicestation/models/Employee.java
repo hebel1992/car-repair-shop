@@ -33,6 +33,10 @@ public class Employee extends AbstractEntity {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Email
+    @Column(name = "email")
+    private String email;
+
     @NotBlank
     @Column(name = "address")
     private String address;

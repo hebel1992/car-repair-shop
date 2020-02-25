@@ -2,55 +2,102 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Customers</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+    <title>Edit Customer</title>
 </head>
 <body>
+
 <div th:include="header.html"></div>
-<div class="main">
+
+<section class="container section">
     <h3 class="title">Edit Customer</h3>
+
     <form method="post" th:action="@{/customers/update-action}" th:object="${customer}">
 
         <input type="hidden" th:field="*{id}">
 
-        <p>First name:<span class="requiredFiled">*</span> <input th:field="*{firstName}" type="text"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-        </p>
+        <div class="row">
 
-        <p>Last name:<span class="requiredFiled">*</span> <input th:field="*{lastName}" type="text">
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-        </p>
+            <div class="input-field col l6 s12">
+                <input type="text" id="firstName" th:field="*{firstName}">
+                <label for="firstName">First Name</label>
+                <span class="error-message" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            </div>
 
-        <p>Date of birth(optional): <input th:field="*{dateOfBirth}" type="date">
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
-                  th:errors="*{dateOfBirth}"></span>
-        </p>
+            <div class="input-field col l6 s12">
+                <input type="text" id="lastName" th:field="*{lastName}">
+                <label for="firstName">Last Name</label>
+                <span class="error-message" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            </div>
 
-        <p>Address: <input th:field="*{address}" type="text" placeholder="optional"/></p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}">
+                <label for="dob">Date Of Birth</label>
+                <span class="error-message" th:if="${#fields.hasErrors('dateOfBirth')}"
+                      th:errors="*{dateOfBirth}"></span>
+            </div>
 
-        <p>Phone number:<span class="requiredFiled">*</span> <input th:field="*{phoneNumber}" type="text"
-                                                                    maxlength="15"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('phoneNumber')}"
-                  th:errors="*{phoneNumber}"></span>
-        </p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">email</i>
+                <input type="text" id="email" th:field="*{email}">
+                <label for="email">Email</label>
+                <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
 
-        <p>Vehicles:
-        <ul>
-            <li th:each="vehicle : ${customer.vehicles}">
-                <a th:href="@{'/vehicles/details/' + ${vehicle.id}}"><span
-                        th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"></span></a>
-            </li>
-        </ul>
-        </p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">home</i>
+                <input type="text" id="address" th:field="*{address}">
+                <label for="address">Address</label>
+                <span class="error-message" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
 
-        Additional notes: <span class="alert alert-danger" th:if="${#fields.hasErrors('note')}"
-                                th:errors="*{note}"></span>
-        <p><textarea th:field="*{note}" rows="13" cols="80" placeholder="optional"/></p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">local_phone</i>
+                <input type="text" id="phone" th:field="*{phoneNumber}">
+                <label for="phone">Phone number</label>
+                <span class="error-message" th:if="${#fields.hasErrors('phoneNumber')}"
+                      th:errors="*{phoneNumber}"></span>
+            </div>
 
-        <input type="submit" name="action" value="Update" class="button">
-        <a th:href="@{'/customers/details/' + ${customer.id}}"><input type="button" class="button" value="Cancel"/></a>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">note</i>
+                <textarea class="materialize-textarea" id="note" th:field="*{note}"></textarea>
+                <label for="note">Additional notes</label>
+                <span class="error-message" th:if="${#fields.hasErrors('note')}"
+                      th:errors="*{note}"></span>
+            </div>
+
+            <div class="col l12 s12 valign-wrapper">
+                <a class="delete-link" th:href="@{'/customers/delete/' + ${customer.id}}">Delete customer
+                </a><i class="material-icons red-text">delete</i>
+            </div>
+        </div>
+
+        <div class="input-field center">
+            <button class="btn-large">Submit</button>
+
+            <a th:href="@{'/customers/details/' + ${customer.id}}">
+                <input type="button" value="Cancel" class="btn-large"></a>
+        </div>
+
 
     </form>
-</div>
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            showClearBtn: true
+        })
+    });
+</script>
+<div class="my-footer" th:include="footer.html"></div>
 </body>
 </html>

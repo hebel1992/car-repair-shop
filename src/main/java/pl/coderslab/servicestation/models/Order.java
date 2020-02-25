@@ -9,10 +9,7 @@ import pl.coderslab.servicestation.validationGroups.CancelledOrderGroup;
 import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +34,7 @@ public class Order extends AbstractEntity {
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Future
     @Column(name = "planned_repair_start")
     private LocalDate plannedRepairStart;
 

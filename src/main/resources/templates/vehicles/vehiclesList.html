@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>All Vehicles</title>
-    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+<title>Vehicles List</title>
 <body>
 <div th:include="header.html"></div>
 
-<button class="addRowButton" onclick="window.location.href='/vehicles/add'">Add new vehicle</button>
-<div class="main">
-    <h1>Vehicles List</h1>
-    <table border="1" class="blueTable">
-        <thead>
-        <tr>
-            <td>Brand</td>
-            <td>Model</td>
-            <td>Plate Number</td>
-            <td></td>
-        </tr>
-        </thead>
-        <tr th:each="vehicle : ${vehicles}">
-            <td th:text="${vehicle.brand}"></td>
-            <td th:text="${vehicle.model}"></td>
-            <td th:text="${vehicle.plateNumber}"></td>
-            <td><a th:href="@{'/vehicles/details/' + ${vehicle.id}}">More</a></td>
-        </tr>
-    </table>
-</div>
+<section class="container section">
+
+    <div class="row">
+        <div class="col l12 s12">
+            <h2>Vehicles <a class="btn waves-effect waves-light right"
+                            th:href="@{/vehicles/add}">Add new vehicle</a></h2>
+        </div>
+
+        <div class="col l12 s12">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Reg. Plate</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.brand}"></td>
+                    <td th:text="${vehicle.model}"></td>
+                    <td th:text="${vehicle.plateNumber}"></td>
+                    <td><a th:href="@{'/vehicles/details/' + ${vehicle.id}}">More</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 <div th:include="footer.html"></div>
 </body>
 </html>

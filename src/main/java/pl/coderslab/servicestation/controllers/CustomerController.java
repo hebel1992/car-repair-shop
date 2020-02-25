@@ -81,7 +81,7 @@ public class CustomerController {
             customerService.deleteCustomer(id);
             return "redirect:/customers";
         } else {
-            return "redirect:/customers/details/" + id;
+            return "redirect:/customers/update/" + id;
         }
     }
 

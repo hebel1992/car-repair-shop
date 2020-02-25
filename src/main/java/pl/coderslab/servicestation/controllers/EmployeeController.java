@@ -100,13 +100,6 @@ public class EmployeeController {
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/delete/{id}")
-    public String deleteEmployee(Model model, @PathVariable Long id) {
-        model.addAttribute("id", id);
-        return "employees/deleteEmployee";
-    }
-
-    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteEmployeeAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

@@ -68,13 +68,6 @@ public class CustomerController {
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/delete/{id}")
-    public String deleteCustomer(Model model, @PathVariable Long id) {
-        model.addAttribute("id", id);
-        return "customers/deleteCustomer";
-    }
-
-    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteCustomerAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

@@ -50,13 +50,13 @@
                 <span class="error-message" th:if="${#fields.hasErrors('roles')}"
                       th:errors="*{roles}"></span>
             </div>
+        </div>
 
-            <div class="left col s12">
-                <button class="btn-large">Submit</button>
+        <div class="left col s12">
+            <button class="btn-large">Submit</button>
 
-                <input type="button" value="Cancel" class="btn-large"
-                       onclick="window.location.href='/employees'">
-            </div>
+            <input type="button" value="Create Later" class="btn-large"
+                   onclick="window.location.href='/employees'">
         </div>
     </form>
 </section>
@@ -67,6 +67,7 @@
         $('select').formSelect();
     });
 </script>
+<div style="height: 80px"></div>
 <div class="my-footer" th:include="footer.html"></div>
 </body>
 </html>

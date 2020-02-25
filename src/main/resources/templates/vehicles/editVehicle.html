@@ -100,7 +100,7 @@
             </div>
 
             <div class="col l12 s12 valign-wrapper">
-                <a class="delete-link" th:href="@{'/vehicles/delete/' + ${vehicle.id}}">Delete vehicle
+                <a class="delete-link modal-trigger" href="#delete-form">Delete vehicle
                 </a><i class="material-icons red-text">delete</i>
             </div>
         </div>
@@ -112,6 +112,19 @@
                 <input type="button" value="Cancel" class="btn-large"></a>
         </div>
 
+        <div id="delete-form" class="modal">
+            <div class="modal-content center-align">
+                <h2>Are you sure ?</h2>
+                <p>Note: All orders on this vehicle will be deleted too!</p>
+                <a class="btn" th:href="@{'/vehicles/delete-action/' + ${id} + '?action=true'}">
+                    Yes
+                </a>
+                <a class="btn modal-close">
+                    No
+                </a>
+            </div>
+        </div>
+
     </form>
 </section>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -119,6 +132,7 @@
 <script>
     $(function () {
         $('select').formSelect();
+        $('.modal').modal();
     });
 </script>
 <div class="my-footer" th:include="footer.html"></div>

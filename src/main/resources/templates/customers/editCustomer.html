@@ -73,7 +73,7 @@
             </div>
 
             <div class="col l12 s12 valign-wrapper">
-                <a class="delete-link" th:href="@{'/customers/delete/' + ${customer.id}}">Delete customer
+                <a class="delete-link modal-trigger " href="#delete-form">Delete customer
                 </a><i class="material-icons red-text">delete</i>
             </div>
         </div>
@@ -85,6 +85,18 @@
                 <input type="button" value="Cancel" class="btn-large"></a>
         </div>
 
+        <div id="delete-form" class="modal">
+            <div class="modal-content center-align">
+                <h2>Are you sure ?</h2>
+                <p>Note: All vehicles assigned to this customer will be deleted too!</p>
+                <a class="btn" th:href="@{'/customers/delete-action/' + ${id} + '?action=true'}">
+                    Yes
+                </a>
+                <a class="btn modal-close">
+                    No
+                </a>
+            </div>
+        </div>
 
     </form>
 </section>
@@ -95,7 +107,8 @@
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             showClearBtn: true
-        })
+        });
+        $('.modal').modal();
     });
 </script>
 <div class="my-footer" th:include="footer.html"></div>

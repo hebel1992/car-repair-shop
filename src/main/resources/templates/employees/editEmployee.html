@@ -82,7 +82,7 @@
             </div>
 
             <div class="col l12 s12 valign-wrapper">
-                <a class="delete-link" th:href="@{'/employees/delete/' + ${employee.id}}">Delete employee
+                <a class="delete-link modal-trigger " href="#delete-form">Delete employee
                 </a><i class="material-icons red-text">delete</i>
             </div>
         </div>
@@ -94,7 +94,20 @@
                                                                           onclick="window.location.href='/employees'"></a>
         </div>
 
+        <div id="delete-form" class="modal">
+            <div class="modal-content center-align">
+                <h2>Are you sure ?</h2>
+                <a class="btn" th:href="@{'/employees/delete-action/' + ${id} + '?action=true'}">
+                    Yes
+                </a>
+                <a class="btn modal-close">
+                    No
+                </a>
+            </div>
+        </div>
+
     </form>
+
 </section>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -103,7 +116,8 @@
         $('.datepicker').datepicker({
             format: 'yyyy-mm-dd',
             showClearBtn: true
-        })
+        });
+        $('.modal').modal();
     });
 </script>
 <div class="my-footer" th:include="footer.html"></div>

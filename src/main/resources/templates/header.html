@@ -5,43 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Photo Ninja</title>
-    <style>
-        /*header {*/
-        /*    background-size: cover;*/
-        /*    min-height: 1000px;*/
-        /*}*/
-
-        .section {
-            padding-top: 4vw;
-            padding-bottom: 4vw;
-        }
-
-        .tabs .indicator {
-            background-color: #1a237e;
-        }
-
-        .tabs .tab a:focus, .tabs .tab a:focus.active {
-            background: transparent;
-        }
-
-        @media screen and (max-width: 670px) {
-            header {
-                min-height: 500px;
-            }
-        }
-    </style>
 </head>
 <body>
 
-<nav class="nav-wrapper">
+<nav class="nav-wrapper teal lighten-2">
     <div class="container">
         <a href="/home" class="brand-logo">Car repair shop</a>
         <a href="#" class="sidenav-trigger" data-target="mobile-menu">
@@ -52,14 +25,14 @@
             <li><a href="/customers">Customers</a></li>
             <li><a href="/vehicles">Vehicles</a></li>
             <li><a href="/orders/historyOrders">History</a></li>
-            <li><a href="javascript: document.logoutForm.submit()"> Logout</a>/li>
+            <li><a href="javascript: document.logoutForm.submit()"> Logout</a></li>
         </ul>
         <ul class="sidenav grey lighten-2" id="mobile-menu">
             <li><a href="/employees">Employees</a></li>
             <li><a href="/customers">Customers</a></li>
             <li><a href="/vehicles">Vehicles</a></li>
             <li><a href="/orders/historyOrders">History</a></li>
-            <li><a href="javascript: document.logoutForm.submit()"> Logout</a>/li>
+            <li><a href="javascript: document.logoutForm.submit()"> Logout</a></li>
         </ul>
     </div>
 </nav>
@@ -76,14 +49,6 @@
 <script>
     $(function () {
         $('.sidenav').sidenav();
-        $('.materialboxed').materialbox();
-        $('.parallax').parallax();
-        $('.tabs').tabs();
-        $('.datepicker').datepicker({
-            disableWeekends: true
-        });
-        $('.tooltipped').tooltip();
-        $('.scrollspy').scrollSpy();
     });
 </script>
 </body>

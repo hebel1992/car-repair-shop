@@ -16,9 +16,10 @@
 <section class="container section">
 
     <div class="row">
-        <div class="col l10 s10"><h2>Employees</h2></div>
-        <div class="col l2 s2"><a class="btn waves-effect waves-light" th:href="@{/employees/add}">
-            Add new employee</a></div>
+        <div class="col l12 s12">
+            <h2>Employees <a class="btn waves-effect waves-light right"
+                             th:href="@{/employees/add}">Add new employee</a></h2>
+        </div>
 
         <div class="col l12 s12">
             <table class="striped">
@@ -33,7 +34,7 @@
                 <tr th:each="employee : ${employees}">
                     <td th:text="${employee.firstName + ' ' +employee.lastName}"></td>
                     <td th:text="${employee.phoneNumber}"></td>
-                    <td><a th:href="@{'/customers/details/' + ${employee.id}}">More</a></td>
+                    <td><a th:href="@{'/employees/details/' + ${employee.id}}">More</a></td>
                 </tr>
                 </tbody>
             </table>

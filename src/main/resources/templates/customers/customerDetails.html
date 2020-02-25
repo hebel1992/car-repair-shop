@@ -2,39 +2,85 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Customers Details</title>
-    <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
+    <title>Customer Details</title>
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
+<section class="container section">
 
-    <h3 class="title">Customer Details</h3>
+    <h3>Customer Details <a class="tooltipped btn-floating btn-large cyan" th:href="@{'/customers/update/' +
+    ${customer.id}}" data-tooltip="Edit Customer"><i class="material-icons">edit</i></a></h3>
 
-    <p><span>First name:</span> <span th:text="${customer.firstName}"></span></p>
+    <form th:object="${customer}">
 
-    <p><span>Last name:</span> <span th:text="${customer.lastName}"></span></p>
+        <div class="row">
 
-    <p><span>Date of birth:</span> <span th:text="${customer.dateOfBirth}"></span></p>
+            <div class="input-field col l6 s12">
+                <input type="text" id="firstName" th:field="*{firstName}" disabled="disabled">
+                <label for="firstName">First Name</label>
+            </div>
 
-    <p><span>Address:</span> <span th:text="${customer.address}"></span></p>
+            <div class="input-field col l6 s12">
+                <input type="text" id="lastName" th:field="*{lastName}" disabled="disabled">
+                <label for="firstName">Last Name</label>
+            </div>
 
-    <p><span>Phone number:</span> <span th:text="${customer.phoneNumber}"></span></p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}" disabled="disabled">
+                <label th:if="${customer.dateOfBirth!=null}" for="dob">Date Of Birth</label>
+                <label th:if="${customer.dateOfBirth==null}" for="dob">Date Of Birth not set</label>
+            </div>
 
-    <p><span>Vehicles:</span>
-    <ul>
-        <li th:each="vehicle : ${customer.vehicles}">
-            <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}" th:href="@{'/vehicles/details/'+${vehicle.id}}"></a>
-        </li>
-    </ul>
-    </p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">email</i>
+                <input type="text" id="email" th:field="*{email}" disabled="disabled">
+                <label th:if="${customer.email!=null}" for="email">Email</label>
+                <label th:if="${customer.email==null}" for="email">Email not set</label>
+            </div>
 
-    <p><span>Note:</span> <span th:text="${customer.note}"></span></p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">home</i>
+                <input type="text" id="address" th:field="*{address}" disabled="disabled">
+                <label th:if="${customer.address!=null}" for="address">Address</label>
+                <label th:if="${customer.address==null}" for="address">Address not set</label>
+            </div>
 
-    <p><a class="editLink" th:href="@{'/customers/update/' + ${customer.id}}">Edit mode</a></p>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">local_phone</i>
+                <input type="text" id="phone" th:field="*{phoneNumber}" disabled="disabled">
+                <label th:if="${customer.phoneNumber!=null}" for="phone">Phone number</label>
+                <label th:if="${customer.phoneNumber==null}" for="phone">Phone number not set</label>
+            </div>
 
-    <p><a class="deleteLink" th:href="@{'/customers/delete/' + ${customer.id}}">Delete customer</a></p>
-</div>
-<div th:include="footer.html"></div>
+            <div class="col l12 s12"><span>Vehicles:</span>
+                <ul>
+                    <li th:each="vehicle : ${customer.vehicles}">
+                        <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
+                           th:href="@{'/vehicles/details/'+${vehicle.id}}"></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">note</i>
+                <textarea class="materialize-textarea" id="note" th:field="*{note}" disabled="disabled"></textarea>
+                <label for="note">Additional notes</label>
+            </div>
+        </div>
+    </form>
+</section>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+        $('.tooltipped').tooltip();
+    });
+</script>
 </body>
 </html>

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Create Customer</title>
 </head>
 <body>
@@ -81,6 +81,10 @@
                       th:errors="*{note}"></span>
             </div>
 
+            <div class="col l12 s12 valign-wrapper">
+                <a class="delete-link" th:href="@{'/employees/delete/' + ${employee.id}}">Delete employee
+                </a><i class="material-icons red-text">delete</i>
+            </div>
         </div>
 
         <div class="input-field center">

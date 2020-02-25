@@ -11,3 +11,29 @@ div.input-field {
     width: 35px;
     height: 35px;
 }
+
+.section {
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+}
+
+body{
+    background-size: cover;
+    min-height: 1000px;
+}
+
+#login-button{
+    margin-top: 30px;
+    width: 100%;
+}
+
+.delete-link{
+    color: red;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.btn-large{
+    margin-left: 10px;
+    margin-right: 10px;
+}

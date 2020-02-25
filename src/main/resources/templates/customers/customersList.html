@@ -13,13 +13,13 @@
 
 <div th:include="header.html"></div>
 
-
 <section class="container section">
 
     <div class="row">
-        <div class="col l10 s10"><h2>Customers</h2></div>
-        <div class="col l2 s2"><a class="btn waves-effect waves-light" th:href="@{/customers/add}">
-            Add new customer</a></div>
+        <div class="col l12 s12">
+            <h2>Customers <a class="btn waves-effect waves-light right"
+                                               th:href="@{/customers/add}">Add new customer</a></h2>
+        </div>
 
         <div class="col l12 s12">
             <table class="striped">

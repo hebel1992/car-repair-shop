@@ -1,30 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All Customers</title>
-    <link rel="stylesheet" href="../css/myStyles.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
+    <title>Customer List</title>
 </head>
 <body>
+
 <div th:include="header.html"></div>
 
-<button class="addRowButton" onclick="window.location.href='/customers/add'">Add new customer</button>
-<div class="main">
-    <h1>Customers List</h1>
-    <table border="1" class="blueTable">
-        <thead>
-        <tr>
-            <td>Name</td>
-            <td>Phone number</td>
-            <td></td>
-        </tr>
-        </thead>
-        <tr th:each="customer : ${customers}">
-            <td th:text="${customer.firstName + ' ' +customer.lastName}"></td>
-            <td th:text="${customer.phoneNumber}"></td>
-            <td><a th:href="@{'/customers/details/' + ${customer.id}}">More</a></td>
-        </tr>
-    </table>
-</div>
-<div th:include="footer.html"></div>
+
+<section class="container section">
+
+    <div class="row">
+        <div class="col l10 s10"><h2>Customers</h2></div>
+        <div class="col l2 s2"><a class="btn waves-effect waves-light" th:href="@{/customers/add}">
+            Add new customer</a></div>
+
+        <div class="col l12 s12">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone number</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.firstName + ' ' +customer.lastName}"></td>
+                    <td th:text="${customer.phoneNumber}"></td>
+                    <td><a th:href="@{'/customers/details/' + ${customer.id}}">More</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 </body>
 </html>

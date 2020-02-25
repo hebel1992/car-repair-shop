@@ -17,11 +17,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 60)
-    @Size(min = 5)
+    @Column(name ="username" ,nullable = false, unique = true)
+    @Size(min = 5, max = 15)
     private String username;
 
-    @Size(min = 5)
+    @Column(name = "password", nullable = false)
+    @Size(min = 8, message = "min 8 characters")
     private String password;
 
     private int enabled;

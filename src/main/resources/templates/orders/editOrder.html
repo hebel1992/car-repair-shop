@@ -2,65 +2,141 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
     <title>Edit Order</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
-    <h3 class="title">Edit Order</h3>
+<section class="container section">
+
     <form method="post" th:action="@{/orders/update-action}" th:object="${order}">
 
-        <input type="hidden" th:field="*{id}" />
-        <input type="hidden" th:field="*{created}" />
-        <input type="hidden" th:field="*{vehicle}" />
-        <input type="hidden" th:field="*{actualRepairStart}" />
-        <input type="hidden" th:field="*{repairProgressReport}" />
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{created}"/>
+        <input type="hidden" th:field="*{repairProgressReport}"/>
 
-        <p>Title:<span class="requiredFiled">*</span> <input th:field="*{title}" type="text"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-        </p>
+        <div class="row">
 
-        Initial diagnosis:<span class="requiredFiled">*</span>
-        <span class="alert alert-danger" th:if="${#fields.hasErrors('initialDiagnosis')}"
-                                                                    th:errors="*{initialDiagnosis}"></span>
-        <p><textarea th:field="*{initialDiagnosis}" rows="13" cols="80"/></p>
+            <div class="col s12">
+                <h3>Edit Order</h3>
+            </div>
 
-        Set status:
-        <p><select th:field="*{status}">
-            <option th:each="status : ${statusOptions}"
-                    th:text="${status.getDescription()}"
-                    th:value="${status.id}">
-            </option>
-        </select></p>
+            <div class="input-field col s12">
+                <input type="text" id="title" th:field="*{title}">
+                <label for="title">Title</label>
+                <span class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
 
-        <p>Vehicle: <span th:text="${order.vehicle.getBrand() + ' ' + order.vehicle.model + ' '
-        + order.vehicle.plateNumber}"></span></p>
+            <div class="input-field col s12">
+                <textarea class="materialize-textarea" id="initialDiagnosis" th:field="*{initialDiagnosis}"></textarea>
+                <label for="initialDiagnosis">Initial diagnosis</label>
+                <span class="error-message" th:if="${#fields.hasErrors('initialDiagnosis')}"
+                      th:errors="*{initialDiagnosis}"></span>
+            </div>
 
-        <p>Planned repair start:<span class="requiredFiled">*</span><input th:field="*{plannedRepairStart}" type="date">
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('plannedRepairStart')}"
-                  th:errors="*{plannedRepairStart}"></span>
-        </p>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">directions_car</i>
+                <select th:field="*{vehicle}">
+                    <option th:value="null" th:text="'Choose Vehicle'"></option>
+                    <option th:each="vehicle : ${vehicles}"
+                            th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
+                            th:value="${vehicle.id}">
+                    </option>
+                </select>
+                <label>Vehicle</label>
+                <span class="error-message" th:if="${#fields.hasErrors('vehicle')}"
+                      th:errors="*{vehicle}"></span>
+            </div>
+
+            <div class="input-field col l6 s12">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" class="datepicker" id="plannedDate" th:field="*{plannedRepairStart}">
+                <label for="plannedDate">Planned Repair Start</label>
+                <span class="error-message" th:if="${#fields.hasErrors('plannedRepairStart')}"
+                      th:errors="*{plannedRepairStart}"></span>
+            </div>
+
+            <div class="input-field col l6 s12">
+                <i class="material-icons prefix">date_range</i>
+                <input type="text" class="datepicker" id="actualDate" th:field="*{actualRepairStart}">
+                <label for="actualDate">Actual Repair Start</label>
+                <span class="error-message" th:if="${#fields.hasErrors('actualRepairStart')}"
+                      th:errors="*{actualRepairStart}"></span>
+            </div>
+
+            <div class="input-field col l12">
+                <i class="prefix"><img class="my-icon" th:src="@{/img/mechanic.png}"/></i>
+                <select th:field="*{employees}" multiple>
+                    <option value="" disabled selected>Choose employee(s)</option>
+                    <option th:each="employee : ${employees}"
+                            th:text="${employee.firstName + ' ' +employee.lastName}"
+                            th:value="${employee.id}">
+                    </option>
+                </select>
+                <label>Employee(s)</label>
+                <span class="error-message" th:if="${#fields.hasErrors('employees')}"
+                      th:errors="*{employees}"></span>
+            </div>
 
 
-        Assign employee(s):<span class="requiredFiled">*</span> <span class="alert alert-danger"
-                                                                      th:if="${#fields.hasErrors('employees')}"
-                                                                      th:errors="*{employees}"></span>
-        <p><select th:field="*{employees}" th:multiple="true">
-            <option th:each="employee : ${employees}"
-                    th:text="${employee.firstName + ' ' +employee.lastName}"
-                    th:value="${employee.id}">
-            </option>
-        </select></p>
+            <div class="input-field col s12">
+                <i class="material-icons prefix">emoji_objects</i>
+                <select th:field="*{status}">
+                    <option th:value="null" th:text="'Choose Status'"></option>
+                    <option th:each="status : ${statusOptions}"
+                            th:text="${status.description}"
+                            th:value="${status.id}">
+                    </option>
+                </select>
+                <label>Status</label>
+                <span class="error-message" th:if="${#fields.hasErrors('status')}"
+                      th:errors="*{status}"></span>
+            </div>
 
-        <p>Price of service: <input th:field="*{priceOfService}" type="number" step="0.01"
-                                    maxlength="15" placeholder="not set"/><span class="alert alert-danger"
-                                                          th:if="${#fields.hasErrors('priceOfService')}"
-                                                          th:errors="*{priceOfService}"></span></p>
+            <div class="col s12 valign-wrapper">
+                <a class="delete-link modal-trigger " href="#delete-form">Delete order
+                </a><i class="material-icons red-text">delete</i>
+            </div>
+        </div>
 
-        <input type="submit" name="action" value="Update" class="button">
-        <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="button" value="Cancel"/></a>
+        <div class="input-field center">
+            <button class="btn-large">Submit</button>
+
+            <a th:href="@{'/orders/details/'+${order.id}}">
+                <input type="button" value="Cancel" class="btn-large"></a>
+        </div>
+
+        <div id="delete-form" class="modal">
+            <div class="modal-content center-align">
+                <h2>Are you sure ?</h2>
+                <a class="btn" th:href="@{'/orders/delete-action/' + ${id} + '?action=true'}">
+                    Yes
+                </a>
+                <a class="btn modal-close">
+                    No
+                </a>
+            </div>
+        </div>
     </form>
-</div>
+</section>
+<div th:include="footer.html"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            showClearBtn: true
+        })
+
+        $('select').formSelect();
+        $('.modal').modal();
+    });
+</script>
 </body>
 </html>

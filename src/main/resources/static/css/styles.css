@@ -12,33 +12,37 @@ div.input-field {
     height: 35px;
 }
 
+.calendar {
+    margin-right: 5px;
+}
+
 .section {
     padding-top: 4vw;
     padding-bottom: 4vw;
 }
 
-body{
+body {
     background-size: cover;
     min-height: 1000px;
 }
 
-#login-button{
+#login-button {
     margin-top: 30px;
     width: 100%;
 }
 
-.delete-link{
+.delete-link {
     color: red;
     font-weight: bold;
     font-size: 20px;
 }
 
-.btn-large{
+.btn-large {
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.btn{
+.btn {
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -49,3 +53,10 @@ body {
     flex-direction: column;
 }
 
+.wrench-icon {
+    font-size: 40px;
+}
+
+.order-title {
+    font-weight: bold;
+}

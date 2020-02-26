@@ -19,10 +19,12 @@ import java.util.List;
 @Table(name = "customers")
 public class Customer extends AbstractEntity {
 
+    @NotNull
     @Size(min = 2, message = "min 2 characters")
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotNull
     @Size(min = 2, message = "min 2 characters")
     @Column(name = "last_name", nullable = false)
     private String lastName;

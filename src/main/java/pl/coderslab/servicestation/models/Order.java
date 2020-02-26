@@ -22,19 +22,18 @@ import java.util.Set;
 @Table(name = "orders")
 public class Order extends AbstractEntity {
 
-    @NotBlank
     @NotNull
+    @NotBlank
     @Column(name = "title")
     private String title;
 
-    @Size(min = 10, max = 10000)
     @NotNull
+    @Size(min = 10, max = 10000)
     @Column(name = "initial_diagnosis", columnDefinition = "text")
     private String initialDiagnosis;
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Future
     @Column(name = "planned_repair_start")
     private LocalDate plannedRepairStart;
 
@@ -59,6 +58,7 @@ public class Order extends AbstractEntity {
     @Column(name = "updated")
     private LocalDate updated;
 
+    @NotNull(message = "Report is required", groups = {FinishedOrderGroup.class})
     @Size(min = 100, max = 10000, message = "min 100 and max 10000 characters", groups = {FinishedOrderGroup.class})
     @Column(name = "repair_progress_report", columnDefinition = "text")
     private String repairProgressReport;

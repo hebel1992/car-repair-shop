@@ -7,16 +7,20 @@
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
+<section class="container section">
 
-    <h3 class="title">Course of the service</h3>
+    <h3 class="title">Repair progress<a class="tooltipped btn-floating btn-large cyan"
+                                               th:href="@{'/orders/update/' + ${order.id}}"
+                                               data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h3>
 
     <p><span>Title:</span> <span th:text="${order.title}"></span></p>
 
     <span style="font-weight: bold">Initial diagnosis:</span>
     <p><textarea disabled th:field="*{order.initialDiagnosis}" rows="5" cols="60"/></p>
 
-    <p><span>Vehicle:</span> <span th:text="${order.vehicle.brand + ' ' + order.vehicle.model + ' reg:' +order.vehicle.plateNumber}"></span></p>
+    <p><span>Vehicle:</span> <span
+            th:text="${order.vehicle.brand + ' ' + order.vehicle.model + ' reg:' +order.vehicle.plateNumber}"></span>
+    </p>
 
     <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
@@ -26,7 +30,8 @@
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
-    <p><a th:href="@{'/orders/repair-progress-report-update/' + ${order.id}}" class="editLink">Repair progress report</a></p>
+    <p><a th:href="@{'/orders/repair-progress-report-update/' + ${order.id}}" class="editLink">Repair progress
+        report</a></p>
 
     <div th:if="${order.cancelReason!=null}"><span style="font-weight: bold">Cancellation reason: </span>
         <p><textarea disabled th:field="*{order.cancelReason}" rows="5" cols="60"/></p></div>
@@ -36,10 +41,9 @@
             class="noValueStyle">To be set at the end of the service</data></span><span
             th:text="${order.priceOfService}"></span></p>
 
-
     <p><span>Employee(s) assigned to order:</span>
     <ul>
-        <li th:each="employee : ${employeesAssignedToOrder}">
+        <li th:each="employee : ${order.employees}">
             <a th:text="${employee.firstName + ' ' + employee.lastName}"
                th:href="@{'/employees/details/'+${employee.id}}"></a>
         </li>
@@ -48,7 +52,7 @@
 
     <p><span>Parts: </span><span class="noValueStyle"
                                  th:if="${order.parts.size()<1}">No parts added to this order</span>
-        <p><a th:href="@{'/orders/add-part-to-order/' + ${order.id}}">Add parts</a></p>
+    <p><a th:href="@{'/orders/add-part-to-order/' + ${order.id}}">Add parts</a></p>
     <div th:if="${order.parts.size()>0}">
         <table border="1" class="parts">
             <thead>
@@ -96,10 +100,14 @@
 
     <p th:if="${order.status.id==2}"><a th:href="@{'/orders/finish-repair/' + ${order.id}}">Finish repair</a> /
         <a th:href="@{'/orders/cancel-repair/' + ${order.id}}">Cancel repair</a></p>
-
-    <p><a class="editLink" th:href="@{'/orders/update/' + ${order.id}}">Edit mode</a></p>
-
-    <p><a class="deleteLink" th:href="@{'/orders/delete/' + ${order.id}}">Delete order</a></p>
-</div>
+</section>
+<div th:include="footer.html"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+        $('.tooltipped').tooltip();
+    });
+</script>
 </body>
 </html>

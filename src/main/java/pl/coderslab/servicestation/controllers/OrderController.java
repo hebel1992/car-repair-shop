@@ -120,9 +120,9 @@ public class OrderController {
     @GetMapping("/details/{id}")
     public String orderDetails(@PathVariable("id") Long id, Model model) {
         Order order = orderService.findById(id);
-        Set<Employee> employeesAssignedToOrder = employeeService.findEmployeesByOrderId(id);
+//        Set<Employee> employeesAssignedToOrder = employeeService.findEmployeesByOrderId(id);
         model.addAttribute("order", order);
-        model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
+//        model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
 
         return "/orders/orderCourse";
     }

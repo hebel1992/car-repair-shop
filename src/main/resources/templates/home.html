@@ -4,66 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- font awesome -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
           integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Home Page</title>
 </head>
 <body>
 <div th:include="header.html"></div>
 
-<!--<a th:href="@{'/orders/add'}"><input type="button" class="addRowButton" value="Create order"/></a>-->
-
 <section class="container section">
     <div class="row">
+
         <div class="col s12">
-            <h2>Current repairs</h2>
+            <h2>Current repairs <a th:href="@{'/orders/add'}"
+                                   class="tooltipped btn-floating btn-large light-blue right"
+                                   data-tooltip="Create Order"><i
+                    class="material-icons">add</i></a></h2>
         </div>
+
         <tr th:each="startedOrder : ${ordersStarted}">
-            <div class="col l4 m6 s12">
-                <div class="card blue lighten-4">
+            <div class="col s12 m6 l4">
+                <div class="card light-blue lighten-3">
                     <a th:href="'/orders/details/'+ ${startedOrder.id}">
                         <div class="card-content white-text">
-                            <span class="card-title" th:text="${startedOrder.title}"></span>
-                            <p th:text="'Status: ' + ${startedOrder.status.description}"></p>
+                            <span class="card-title"><span class="order-title" th:text="${startedOrder.title}"></span>
+                                <i class="material-icons calendar wrench-icon right">build</i></span>
                             <p th:text="'Vehicle: ' + ${startedOrder.vehicle.brand + ' ' +
                             startedOrder.vehicle.model + ' ' + startedOrder.vehicle.plateNumber}"></p>
+                            <p th:text="'Status: ' + ${startedOrder.status.description}"></p>
                         </div>
                         <div class="card-action">
-                            <span th:text="'Start date: ' + ${startedOrder.actualRepairStart}"></span>
+                            <div class="valign-wrapper">
+                                <i class="material-icons calendar">calendar_today</i>
+                                <span th:text="'Start date: ' + ${startedOrder.actualRepairStart}"></span>
+                            </div>
                         </div>
                     </a>
                 </div>
             </div>
         </tr>
+
         <div class="col s12">
             <h2>Planned repairs</h2>
         </div>
+
         <tr th:each="plannedOrder : ${plannedOrders}">
-            <div class="col l4 m6 s12">
-                <div class="card blue lighten-4">
-                    <a th:href="'/orders/details/'+${plannedOrder.id}">
+            <div class="col s12 m6 l4">
+                <div class="card light-blue lighten-4">
+                    <a th:href="'/orders/details/'+ ${plannedOrder.id}">
                         <div class="card-content white-text">
-                            <span class="card-title" th:text="${plannedOrder.title}"></span>
-                            <div th:text="'Status: ' + ${plannedOrder.status.description}"></div>
-                            <span th:text="'Vehicle: ' + ${plannedOrder.vehicle.brand + ' ' +
-                            plannedOrder.vehicle.model + ' ' + plannedOrder.vehicle.plateNumber}"></span>
+                            <span class="card-title"><span class="order-title" th:text="${plannedOrder.title}"></span>
+                                <i class="material-icons calendar wrench-icon right">build</i></span>
+                            <p th:text="'Vehicle: ' + ${plannedOrder.vehicle.brand + ' ' +
+                            plannedOrder.vehicle.model + ' ' + plannedOrder.vehicle.plateNumber}"></p>
+                            <p th:text="'Status: ' + ${plannedOrder.status.description}"></p>
                         </div>
                         <div class="card-action">
-                            <span th:text="'Planned starting date: ' + ${plannedOrder.plannedRepairStart}"></span>
+                            <div class="valign-wrapper">
+                                <i class="material-icons calendar">calendar_today</i>
+                                <span th:text="'Planned start date: ' + ${plannedOrder.plannedRepairStart}"></span>
+                            </div>
                         </div>
                     </a>
                 </div>
             </div>
         </tr>
+
         <div class="col s12" style="height: 100px">
         </div>
     </div>
 </section>
 <div th:include="footer.html"></div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+    $(function () {
+        $('.tooltipped').tooltip();
+    });
+</script>
 </body>
 </html>

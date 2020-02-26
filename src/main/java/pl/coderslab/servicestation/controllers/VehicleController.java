@@ -70,13 +70,6 @@ public class VehicleController {
     }
 
     @Secured("ROLE_ADMIN")
-    @GetMapping("/delete/{id}")
-    public String deleteVehicle(Model model, @PathVariable Long id) {
-        model.addAttribute("id", id);
-        return "vehicles/deleteVehicle";
-    }
-
-    @Secured("ROLE_ADMIN")
     @GetMapping("/delete-action/{id}")
     public String deleteVehicleAction(@PathVariable Long id, @RequestParam("action") boolean action) {
         if (action) {

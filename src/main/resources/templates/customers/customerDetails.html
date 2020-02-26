@@ -30,35 +30,35 @@
                 <label for="firstName">Last Name</label>
             </div>
 
-            <div class="input-field col l12 s12">
+            <div class="input-field col s12">
                 <i class="material-icons prefix">date_range</i>
                 <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}" disabled="disabled">
                 <label th:if="${customer.dateOfBirth!=null}" for="dob">Date Of Birth</label>
                 <label th:if="${customer.dateOfBirth==null}" for="dob">Date Of Birth not set</label>
             </div>
 
-            <div class="input-field col l12 s12">
+            <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
                 <input type="text" id="email" th:field="*{email}" disabled="disabled">
                 <label th:if="${customer.email!=null}" for="email">Email</label>
                 <label th:if="${customer.email==null}" for="email">Email not set</label>
             </div>
 
-            <div class="input-field col l12 s12">
+            <div class="input-field col s12">
                 <i class="material-icons prefix">home</i>
                 <input type="text" id="address" th:field="*{address}" disabled="disabled">
                 <label th:if="${customer.address!=null}" for="address">Address</label>
                 <label th:if="${customer.address==null}" for="address">Address not set</label>
             </div>
 
-            <div class="input-field col l12 s12">
+            <div class="input-field col s12">
                 <i class="material-icons prefix">local_phone</i>
                 <input type="text" id="phone" th:field="*{phoneNumber}" disabled="disabled">
                 <label th:if="${customer.phoneNumber!=null}" for="phone">Phone number</label>
                 <label th:if="${customer.phoneNumber==null}" for="phone">Phone number not set</label>
             </div>
 
-            <div class="col l12 s12"><span>Vehicles:</span>
+            <div class="col s12"><span>Vehicles:</span>
                 <ul>
                     <li th:each="vehicle : ${customer.vehicles}">
                         <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"
@@ -67,7 +67,7 @@
                 </ul>
             </div>
 
-            <div class="input-field col l12 s12">
+            <div class="input-field col s12">
                 <i class="material-icons prefix">note</i>
                 <textarea class="materialize-textarea" id="note" th:field="*{note}" disabled="disabled"></textarea>
                 <label for="note">Additional notes</label>

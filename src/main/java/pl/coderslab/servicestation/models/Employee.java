@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.coderslab.servicestation.validators.MinAge;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -30,7 +31,7 @@ public class Employee extends AbstractEntity {
     private String lastName;
 
     @NotNull
-    @Past(message = "must be date from the past")
+    @MinAge(minAge = 16, message = "must be over 16")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;

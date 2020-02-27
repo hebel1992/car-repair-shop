@@ -40,6 +40,7 @@ body {
 .btn-large {
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 10px;
 }
 
 .btn {
@@ -62,13 +63,60 @@ body {
 }
 
 
-#progress-sheet{
+#progress-sheet {
     width: 50%;
     height: 100%;
 }
 
-#progress-textarea{
+#progress-textarea {
     width: 100%;
     height: 500px;
     font-size: 20px;
+}
+
+#cancel-sheet {
+    width: 100%;
+    height: 100%;
+}
+
+#cancel-textarea {
+    width: 100%;
+    height: 350px;
+    font-size: 20px;
+}
+
+#add-part-form {
+    margin-bottom: 15px;
+}
+
+#parts-collection {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.order-details {
+    border-style: groove;
+    font-size: 18px;
+    background-color: white;
+}
+
+.order-details-icons{
+    font-size: 40px;
+}
+
+.order-details-section{
+    border-top-style: groove;
+}
+
+.order-section-title{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.invoice-position {
+    float:left; /* disable the float */
+    clear: column;
+    display: inline; /* make blocks inline-block */
+    margin-right: 15px;
 }

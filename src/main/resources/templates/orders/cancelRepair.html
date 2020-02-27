@@ -2,42 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Cancel Order</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
-    <h3 class="title">Cancel Order</h3>
+<section class="container section">
 
-    <h4>Please provide reason for cancellation</h4>
+    <div class="row">
 
-    <form method="post" th:action="@{/orders/cancel-repair-action}" th:object="${order}">
+        <div class="col s12">
+            <h3 class="title">Cancel Repair</h3>
+        </div>
 
-        <span style="font-weight: bold">Reason:<span class="requiredFiled">*</span></span>:<span class="alert alert-danger" th:if="${#fields.hasErrors('cancelReason')}"
-                                                                      th:errors="*{cancelReason}"></span>
-        <p>
-            <textarea th:field="*{cancelReason}" rows="5" cols="60"/>
-        </p>
+        <div class="col s12">
+            <h4>Please provide reason for cancellation</h4>
+        </div>
 
-        <input type="submit" name="action" value="Finish" class="button">
-        <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="button" value="Cancel"/></a>
+        <form method="post" th:action="@{/orders/cancel-repair-action}" th:object="${order}">
 
-        <input type="hidden" th:field="*{id}"/>
-        <input type="hidden" th:field="*{title}"/>
-        <input type="hidden" th:field="*{initialDiagnosis}"/>
-        <input type="hidden" th:field="*{vehicle}"/>
-        <input type="hidden" th:field="*{parts}"/>
-        <input type="hidden" th:field="*{invoices}"/>
-        <input type="hidden" th:field="*{employees}"/>
-        <input type="hidden" th:field="*{plannedRepairStart}"/>
-        <input type="hidden" th:field="*{actualRepairStart}"/>
-        <input type="hidden" th:field="*{priceOfService}"/>
-        <input type="hidden" th:field="*{repairProgressReport}"/>
-        <input type="hidden" th:field="*{created}"/>
-        <input type="hidden" th:field="*{updated}"/>
+            <div class="col s12">
+                <p>Reason: <span class="error-message" th:if="${#fields.hasErrors('cancelReason')}"
+                                 th:errors="*{cancelReason}"></span></p>
+                <div id="cancel-sheet">
+                    <textarea id="cancel-textarea" th:field="*{cancelReason}"></textarea>
+                </div>
+            </div>
 
-    </form>
-</div>
+            <div class="col s12 center-align">
+                <input type="submit" value="Submit" class="btn-large" id="cancel-order-btn">
+                <a class="btn-large" th:href="@{'/orders/details/' + ${order.id}}">Cancel</a>
+            </div>
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{title}"/>
+            <input type="hidden" th:field="*{initialDiagnosis}"/>
+            <input type="hidden" th:field="*{vehicle}"/>
+            <input type="hidden" th:field="*{parts}"/>
+            <input type="hidden" th:field="*{invoices}"/>
+            <input type="hidden" th:field="*{employees}"/>
+            <input type="hidden" th:field="*{plannedRepairStart}"/>
+            <input type="hidden" th:field="*{actualRepairStart}"/>
+            <input type="hidden" th:field="*{priceOfService}"/>
+            <input type="hidden" th:field="*{repairProgressReport}"/>
+            <input type="hidden" th:field="*{created}"/>
+            <input type="hidden" th:field="*{updated}"/>
+
+        </form>
+    </div>
+</section>
+<div th:include="footer.html"></div>
 </body>
 </html>

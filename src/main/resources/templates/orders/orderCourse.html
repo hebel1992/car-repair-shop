@@ -2,105 +2,128 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Course of the service</title>
-    <link rel="stylesheet" th:href="@{../css/myStyle.css}" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+    <title>Repair Progress</title>
 </head>
 <body>
 <div th:include="header.html"></div>
 <section class="container section">
 
-    <h3 class="title">Repair progress<a class="tooltipped btn-floating btn-large cyan"
-                                        th:href="@{'/orders/update/' + ${order.id}}"
-                                        data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h3>
+    <div class="row order-details">
 
-    <p><span>Title:</span> <span th:text="${order.title}"></span></p>
+        <div class="col s12 center-align">
 
-    <span style="font-weight: bold">Initial diagnosis:</span>
-    <p><textarea disabled th:field="*{order.initialDiagnosis}" rows="5" cols="60"/></p>
+            <h3 class="title">Repair progress<a class="tooltipped btn-floating btn-large cyan right"
+                                                th:href="@{'/orders/update/' + ${order.id}}"
+                                                data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h3>
+            <h5 th:text="${order.title}"></h5>
+        </div>
 
-    <p><span>Vehicle:</span> <span
-            th:text="${order.vehicle.brand + ' ' + order.vehicle.model + ' reg:' +order.vehicle.plateNumber}"></span>
-    </p>
+        <div class="col s12">
+            <p><span class="order-section-title">Initial diagnosis:</span> <span th:field="*{order.initialDiagnosis}"
+                                                                                 th:text="${order.initialDiagnosis}"></span>
+            </p>
+        </div>
 
-    <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
 
-    <p><span>Actual repair start:</span>
-        <data class="noValueStyle" th:if="${order.actualRepairStart==null}">Repair not started</data>
-        <span th:if="${order.actualRepairStart!=null}"> <data th:text="${order.actualRepairStart}"></data> </span></p>
+        <div class="col s12" style="border-top-style: groove">
+            <p class="valign-wrapper"><i class="material-icons prefix order-details-icons">directions_car</i>
+                <span class="order-section-title">Vehicle:</span> <span th:text="${order.vehicle.brand + ' '
+                + order.vehicle.model + ' reg:' + order.vehicle.plateNumber}"></span></p>
+        </div>
 
-    <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
-    <p><a href="#progress-sheet" class="modal-trigger">Repair progress
-        report</a></p>
+        <div class="col s12">
+            <p><span>Planned repair start:</span> <span th:text="${order.plannedRepairStart}"></span></p>
+        </div>
 
-    <div th:if="${order.cancelReason!=null}"><span style="font-weight: bold">Cancellation reason: </span>
-        <p><textarea disabled th:field="*{order.cancelReason}" rows="5" cols="60"/></p></div>
+        <div class="col s12">
+            <p><span>Actual repair start:</span>
+                <span class="noValueStyle" th:if="${order.actualRepairStart==null}">Repair not started</span>
+                <span th:if="${order.actualRepairStart!=null}"> <span
+                        th:text="${order.actualRepairStart}"></span> </span></p>
+        </div>
 
-    <p><span>Price of service:</span> <span
-            th:if="${order.priceOfService==null}"><data
-            class="noValueStyle">To be set at the end of the service</data></span><span
-            th:text="${order.priceOfService}"></span></p>
+        <div class="col s12">
+            <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
+        </div>
 
-    <p><span>Employee(s) assigned to order:</span>
-    <ul>
-        <li th:each="employee : ${order.employees}">
-            <a th:text="${employee.firstName + ' ' + employee.lastName}"
-               th:href="@{'/employees/details/'+${employee.id}}"></a>
-        </li>
-    </ul>
-    </p>
+        <!--Progress sheet MODAL-TRIGGER-->
+        <div class="col s12">
+            <p class="valign wrapper"><i class="far fa-clipboard order-details-icons"></i> <a href="#progress-sheet"
+                                                                                              class="modal-trigger">
+                Repair progress report</a></p>
+        </div>
 
-    <p><span>Parts: </span><span class="noValueStyle"
-                                 th:if="${order.parts.size()<1}">No parts added to this order</span>
-    <p><a th:href="@{'/orders/add-part-to-order/' + ${order.id}}">Add parts</a></p>
-    <div th:if="${order.parts.size()>0}">
-        <table border="1" class="parts">
-            <thead>
-            <tr>
-                <td>Name</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td></td>
-            </tr>
-            </thead>
-            <tr th:each="part : ${order.parts}">
-                <td th:text="${part.name}"></td>
-                <td th:text="${part.price}"></td>
-                <td th:text="${part.quantity}"></td>
-                <td><a th:href="@{'/orders/delete-part-then-back-to-order/' + ${part.id} + '/' + ${order.id}}">
-                    <button class="minus"> -</button>
-                </a></td>
-            </tr>
-        </table>
-    </div>
-    </p>
+        <div class="col s12">
+            <div th:if="${order.cancelReason!=null}"><span style="font-weight: bold">Cancellation reason: </span>
+                <p><textarea disabled th:field="*{order.cancelReason}" rows="5" cols="60"/></p></div>
+        </div>
 
-    <p><span>Invoices:</span> <span class="noValueStyle"
-                                    th:if="${order.invoices.size()==0}">
+        <div class="col s12">
+            <p><span>Price of service:</span> <span
+                    th:if="${order.priceOfService==null}"><data
+                    class="noValueStyle">To be set at the end of the repair</data></span><span
+                    th:text="${order.priceOfService}"></span></p>
+        </div>
+
+        <div class="col s12" style="border-top-style: groove">
+            <p>
+                <i class="prefix"><img class="my-icon order-details-icons" th:src="@{/img/mechanic.png}"/></i>
+                <span>Employee(s) assigned to order:</span>
+            <ul>
+                <li th:each="employee : ${order.employees}">
+                    <a th:text="${employee.firstName + ' ' + employee.lastName}"
+                       th:href="@{'/employees/details/'+${employee.id}}"></a>
+                </li>
+            </ul>
+            </p>
+        </div>
+
+        <div class="col s12 center-align" style="border-top-style: groove; font-size: 25px">
+            <p><a th:href="@{'/orders/manage-parts/' + ${order.id}}">Manage parts</a></p>
+        </div>
+
+        <div class="col s12 order-details-section" style="margin-bottom: 20px">
+            <p><span class="order-section-title">Invoices:</span> <span class="noValueStyle"
+                                            th:if="${order.invoices.size()==0}">
             No invoice attached to this order</span></p>
-    <p><a th:href="@{'/orders/upload-invoice/' + ${order.id}}">Upload invoice</a></p>
+            <!--Upload invoice MODAL-TRIGGER-->
+            <p><a class="modal-trigger" href="#upload-invoice">Upload invoice</a></p>
 
-    <div>
-        <ul>
-            <li th:each="image : ${order.invoices}">
-                <img class="responsive-img materialboxed" height="100" width="100" alt="invoice"
+            <tr th:each="image : ${order.invoices}">
+                <img class="responsive-img materialboxed invoice-position" height="100" width="100" alt="invoice"
                      th:src="*{'data:image/png;base64,' + image.code}"/>
-                <a th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
-                <button class="btn"> - </button>
-            </a></li>
-        </ul>
+                <a class="invoice-position" th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
+                    <button class="btn-floating btn-small red">-</button>
+                </a>
+            </tr>
+        </div>
+
+        <div class="col s12" style="border-top-style: groove">
+            <p><span>Created:</span> <span th:text="${order.created}"></span></p>
+
+            <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
+        </div>
+
+        <!--Start repair MODAL-TRIGGER-->
+        <div class="col s12" style="border-top-style: groove">
+            <p th:if="${order.status.id==1}"><a class="modal-trigger" href="#start-repair">Start repair</a> /
+                <a th:href="@{'/orders/cancel-repair/' + ${order.id}}">Cancel repair</a></p>
+
+            <p th:if="${order.status.id==2}"><a th:href="@{'/orders/finish-repair/' + ${order.id}}">Finish repair</a> /
+                <a th:href="@{'/orders/cancel-repair/' + ${order.id}}">Cancel repair</a></p>
+        </div>
+
     </div>
 
-    <p><span>Created:</span> <span th:text="${order.created}"></span></p>
-
-    <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
-
-    <p th:if="${order.status.id==1}"><a th:href="@{'/orders/start-repair/'+${order.id}}">Start repair</a> /
-        <a th:href="@{'/orders/cancel-repair/' + ${order.id}}">Cancel repair</a></p>
-
-    <p th:if="${order.status.id==2}"><a th:href="@{'/orders/finish-repair/' + ${order.id}}">Finish repair</a> /
-        <a th:href="@{'/orders/cancel-repair/' + ${order.id}}">Cancel repair</a></p>
-
+    <!--Progress sheet MODAL-->
     <div id="progress-sheet" class="modal">
         <div class="modal-content center-align">
             <h3 class="title">Repair progress sheet</h3>
@@ -109,10 +132,40 @@
 
                 <div><textarea id="progress-textarea" th:name="report"
                                th:text="${order.repairProgressReport}"></textarea></div>
+                <button type="submit" class="btn-large">Submit</button>
+                <button class="btn-large modal-close">Cancel</button>
+            </form>
+        </div>
+    </div>
 
-                <input type="submit" name="action" value="Update" class="btn-large">
-                <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="btn-large modal-close"
-                                                                        value="Cancel"/></a>
+
+    <!--Start repair MODAL-->
+    <div id="start-repair" class="modal">
+        <div class="modal-content center-align">
+            <h2 class="title">Are you sure you wanna start this repair?</h2>
+            <a class="btn-large" th:href="@{'/orders/start-repair-action/'
+            + ${order.id} + '?action=true'}">Yes</a>
+            <button class="btn-large modal-close">No</button>
+        </div>
+    </div>
+
+
+    <!--Upload invoice MODAL-->
+    <div id="upload-invoice" class="modal">
+        <div class="modal-content center-align">
+            <form method="POST" enctype="multipart/form-data"
+                  th:action="@{'/orders/upload-invoice-action/' + ${order.id}}">
+                <h4 class="title">Upload invoice</h4>
+
+                <p>Choose file:
+                    <input type="file" name="file"/>
+
+                    <!--                    <input type="button" id="loadFileXml" value="loadXml" onclick="document.getElementById('file').click();" />-->
+                    <!--                    <input type="file" style="display:none;" id="file" name="file"/>-->
+                </p>
+
+                <input class="btn" type="submit" value="Upload"/>
+
             </form>
         </div>
     </div>

@@ -2,60 +2,74 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Add parts to order</title>
-    <link rel="stylesheet" th:href="@{/css/myStyles.css}" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+    <title>Manage parts</title>
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
-    <h3 class="title">Add parts to order</h3>
-    <form method="post" th:action="@{'/orders/add-part-to-order-action/'+ ${orderId}}" th:object="${part}">
+<section class="container section">
+    <div class="row">
 
-        <p>Name: <input th:field="*{name}" type="text"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-        </p>
+        <form method="post" th:action="@{'/orders/add-part-to-order-action/'+ ${orderId}}" th:object="${part}">
 
-        <p>Price: <input th:field="*{price}" type="number" step="0.01"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-        </p>
+            <div class="col s12"><h3>Parts Manager</h3></div>
 
-        <p>Quantity: <input th:field="*{quantity}" type="number" step="1"/>
-            <span class="alert alert-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
-        </p>
+            <div class="input-field col s12">
+                <input id="name" th:field="*{name}" type="text"/>
+                <label for="name">Name</label>
+                <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
 
-        <div id="parts">
-            <p>
-                <button id="add-part" class="plus">Add part</button>
-            </p>
-            <span id="last"></span>
+            <div class="input-field col s12">
+                <input id="price" th:field="*{price}" type="number" step="0.01"/>
+                <label for="price">Price</label>
+                <span class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+
+            <div class="input-field col s12">
+                <input id="quantity" th:field="*{quantity}" type="number" step="1"/>
+                <label for="quantity">Quantity</label>
+                <span class="error-message" th:if="${#fields.hasErrors('quantity')}"
+                      th:errors="*{quantity}"></span>
+            </div>
+
+            <div class="col s12">
+                <button class="btn">Add part</button>
+            </div>
+        </form>
+
+        <div id="parts-collection" class="col s12" >
+            <div th:if="${addedParts.size()<1}">No parts added yet</div>
+            <div th:if="${addedParts.size()>=1}">
+                <ul class="collection with-header">
+                    <li class="collection-header"><h4>Parts</h4></li>
+                    <tr th:each="part : ${addedParts}">
+                        <li class="collection-item">
+                            <div><span th:text="${part.name}"></span>
+                                <span th:text="'X' + ${part.quantity}"></span>
+                                <span th:text="'$' + ${part.price}"></span>
+                                <a class="secondary-content" th:href="@{'/orders/delete-part/'
+                            + ${part.id} + '/' + ${orderId}}">
+                                    <i class="material-icons red-text">delete</i>
+                                </a>
+                            </div>
+                        </li>
+                    </tr>
+                </ul>
+            </div>
         </div>
 
+        <div class="col right">
+            <a class="btn-large" th:href="@{'/orders/details/'+ ${orderId}}">Back To Order</a>
+        </div>
 
-
-            <table border="1" class="parts">
-                <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Price</td>
-                    <td>Quantity</td>
-                    <td></td>
-                </tr>
-                </thead>
-                <tr th:each="part : ${addedParts}">
-                    <td th:text="${part.name}"></td>
-                    <td th:text="${part.price}"></td>
-                    <td th:text="${part.quantity}"></td>
-                    <td><a th:href="@{'/orders/delete-part-then-back-to-add-part/' + ${part.id} + '/' + ${orderId}}">
-                        <input type="button" class="minus" value="-"/>
-                    </a>
-                    </a></td>
-                </tr>
-            </table><br/>
-
-        <a th:href="@{'/orders/details/'+ ${orderId}}"><input type="button" class="button" value="Finish"/></a>
-    </form>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script th:src="@{/js/addOrderScript.js}"></script>
+    </div>
+</section>
+<div th:include="footer.html"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 </body>
 </html>

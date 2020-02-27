@@ -47,7 +47,7 @@ public class OrderController {
         return "redirect:/home";
     }
 
-    @GetMapping("/add-part-to-order/{orderId}")
+    @GetMapping("/manage-parts/{orderId}")
     public String addPartsToOrder(Model model, @PathVariable Long orderId) {
         Part part = new Part();
         Order order = orderService.findById(orderId);
@@ -68,27 +68,14 @@ public class OrderController {
 
         model.addAttribute("addedParts", order.getParts());
 
-        return "redirect:/orders/add-part-to-order/" + orderId;
+        return "redirect:/orders/manage-parts/" + orderId;
     }
 
-    @GetMapping("/delete-part-then-back-to-order/{partId}/{orderId}")
-    public String deletePart1(@PathVariable Long partId, @PathVariable Integer orderId) {
-        orderService.deletePart(partId);
-
-        return "redirect:/orders/details/" + orderId;
-    }
-
-    @GetMapping("/delete-part-then-back-to-add-part/{partId}/{orderId}")
+    @GetMapping("/delete-part/{partId}/{orderId}")
     public String deletePart2(@PathVariable Long partId, @PathVariable Integer orderId) {
         orderService.deletePart(partId);
 
-        return "redirect:/orders/add-part-to-order/" + orderId;
-    }
-
-    @GetMapping("/upload-invoice/{orderId}")
-    public String uploadInvoice(@PathVariable("orderId") Long orderId, Model model) {
-        model.addAttribute("orderId", orderId);
-        return "/orders/uploadInvoiceForm";
+        return "redirect:/orders/manage-parts/" + orderId;
     }
 
     @PostMapping("/upload-invoice-action/{orderId}")
@@ -111,10 +98,9 @@ public class OrderController {
     @GetMapping("/details/{id}")
     public String orderDetails(@PathVariable("id") Long id, Model model) {
         Order order = orderService.findById(id);
-//        Set<Employee> employeesAssignedToOrder = employeeService.findEmployeesByOrderId(id);
         model.addAttribute("order", order);
-//        model.addAttribute("employeesAssignedToOrder", employeesAssignedToOrder);
-
+        Part part = new Part();
+        model.addAttribute("part", part);
         return "/orders/orderCourse";
     }
 
@@ -128,12 +114,6 @@ public class OrderController {
         return "redirect:/orders/details/" + orderId;
     }
 
-    @GetMapping("/start-repair/{orderId}")
-    public String startRepair(Model model, @PathVariable("orderId") Long orderId) {
-        Order order = orderService.findById(orderId);
-        model.addAttribute("order", order);
-        return "orders/startRepair";
-    }
 
     @GetMapping("/start-repair-action/{orderId}")
     public String changeStatusAction(@PathVariable("orderId") Long orderId, @RequestParam("action") Boolean action) {

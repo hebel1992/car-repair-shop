@@ -16,7 +16,6 @@ import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -127,15 +126,6 @@ public class OrderController {
         return "/orders/orderCourse";
     }
 
-    @GetMapping("/repair-progress-report-update/{orderId}")
-    public String getRepairProgressReport(Model model, @PathVariable("orderId") Long orderId) {
-        String report = orderService.findById(orderId).getRepairProgressReport();
-        model.addAttribute("orderId", orderId);
-        model.addAttribute("report", report);
-
-        return "/orders/orderRepairProgress";
-    }
-
     @PostMapping("/repair-progress-report-update-action/{orderId}")
     public String getRepairProgressReportAction(@PathVariable("orderId") Long orderId,
                                                 @RequestParam("report") String report) {
@@ -143,7 +133,7 @@ public class OrderController {
         order.setRepairProgressReport(report);
         orderService.updateOrder(order);
 
-        return "redirect:/orders/details/"+orderId;
+        return "redirect:/orders/details/" + orderId;
     }
 
     @GetMapping("/start-repair/{orderId}")

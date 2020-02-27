@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Course of the service</title>
-    <link rel="stylesheet" th:href="@{css/myStyle.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{../css/myStyle.css}" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
 <section class="container section">
 
     <h3 class="title">Repair progress<a class="tooltipped btn-floating btn-large cyan"
-                                               th:href="@{'/orders/update/' + ${order.id}}"
-                                               data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h3>
+                                        th:href="@{'/orders/update/' + ${order.id}}"
+                                        data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h3>
 
     <p><span>Title:</span> <span th:text="${order.title}"></span></p>
 
@@ -30,7 +30,7 @@
 
     <p><span>Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
 
-    <p><a th:href="@{'/orders/repair-progress-report-update/' + ${order.id}}" class="editLink">Repair progress
+    <p><a href="#progress-sheet" class="modal-trigger">Repair progress
         report</a></p>
 
     <div th:if="${order.cancelReason!=null}"><span style="font-weight: bold">Cancellation reason: </span>
@@ -100,6 +100,22 @@
 
     <p th:if="${order.status.id==2}"><a th:href="@{'/orders/finish-repair/' + ${order.id}}">Finish repair</a> /
         <a th:href="@{'/orders/cancel-repair/' + ${order.id}}">Cancel repair</a></p>
+
+    <div id="progress-sheet" class="modal">
+        <div class="modal-content center-align">
+            <h3 class="title">Repair progress sheet</h3>
+
+            <form method="post" th:action="@{'/orders/repair-progress-report-update-action/' +  ${order.id}}">
+
+                <div><textarea id="progress-textarea" th:name="report" th:text="${order.repairProgressReport}"></textarea></div>
+
+                <input type="submit" name="action" value="Update" class="btn-large">
+                <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="btn-large modal-close"
+                                                                        value="Cancel"/></a>
+            </form>
+        </div>
+    </div>
+
 </section>
 <div th:include="footer.html"></div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -107,6 +123,7 @@
 <script>
     $(function () {
         $('.tooltipped').tooltip();
+        $('.modal').modal();
     });
 </script>
 </body>

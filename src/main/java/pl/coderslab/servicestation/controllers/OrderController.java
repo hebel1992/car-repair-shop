@@ -99,14 +99,6 @@ public class OrderController {
         return "redirect:/orders/details/" + orderId;
     }
 
-    @GetMapping("/full-screen-invoice/{imageId}")
-    public String getFullScreenInvoice(@PathVariable("imageId") Long imageId, Model model) {
-        Invoice invoice = invoiceService.findById(imageId);
-
-        model.addAttribute("image", invoice.getCode());
-        return "/orders/fullScreenInvoice";
-    }
-
     @GetMapping("/delete-invoice/{invoiceId}/{orderId}")
     public String deleteInvoice(@PathVariable("invoiceId") Long invoiceId, @PathVariable("orderId") Long orderId) {
         invoiceService.deleteInvoice(invoiceId);

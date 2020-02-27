@@ -82,11 +82,11 @@
 
     <div>
         <ul>
-            <li th:each="image : ${order.invoices}" class="images">
-                <a th:href="@{'/orders/full-screen-invoice/' + ${image.id}}"><img height="100" width="100" alt="sample"
-                                                                                  th:src="*{'data:image/png;base64,' + image.code}"/></a><a
-                    th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
-                <button class="minus"> -</button>
+            <li th:each="image : ${order.invoices}">
+                <img class="responsive-img materialboxed" height="100" width="100" alt="invoice"
+                     th:src="*{'data:image/png;base64,' + image.code}"/>
+                <a th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
+                <button class="btn"> - </button>
             </a></li>
         </ul>
     </div>
@@ -107,7 +107,8 @@
 
             <form method="post" th:action="@{'/orders/repair-progress-report-update-action/' +  ${order.id}}">
 
-                <div><textarea id="progress-textarea" th:name="report" th:text="${order.repairProgressReport}"></textarea></div>
+                <div><textarea id="progress-textarea" th:name="report"
+                               th:text="${order.repairProgressReport}"></textarea></div>
 
                 <input type="submit" name="action" value="Update" class="btn-large">
                 <a th:href="@{'/orders/details/' + ${order.id}}"><input type="button" class="btn-large modal-close"
@@ -124,6 +125,7 @@
     $(function () {
         $('.tooltipped').tooltip();
         $('.modal').modal();
+        $('.materialboxed').materialbox();
     });
 </script>
 </body>

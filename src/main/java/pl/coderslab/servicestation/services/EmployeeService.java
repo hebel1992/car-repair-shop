@@ -15,6 +15,9 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     public void saveEmployee(Employee employee) {
+        if (employee.getEmail() != null && employee.getEmail().length() == 0) {
+            employee.setEmail(null);
+        }
         employeeRepository.save(employee);
     }
 

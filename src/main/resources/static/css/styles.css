@@ -120,3 +120,18 @@ body {
     display: inline; /* make blocks inline-block */
     margin-right: 15px;
 }
+
+.disabled{
+    font-weight: bold;
+    color: black !important;
+    border-bottom: 1px solid gainsboro !important;
+}
+
+.disabled-textarea{
+    color: black !important;
+    border-bottom: 1px solid gainsboro !important;
+}
+
+.param-not-set{
+    font-style: italic !important;
+}

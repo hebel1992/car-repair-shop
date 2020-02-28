@@ -15,6 +15,10 @@ public class VehicleService {
     private final VehicleRepository vehicleRepository;
 
     public void saveVehicle(Vehicle vehicle) {
+        if (vehicle.getVin() != null && vehicle.getVin().length() == 0) {
+            vehicle.setVin(null);
+        }
+
         vehicleRepository.save(vehicle);
     }
 

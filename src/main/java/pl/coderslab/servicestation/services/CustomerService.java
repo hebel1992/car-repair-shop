@@ -14,6 +14,13 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     public void saveCustomer(Customer customer) {
+        if (customer.getEmail() != null && customer.getEmail().length() == 0) {
+            customer.setEmail(null);
+        }
+
+        if (customer.getAddress() != null && customer.getAddress().length() == 0) {
+            customer.setAddress(null);
+        }
         customerRepository.save(customer);
     }
 
@@ -23,7 +30,7 @@ public class CustomerService {
     }
 
     public Customer findById(Long id) {
-        return customerRepository.findById(id).orElseThrow(() ->  new EntityNotFoundException(id, Customer.class.getSimpleName()));
+        return customerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id, Customer.class.getSimpleName()));
     }
 
     public List<Customer> findAll() {

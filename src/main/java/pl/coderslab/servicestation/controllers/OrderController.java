@@ -71,6 +71,7 @@ public class OrderController {
         return "redirect:/orders/manage-parts/" + orderId;
     }
 
+
     @GetMapping("/delete-part/{partId}/{orderId}")
     public String deletePart2(@PathVariable Long partId, @PathVariable Integer orderId) {
         orderService.deletePart(partId);

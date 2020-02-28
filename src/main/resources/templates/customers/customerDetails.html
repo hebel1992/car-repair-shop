@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link rel="stylesheet" th:href="@{../css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Customer Details</title>
 </head>
 <body>
@@ -21,41 +21,40 @@
         <div class="row">
 
             <div class="input-field col l6 s12">
-                <input type="text" id="firstName" th:field="*{firstName}" disabled="disabled">
+                <input class="disabled" type="text" id="firstName" th:field="*{firstName}" disabled="disabled">
                 <label for="firstName">First Name</label>
             </div>
 
             <div class="input-field col l6 s12">
-                <input type="text" id="lastName" th:field="*{lastName}" disabled="disabled">
+                <input class="disabled" type="text" id="lastName" th:field="*{lastName}" disabled="disabled">
                 <label for="firstName">Last Name</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">date_range</i>
-                <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}" disabled="disabled">
+                <input type="text" class="datepicker disabled" id="dob" th:field="*{dateOfBirth}" disabled="disabled">
                 <label th:if="${customer.dateOfBirth!=null}" for="dob">Date Of Birth</label>
-                <label th:if="${customer.dateOfBirth==null}" for="dob">Date Of Birth not set</label>
+                <label class="param-not-set" th:if="${customer.dateOfBirth==null}" for="dob">Date Of Birth not set</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
-                <input type="text" id="email" th:field="*{email}" disabled="disabled">
+                <input class="disabled" type="text" id="email" th:field="*{email}" disabled="disabled">
                 <label th:if="${customer.email!=null}" for="email">Email</label>
-                <label th:if="${customer.email==null}" for="email">Email not set</label>
+                <label class="param-not-set" th:if="${customer.email==null}" for="email">Email not set</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">home</i>
-                <input type="text" id="address" th:field="*{address}" disabled="disabled">
+                <input class="disabled" type="text" id="address" th:field="*{address}" disabled="disabled">
                 <label th:if="${customer.address!=null}" for="address">Address</label>
-                <label th:if="${customer.address==null}" for="address">Address not set</label>
+                <label class="param-not-set" th:if="${customer.address==null}" for="address">Address not set</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">local_phone</i>
-                <input type="text" id="phone" th:field="*{phoneNumber}" disabled="disabled">
+                <input class="disabled" type="text" id="phone" th:field="*{phoneNumber}" disabled="disabled">
                 <label th:if="${customer.phoneNumber!=null}" for="phone">Phone number</label>
-                <label th:if="${customer.phoneNumber==null}" for="phone">Phone number not set</label>
             </div>
 
             <div class="col s12"><span>Vehicles:</span>
@@ -69,7 +68,7 @@
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">note</i>
-                <textarea class="materialize-textarea" id="note" th:field="*{note}" disabled="disabled"></textarea>
+                <textarea class="materialize-textarea disabled-textarea" id="note" th:field="*{note}" disabled="disabled"></textarea>
                 <label for="note">Additional notes</label>
             </div>
         </div>

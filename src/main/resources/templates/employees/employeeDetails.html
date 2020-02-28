@@ -20,53 +20,49 @@
         <div class="row">
 
             <div class="input-field col l6 s12">
-                <input type="text" id="firstName" th:field="*{firstName}" disabled="disabled">
+                <input class="disabled" type="text" id="firstName" th:field="*{firstName}" disabled="disabled">
                 <label for="firstName">First Name</label>
             </div>
 
             <div class="input-field col l6 s12">
-                <input type="text" id="lastName" th:field="*{lastName}" disabled="disabled">
+                <input class="disabled" type="text" id="lastName" th:field="*{lastName}" disabled="disabled">
                 <label for="firstName">Last Name</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">date_range</i>
-                <input type="text" class="datepicker" id="dob" th:field="*{dateOfBirth}" disabled="disabled">
-                <label th:if="${employee.dateOfBirth!=null}" for="dob">Date Of Birth</label>
-                <label th:if="${employee.dateOfBirth==null}" for="dob">Date Of Birth not set</label>
+                <input type="text" class="datepicker disabled" id="dob" th:field="*{dateOfBirth}" disabled="disabled">
+                <label for="dob">Date Of Birth</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">email</i>
-                <input type="text" id="email" th:field="*{email}" disabled="disabled">
+                <input class="disabled" type="text" id="email" th:field="*{email}" disabled="disabled">
                 <label th:if="${employee.email!=null}" for="email">Email</label>
-                <label th:if="${employee.email==null}" for="email">Email not set</label>
+                <label class="param-not-set" th:if="${employee.email==null}" for="email">Email not set</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">home</i>
-                <input type="text" id="address" th:field="*{address}" disabled="disabled">
-                <label th:if="${employee.address!=null}" for="address">Address</label>
-                <label th:if="${employee.address==null}" for="address">Address not set</label>
+                <input class="disabled" type="text" id="address" th:field="*{address}" disabled="disabled">
+                <label for="address">Address</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">local_phone</i>
-                <input type="text" id="phone" th:field="*{phoneNumber}" disabled="disabled">
-                <label th:if="${employee.phoneNumber!=null}" for="phone">Phone number</label>
-                <label th:if="${employee.phoneNumber==null}" for="phone">Phone number not set</label>
+                <input class="disabled" type="text" id="phone" th:field="*{phoneNumber}" disabled="disabled">
+                <label for="phone">Phone number</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">attach_money</i>
-                <input type="text" id="rate" th:field="*{phoneNumber}" disabled="disabled">
-                <label th:if="${employee.phoneNumber!=null}" for="rate">Rate per hour</label>
-                <label th:if="${employee.phoneNumber==null}" for="rate">Rate per hour not set</label>
+                <input class="disabled" type="text" id="rate" th:field="*{ratePerHour}" disabled="disabled">
+                <label for="rate">Rate per hour</label>
             </div>
 
             <div class="input-field col s12">
                 <i class="material-icons prefix">note</i>
-                <textarea class="materialize-textarea" id="note" th:field="*{note}" disabled="disabled"></textarea>
+                <textarea class="materialize-textarea disabled-textarea" id="note" th:field="*{note}" disabled="disabled"></textarea>
                 <label for="note">Additional notes</label>
             </div>
         </div>

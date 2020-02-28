@@ -70,7 +70,7 @@ public class EmployeeController {
         }
 
         userService.saveUser(user);
-        return "redirect:/employees/details/"+user.getEmployee().getId();
+        return "redirect:/employees/details/" + user.getEmployee().getId();
     }
 
     @Secured("ROLE_ADMIN")

@@ -52,7 +52,7 @@
 
         <tr th:each="plannedOrder : ${plannedOrders}">
             <div class="col s12 m6 l4">
-                <div class="card light-blue lighten-4">
+                <div class="card blue-grey lighten-3">
                     <a th:href="'/orders/details/'+ ${plannedOrder.id}">
                         <div class="card-content white-text">
                             <span class="card-title"><span class="order-title" th:text="${plannedOrder.title}"></span>

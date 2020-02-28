@@ -55,8 +55,8 @@
         <div class="left col s12">
             <button class="btn-large">Submit</button>
 
-            <input type="button" value="Create Later" class="btn-large"
-                   onclick="window.location.href='/employees'">
+            <a class="btn-large" th:href="'/employees/update/'+${user.employee.id}"
+               >Create later</a>
         </div>
     </form>
 </section>

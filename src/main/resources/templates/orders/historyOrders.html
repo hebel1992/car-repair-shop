@@ -23,7 +23,7 @@
         </div>
         <tr th:each="historyOrder : ${historyOrders}">
             <div class="col s12 m6 l4">
-                <div class="card cyan lighten-3">
+                <div class="card green lighten-3">
                     <a th:href="'/orders/details/'+ ${historyOrder.id}">
                         <div class="card-content white-text">
                             <span class="card-title"><span class="order-title" th:text="${historyOrder.title}"></span>

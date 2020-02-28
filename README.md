@@ -3,12 +3,13 @@
 Simple application for you car repair shop.
 
 It provides functionality to store and manage your:
--orders
--employees
--customers and their cars
+- orders
+- employees
+- customers and their cars
 
 Future features:
--generating monthly/annual activity reports
+- generating monthly/annual activity reports
+- user account settings
 
 Used technologies:
 - Spring boot

@@ -28,8 +28,8 @@
             <div class="col s12">
                 <p>Reason: <span class="error-message" th:if="${#fields.hasErrors('cancelReason')}"
                                  th:errors="*{cancelReason}"></span></p>
-                <div id="cancel-sheet">
-                    <textarea id="cancel-textarea" th:field="*{cancelReason}"></textarea>
+                <div class="cancel-sheet">
+                    <textarea class="cancel-textarea" th:field="*{cancelReason}"></textarea>
                 </div>
             </div>
 
@@ -37,6 +37,7 @@
                 <input type="submit" value="Submit" class="btn-large" id="cancel-order-btn">
                 <a class="btn-large" th:href="@{'/orders/details/' + ${order.id}}">Cancel</a>
             </div>
+
             <input type="hidden" th:field="*{id}"/>
             <input type="hidden" th:field="*{title}"/>
             <input type="hidden" th:field="*{initialDiagnosis}"/>

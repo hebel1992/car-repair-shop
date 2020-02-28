@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<nav class="nav-wrapper teal lighten-2">
+<nav class="nav-wrapper blue darken-2" style="height: 70px">
     <div class="container">
         <a href="/home" class="brand-logo">Car repair shop</a>
         <a href="#" class="sidenav-trigger" data-target="mobile-menu">
@@ -25,7 +25,9 @@
             <li><a href="/customers">Customers</a></li>
             <li><a href="/vehicles">Vehicles</a></li>
             <li><a href="/orders/historyOrders">History</a></li>
-            <li><a href="javascript: document.logoutForm.submit()"> Logout</a></li>
+            <li><a class="dropdown-trigger" data-target="droplist"><i class="material-icons"
+                                                                      style="font-size: 45px">account_circle </i></a>
+            </li>
         </ul>
         <ul class="sidenav grey lighten-2" id="mobile-menu">
             <li><a href="/employees">Employees</a></li>
@@ -36,19 +38,23 @@
         </ul>
     </div>
 </nav>
+<h6 class="center-align">You are logged in as: <span style="font-weight: bold" sec:authentication="principal.username"></span></h6>
+
+<ul id="droplist" class="dropdown-content">
+    <li><a href="javascript: document.logoutForm.submit()"> Logout</a></li>
+</ul>
 
 <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
     <input hidden type="submit" value="Sign Out"/>
 </form>
 
-<!--<h1>SERVICE STATION <span style="font-size: 20px">Logged as: <span-->
-<!--        sec:authentication="principal.username"></span></span></h1>-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script>
     $(function () {
         $('.sidenav').sidenav();
+        $('.dropdown-trigger').dropdown();
     });
 </script>
 </body>

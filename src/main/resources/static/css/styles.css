@@ -80,12 +80,12 @@ body {
     font-size: 20px;
 }
 
-#cancel-sheet {
+.cancel-sheet {
     width: 100%;
     height: 100%;
 }
 
-#cancel-textarea {
+.cancel-textarea {
     width: 100%;
     height: 350px;
     font-size: 20px;
@@ -126,6 +126,7 @@ body {
     clear: column;
     display: inline;
     margin-right: 15px;
+    margin-bottom: 15px;
 }
 
 

@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <title>History Orders</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
-    <link rel="stylesheet" href="css/myStyles.css" type="text/css">
 </head>
 <body>
 <div th:include="header.html"></div>
-<div class="main">
-    <h1 th:text="${vehicle.brand} + ' ' + ${vehicle.model} + ' - current repairs'"></h1>
-    <div th:if="${vehicleCurrentOrders.size()<1}" th:text="'There are no repairs for this vehicle at the moment'"></div>
-    <tr th:each="currentOrder : ${vehicleCurrentOrders}">
-        <a class="panel" th:href="'/orders/details/'+ ${currentOrder.id}">
-            <h3 th:text="${currentOrder.title}"></h3>
-            <div th:text="'Status: ' + ${currentOrder.status.description}"></div>
-            <span class="left" th:text="'Vehicle: ' + ${currentOrder.vehicle.model}"></span>
-            <span th:if="${currentOrder.actualRepairStart!=null}"><data class="right" th:text="'Start date: ' + ${currentOrder.actualRepairStart}"></data></span>
-            <span th:if="${currentOrder.actualRepairStart==null}"><data class="right" th:text="'Planned starting date: ' + ${currentOrder.plannedRepairStart}"></data></span>
-        </a>
-    </tr>
-</div>
+
+<section class="container section">
+    <div class="row">
+        <div class="col s12">
+            <h2 th:text="${vehicle.brand} + ' ' + ${vehicle.model} + ' - current repairs'"></h2>
+        </div>
+        <div class="col s12" th:if="${vehicleCurrentOrders.size()<1}"
+             th:text="'There are no repairs for this vehicle at the moment'"></div>
+        <tr th:each="currentOrder : ${vehicleCurrentOrders}">
+            <div class="col s12 m6 l4">
+                <div class="card cyan lighten-3">
+                    <a th:href="'/orders/details/'+ ${currentOrder.id}">
+                        <div class="card-content white-text">
+                            <span class="card-title"><span class="order-title" th:text="${currentOrder.title}"></span>
+                                <i class="material-icons calendar wrench-icon right">build</i></span>
+                            <p th:text="'Vehicle: ' + ${currentOrder.vehicle.brand + ' ' +
+                            currentOrder.vehicle.model + ' ' + currentOrder.vehicle.plateNumber}"></p>
+                            <p th:text="'Status: ' + ${currentOrder.status.description}"></p>
+                        </div>
+                        <div class="card-action">
+                            <div class="valign-wrapper">
+                                <i class="material-icons calendar">calendar_today</i>
+                                <span th:if="${currentOrder.actualRepairStart!=null}"
+                                      th:text="'Start date: ' + ${currentOrder.actualRepairStart}"></span>
+                                <span th:if="${currentOrder.actualRepairStart==null}">Start date: Not started</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </tr>
+        <div class="col s12" style="height: 350px">
+        </div>
+    </div>
+</section>
 <div th:include="footer.html"></div>
 </body>
 </html>

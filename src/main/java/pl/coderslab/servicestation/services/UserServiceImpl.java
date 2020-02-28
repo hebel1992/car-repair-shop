@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByEmployeeId(Long employeeId) {
+        return userRepository.findByEmployeeId(employeeId);
+    }
+
+    @Override
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(1);

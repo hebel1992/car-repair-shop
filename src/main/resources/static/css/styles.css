@@ -37,6 +37,12 @@ body {
     font-size: 20px;
 }
 
+.user-account {
+    color: dodgerblue;
+    font-weight: bold;
+    font-size: 20px;
+}
+
 .btn-large {
     margin-left: 10px;
     margin-right: 10px;
@@ -96,7 +102,7 @@ body {
 }
 
 .order-details {
-    border-style: groove;
+    border: gray groove 4px;
     font-size: 18px;
     background-color: white;
 }
@@ -106,6 +112,7 @@ body {
 }
 
 .order-details-section{
+    border: 2px;
     border-top-style: groove;
 }
 
@@ -115,11 +122,12 @@ body {
 }
 
 .invoice-position {
-    float:left; /* disable the float */
+    float:left;
     clear: column;
-    display: inline; /* make blocks inline-block */
+    display: inline;
     margin-right: 15px;
 }
+
 
 .disabled{
     font-weight: bold;
@@ -134,4 +142,12 @@ body {
 
 .param-not-set{
     font-style: italic !important;
+}
+
+.order-link{
+    font-size: 20px;
+}
+
+.delete-bin{
+    font-size: 35px;
 }

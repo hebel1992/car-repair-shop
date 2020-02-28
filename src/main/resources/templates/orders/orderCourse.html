@@ -11,18 +11,19 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Repair Progress</title>
 </head>
-<body>
+<body style="background-color: lavender">
 <div th:include="header.html"></div>
 <section class="container section">
+
+    <h2 class="title">Repair Progress Sheet</h2>
 
     <div class="row order-details">
 
         <div class="col s12 center-align">
 
-            <h3 class="title">Repair progress<a class="tooltipped btn-floating btn-large cyan right"
-                                                th:href="@{'/orders/update/' + ${order.id}}"
-                                                data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h3>
-            <h5 th:text="${order.title}"></h5>
+            <h4><span th:text="${order.title}"></span><a class="tooltipped btn-floating btn-large cyan right"
+                                                         th:href="@{'/orders/update/' + ${order.id}}"
+                                                         data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h4>
         </div>
 
         <div class="col s12">
@@ -34,7 +35,7 @@
 
         <div class="col s12" style="border-top-style: groove">
             <p class="valign-wrapper"><i class="material-icons prefix order-details-icons">directions_car</i>
-                <span class="order-section-title">Vehicle:</span> <span th:text="${order.vehicle.brand + ' '
+                <span style="margin-right: 10px" class="order-section-title">Vehicle:</span> <span th:text="${order.vehicle.brand + ' '
                 + order.vehicle.model + ' reg:' + order.vehicle.plateNumber}"></span></p>
         </div>
 
@@ -86,13 +87,13 @@
             </p>
         </div>
 
-        <div class="col s12 center-align" style="border-top-style: groove; font-size: 25px">
+        <div class="col s12 center-align" style="font-size: 25px">
             <p><a th:href="@{'/orders/manage-parts/' + ${order.id}}">Manage parts</a></p>
         </div>
 
         <div class="col s12 order-details-section" style="margin-bottom: 20px">
-            <p><span class="order-section-title">Invoices:</span> <span class="noValueStyle"
-                                            th:if="${order.invoices.size()==0}">
+            <p><span style="margin-right: 7px" class="order-section-title">Invoices:</span> <span class="param-not-set"
+                                                                        th:if="${order.invoices.size()==0}">
             No invoice attached to this order</span></p>
             <!--Upload invoice MODAL-TRIGGER-->
             <p><a class="modal-trigger" href="#upload-invoice">Upload invoice</a></p>
@@ -106,7 +107,7 @@
             </tr>
         </div>
 
-        <div class="col s12" style="border-top-style: groove">
+        <div class="col s12 order-details-section">
             <p><span>Created:</span> <span th:text="${order.created}"></span></p>
 
             <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>

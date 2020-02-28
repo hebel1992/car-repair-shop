@@ -82,8 +82,17 @@
             </div>
 
             <div class="col s12 valign-wrapper">
-                <a class="delete-link modal-trigger " href="#delete-form">Delete employee
-                </a><i class="material-icons red-text">delete</i>
+                <i class="material-icons user-account" style="font-size: 30px; margin-right: 5px">account_circle</i>
+                <p class="user-account">
+                    <span>User account: </span>
+                    <span class="param-not-set" th:if="${user==null}"><a th:href="'/employees/create-user/'+${employee.id}">create</a></span>
+                    <span th:if="${user!=null}" th:text="${user.username}"></span>
+                </p>
+            </div>
+
+            <div class="col s12 valign-wrapper">
+                <p><a class="delete-link modal-trigger " href="#delete-form">Delete employee
+                </a></p><i class="material-icons red-text delete-bin">delete</i>
             </div>
         </div>
 

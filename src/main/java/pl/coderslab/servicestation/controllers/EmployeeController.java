@@ -70,7 +70,7 @@ public class EmployeeController {
         }
 
         userService.saveUser(user);
-        return "redirect:/employees";
+        return "redirect:/employees/details/"+user.getEmployee().getId();
     }
 
     @Secured("ROLE_ADMIN")
@@ -85,7 +85,9 @@ public class EmployeeController {
     @GetMapping("/update/{id}")
     public String updateEmployee(Model model, @PathVariable Long id) {
         Employee employee = employeeService.findById(id);
+        User user = userService.findByEmployeeId(id);
         model.addAttribute("employee", employee);
+        model.addAttribute("user", user);
         return "employees/editEmployee";
     }
 

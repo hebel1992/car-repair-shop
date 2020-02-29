@@ -16,14 +16,11 @@ import pl.coderslab.servicestation.services.SpringDataUserDetailsService;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private final SpringDataUserDetailsService springDataUserDetailsService;
-
-    public WebSecurityConfig(BCryptPasswordEncoder bCryptPasswordEncoder, SpringDataUserDetailsService springDataUserDetailsService) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.springDataUserDetailsService = springDataUserDetailsService;
-    }
+    @Autowired
+    private SpringDataUserDetailsService springDataUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -73,9 +73,9 @@ INSERT INTO status (id, description) VALUES (4, 'order cancelled');
 # INSERT INTO orders_employees (order_id, employee_id) VALUES (16,8);
 
 
-INSERT INTO role (`id`, `name`, description) VALUES (NULL, 'ROLE_ADMIN', 'Admin');
-INSERT INTO role (`id`, `name`, description) VALUES (NULL, 'ROLE_USER', 'User');
-
-INSERT INTO user (enabled, password, username) VALUES (1, '$2a$10$4Eb6WIXIEYu3N0q3iGqole9hJoLuiFduwBGJgDfDezAtalJmICHjS', 'admin');
-INSERT INTO user_role(user_id, role_id) VALUES (1, 1);
+# INSERT INTO role (`id`, `name`, description) VALUES (NULL, 'ROLE_ADMIN', 'Admin');
+# INSERT INTO role (`id`, `name`, description) VALUES (NULL, 'ROLE_USER', 'User');
+#
+# INSERT INTO user (enabled, password, username) VALUES (1, '$2a$10$4Eb6WIXIEYu3N0q3iGqole9hJoLuiFduwBGJgDfDezAtalJmICHjS', 'admin');
+# INSERT INTO user_role(user_id, role_id) VALUES (1, 1);
 

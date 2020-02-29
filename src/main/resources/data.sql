@@ -14,7 +14,7 @@ INSERT INTO customers (address, first_name, last_name, note, phone_number) VALUE
 INSERT INTO customers (first_name, last_name, phone_number) VALUES ('Kacper', 'Polak', '0998765888');
 INSERT INTO customers (address, date_of_birth, first_name, last_name, note, phone_number) VALUES ('ul. Krotka 55, Polanowice', '1977-10-13', 'Aleksandra', 'Michalowska', 'This is short about order of Aleksandra', '923489732417');
 
-INSERT INTO vehicles (customer_id ,brand, engine_size, fuel_type, model,plate_number, year_of_production) VALUES (1, 'Nissan', 1.2, 2, 'Almera', 'GH13P2', 2009);
+# INSERT INTO vehicles (customer_id ,brand, engine_size, fuel_type, model,plate_number, year_of_production) VALUES (1, 'Nissan', 1.2, 2, 'Almera', 'GH13P2', 2009);
 INSERT INTO vehicles (customer_id ,brand, fuel_type, model, note, plate_number, year_of_production) VALUES (1, 'Volkswagen', 3, 'Golf', 'short note', 'YTF18PO', 2012);
 INSERT INTO vehicles (customer_id, brand, engine_size, fuel_type, model, note, plate_number, year_of_production) VALUES (2, 'Toyota', 2.0, 3, 'Corolla', 'Short note about Corolla', 'YO91AP', 2018);
 INSERT INTO vehicles (customer_id, brand, engine_size, fuel_type, model, note, plate_number, year_of_production) VALUES (3, 'Audi', 3.0, 0, 'A5', 'another short note', 'GF67AW1', 2015);

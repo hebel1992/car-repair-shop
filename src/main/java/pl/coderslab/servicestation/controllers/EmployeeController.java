@@ -33,6 +33,16 @@ public class EmployeeController {
         return "employees/employeesList";
     }
 
+    @PostMapping("/filtered")
+    public String filteredEmployees(Model addToModel, @RequestParam("firstName") String firstName,
+                                   @RequestParam("lastName") String lastName, @RequestParam("phone") String phoneNumber) {
+
+        List<Employee> employees = employeeService.findFiltered(firstName, lastName, phoneNumber);
+        addToModel.addAttribute("employees", employees);
+
+        return "employees/employeesList";
+    }
+
     @Secured("ROLE_ADMIN")
     @GetMapping("/add")
     public String addEmployee(Model model) {

@@ -9,7 +9,6 @@ It provides functionality to store and manage your:
 
 Future features:
 - generating monthly/annual activity reports
-- user account settings
 
 Used technologies:
 - Spring boot

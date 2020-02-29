@@ -15,8 +15,9 @@
 
 <section class="container section">
 
-    <h2>Customers <a class="btn waves-effect waves-light right"
-                     th:href="@{/customers/add}">Add new customer</a></h2>
+    <h2>Customers <a href="#"><i class="material-icons tooltipped modal-trigger search-icon"
+                                 data-tooltip="Filter" href="#add-filters">search</i></a>
+        <a class="btn waves-effect waves-light right" th:href="@{/customers/add}">Add new customer</a></h2>
     <div class="row">
 
         <div class="col s12">
@@ -37,8 +38,45 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col s12" style="margin-bottom: 260px"></div>
+    </div>
+
+    <!--Filters MODAL-->
+    <div id="add-filters" class="modal">
+        <div class="modal-content center-align">
+            <form method="post" th:action="@{/customers/filtered/}">
+                <h4 class="title">Find Customer</h4>
+
+                <div class="input-field">
+                    <input type="text" id="first-name" name="firstName">
+                    <label for="first-name">First Name</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="last-name" name="lastName">
+                    <label for="last-name">Last Name</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="phone" name="phone">
+                    <label for="phone">Phone number</label>
+                </div>
+
+                <input class="btn" type="submit" value="Search"/>
+                <a class="btn modal-close">Cancel</a>
+            </form>
+        </div>
     </div>
 </section>
 <div class="my-footer" th:include="footer.html"></div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<script>
+    $(function () {
+        $('.tooltipped').tooltip();
+        $('.modal').modal();
+    });
+</script>
 </body>
 </html>

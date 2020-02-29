@@ -24,6 +24,16 @@ public class CustomerController {
         return "customers/customersList";
     }
 
+    @PostMapping("/filtered")
+    public String filteredCustomers(Model addToModel, @RequestParam("firstName") String firstName,
+                                   @RequestParam("lastName") String lastName, @RequestParam("phone") String phoneNumber) {
+
+        List<Customer> customers = customerService.findFiltered(firstName, lastName, phoneNumber);
+        addToModel.addAttribute("customers", customers);
+
+        return "customers/customersList";
+    }
+
     @GetMapping("/add")
     public String addCustomer(Model model) {
         Customer customer = new Customer();

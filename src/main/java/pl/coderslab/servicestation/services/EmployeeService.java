@@ -3,6 +3,7 @@ package pl.coderslab.servicestation.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.coderslab.servicestation.EntityNotFoundException;
+import pl.coderslab.servicestation.models.Customer;
 import pl.coderslab.servicestation.models.Employee;
 import pl.coderslab.servicestation.repositories.EmployeeRepository;
 
@@ -36,5 +37,9 @@ public class EmployeeService {
 
     public Set<Employee> findEmployeesByOrderId(Long orderId){
         return employeeRepository.findEmployeesByOrderId(orderId);
+    }
+
+    public List<Employee> findFiltered(String firstName, String lastName, String phoneNumber){
+        return employeeRepository.findWithFilters(firstName, lastName, phoneNumber);
     }
 }

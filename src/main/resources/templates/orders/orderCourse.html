@@ -11,13 +11,13 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
     <title>Repair Progress</title>
 </head>
-<body style="background-color: #e1e1d0">
+<body style="background-color: lightgray">
 <div th:include="header.html"></div>
 <section class="container section">
 
-    <h2 class="title">Repair Progress Sheet  <a class="tooltipped btn-floating btn-large cyan right"
-                                                th:href="@{'/orders/update/' + ${order.id}}"
-                                                data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h2>
+    <h2 class="title">Repair Progress Sheet <a class="tooltipped btn-floating btn-large cyan right"
+                                               th:href="@{'/orders/update/' + ${order.id}}"
+                                               data-tooltip="Edit Order"><i class="material-icons">edit</i></a></h2>
 
     <div class="row order-details">
 
@@ -27,8 +27,9 @@
         </div>
 
         <div class="col s12">
-            <p><span class="order-section-title" style="margin-right: 6px">Initial diagnosis:</span> <span th:field="*{order.initialDiagnosis}"
-                                                                                 th:text="${order.initialDiagnosis}"></span>
+            <p><span class="order-section-title" style="margin-right: 6px">Initial diagnosis:</span> <span
+                    th:field="*{order.initialDiagnosis}"
+                    th:text="${order.initialDiagnosis}"></span>
             </p>
         </div>
 
@@ -46,13 +47,15 @@
 
         <div class="col s12" style="border-top-style: groove">
             <p class="valign-wrapper"><i class="material-icons prefix order-details-icons">directions_car</i>
-                <span style="margin-right: 10px" class="order-section-title">Vehicle:</span> <span th:text="${order.vehicle.brand + ' '
-                + order.vehicle.model + ' reg:' + order.vehicle.plateNumber}"></span></p>
+                <span style="margin-right: 10px" class="order-section-title">Vehicle:</span>
+                <a th:href="'/vehicles/details/'+${order.vehicle.id}"><span th:text="${order.vehicle.brand + ' '
+                + order.vehicle.model + ' reg:' + order.vehicle.plateNumber}"></span></a></p>
         </div>
 
 
         <div class="col s12 center-align" style="border-top-style: groove">
-            <p><span class="order-section-title">Status:</span> <span th:text="${order.status.getDescription()}"></span></p>
+            <p><span class="order-section-title">Status:</span> <span th:text="${order.status.getDescription()}"></span>
+            </p>
         </div>
 
         <div class="col s12 center-align">
@@ -83,10 +86,10 @@
         </div>
 
         <!--Progress sheet MODAL-TRIGGER-->
-        <div class="col s12">
-            <p class="valign wrapper"><i class="far fa-clipboard order-details-icons"></i> <a href="#progress-sheet"
-                                                                                              class="modal-trigger">
-                Repair progress report</a></p>
+        <div class="col s12" style="font-size: 25px">
+            <p class="valign wrapper"><a href="#progress-sheet" class="modal-trigger">
+                Repair progress report</a><i class="far fa-clipboard order-details-icons" style="margin-left: 10px"></i>
+            </p>
         </div>
 
         <div class="col s12" style="font-size: 25px">
@@ -95,7 +98,7 @@
 
         <div class="col s12 order-details-section">
             <p><span style="margin-right: 7px" class="order-section-title">Invoices:</span> <span class="param-not-set"
-                                                                        th:if="${order.invoices.size()==0}">
+                                                                                                  th:if="${order.invoices.size()==0}">
             No invoice attached to this order</span></p>
             <!--Upload invoice MODAL-TRIGGER-->
             <p><a class="modal-trigger" href="#upload-invoice">Upload invoice</a></p>

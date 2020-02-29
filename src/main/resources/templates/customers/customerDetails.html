@@ -57,7 +57,7 @@
                 <label th:if="${customer.phoneNumber!=null}" for="phone">Phone number</label>
             </div>
 
-            <div class="col s12"><span>Vehicles:</span>
+            <div class="col s12" style="font-weight: bold; font-size: 20px"><span>Vehicles:</span>
                 <ul>
                     <li th:each="vehicle : ${customer.vehicles}">
                         <a th:text="${vehicle.brand + ' ' + vehicle.model + ' ' + vehicle.plateNumber}"

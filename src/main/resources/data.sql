@@ -44,7 +44,7 @@ INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_rep
 INSERT INTO orders_employees (order_id, employee_id) VALUES (3,3);
 INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, cancel_reason) VALUES (DATE_ADD(NOW(),INTERVAL -1 DAY), DATE_ADD(NOW(),INTERVAL -3 DAY), 'Tyres worn out, need replacement', DATE_ADD(NOW(),INTERVAL -1 DAY), 'Tyres change', 4, 4, 'Client gave up the order');
 INSERT INTO orders_employees (order_id, employee_id) VALUES (4,4);
-INSERT INTO orders (created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (NOW(), 'Gear box - need to be changed', DATE_ADD(NOW(),INTERVAL +8 DAY), 'Gear box replacement', 1, 7);
+INSERT INTO orders (created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (NOW(), 'Gear box failure - need to be changed', DATE_ADD(NOW(),INTERVAL +8 DAY), 'Gear box replacement', 1, 7);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (5,5);
 INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, price_of_service) VALUES (DATE_ADD(NOW(),INTERVAL -4 DAY), DATE_ADD(NOW(),INTERVAL -5 DAY), 'Oil filter need to be changed', DATE_ADD(NOW(),INTERVAL -4 DAY), 'Oil filter change', 3, 6, 300);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (6,5);
@@ -54,7 +54,7 @@ INSERT INTO orders_employees (order_id, employee_id) VALUES (7,6);
 INSERT INTO orders (created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, cancel_reason) VALUES (DATE_ADD(NOW(),INTERVAL -3 DAY), 'Break pads worn out', DATE_ADD(NOW(),INTERVAL -2 DAY), 'Break pads change', 4, 5, 'Client gave up the order');
 INSERT INTO orders_employees (order_id, employee_id) VALUES (8,8);
 
-INSERT INTO orders (created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (NOW(), 'Windscreen cracked - need replacement', DATE_ADD(NOW(),INTERVAL +5 DAY), 'Windscreen broken', 1, 1);
+INSERT INTO orders (created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (NOW(), 'Windscreen cracked - need replacement', DATE_ADD(NOW(),INTERVAL +5 DAY), 'Cracked windscreen', 1, 1);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (9,1);
 INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (NOW(), DATE_ADD(NOW(),INTERVAL -5 DAY), 'Engine oil need to be changed', NOW(), 'Oil change', 2, 2);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (10,2);
@@ -68,7 +68,7 @@ INSERT INTO orders_employees (order_id, employee_id) VALUES (13,5);
 INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, price_of_service) VALUES (DATE_ADD(NOW(),INTERVAL -4 DAY), DATE_ADD(NOW(),INTERVAL -5 DAY), 'Oil filter need to be changed', DATE_ADD(NOW(),INTERVAL -4 DAY), 'Oil filter change', 3, 2, 200);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (14,5);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (14,7);
-INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, price_of_service) VALUES (DATE_ADD(NOW(),INTERVAL -6 DAY), DATE_ADD(NOW(),INTERVAL -4 DAY), 'Suspension problem', DATE_ADD(NOW(),INTERVAL -5 DAY), 'Suspension problem', 3, 2, 530);
+INSERT INTO orders (actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, price_of_service) VALUES (DATE_ADD(NOW(),INTERVAL -6 DAY), DATE_ADD(NOW(),INTERVAL -4 DAY), 'Lights aiming too low, need adjustment', DATE_ADD(NOW(),INTERVAL -5 DAY), 'Lights adjustment', 3, 2, 530);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (15,6);
 INSERT INTO orders (created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id, cancel_reason) VALUES (DATE_ADD(NOW(),INTERVAL -3 DAY), 'Break pads worn out', DATE_ADD(NOW(),INTERVAL -2 DAY), 'Break pads change', 4, 1, 'Client gave up the order');
 INSERT INTO orders_employees (order_id, employee_id) VALUES (16,8);
@@ -76,3 +76,4 @@ INSERT INTO orders_employees (order_id, employee_id) VALUES (16,8);
 
 INSERT INTO user (enabled, password, username) VALUES (1, '$2a$10$4Eb6WIXIEYu3N0q3iGqole9hJoLuiFduwBGJgDfDezAtalJmICHjS', 'admin');
 INSERT INTO user_role(user_id, role_id) VALUES (1, 1);
+

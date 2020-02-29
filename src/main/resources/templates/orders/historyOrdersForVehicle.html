@@ -39,7 +39,7 @@
                             <div class="valign-wrapper">
                                 <i class="material-icons calendar">calendar_today</i>
                                 <span th:if="${historyOrder.actualRepairStart!=null}" th:text="'Start date: ' + ${historyOrder.actualRepairStart}"></span>
-                                <span th:if="${historyOrder.actualRepairStart==null}">Not started</span>
+                                <span th:if="${historyOrder.actualRepairStart==null}">Start date: Not started</span>
                             </div>
                         </div>
                     </a>

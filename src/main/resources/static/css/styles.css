@@ -107,48 +107,61 @@ body {
     background-color: white;
 }
 
-.order-details-icons{
+.order-details-icons {
     font-size: 40px;
 }
 
-.order-details-section{
+.order-details-section {
     border: 2px;
     border-top-style: groove;
 }
 
-.order-section-title{
+.order-section-title {
     font-weight: bold;
     font-size: 25px;
 }
 
 .invoice-position {
-    float:left;
+    float: left;
     clear: column;
     display: inline;
-    margin-right: 15px;
     margin-bottom: 15px;
 }
 
+.delete-button-position {
+    float: left;
+    clear: column;
+    display: inline;
+    margin-right: 25px;
+    margin-bottom: 50px;
+}
 
-.disabled{
+
+.disabled {
     font-weight: bold;
     color: black !important;
     border-bottom: 1px solid gainsboro !important;
 }
 
-.disabled-textarea{
+.disabled-textarea {
     color: black !important;
     border-bottom: 1px solid gainsboro !important;
 }
 
-.param-not-set{
+.param-not-set {
     font-style: italic !important;
 }
 
-.order-link{
+.order-link {
     font-size: 20px;
 }
 
-.delete-bin{
+.delete-bin {
     font-size: 35px;
+}
+
+.search-icon {
+    font-size: 50px;
+    margin-left: 20px;
+    color: green
 }

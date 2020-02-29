@@ -30,6 +30,16 @@ public class VehicleController {
         return "vehicles/vehiclesList";
     }
 
+    @PostMapping("/filtered")
+    public String filteredVehicles(Model addToModel, @RequestParam("brand") String brand,
+                                   @RequestParam("model") String model, @RequestParam("plate") String plate) {
+
+        List<Vehicle> vehicles = vehicleService.findFiltered(brand, model, plate);
+        addToModel.addAttribute("vehicles", vehicles);
+
+        return "vehicles/vehiclesList";
+    }
+
     @GetMapping("/add")
     public String addVehicle(Model model) {
         Vehicle vehicle = new Vehicle();

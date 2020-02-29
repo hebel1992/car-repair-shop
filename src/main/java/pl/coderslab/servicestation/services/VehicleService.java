@@ -34,4 +34,8 @@ public class VehicleService {
     public List<Vehicle> findAll() {
         return vehicleRepository.findAll();
     }
+
+    public List<Vehicle> findFiltered(String brand, String model, String plate){
+        return vehicleRepository.findWithFilters(brand, model, plate);
+    }
 }

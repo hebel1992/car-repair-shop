@@ -106,14 +106,15 @@
             <tr th:each="image : ${order.invoices}">
                 <img class="responsive-img materialboxed invoice-position" height="100" width="100" alt="invoice"
                      th:src="*{'data:image/png;base64,' + image.code}"/>
-                <a class="invoice-position" th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
-                    <button class="btn-floating btn-small red">-</button>
+                <a th:href="@{'/orders/delete-invoice/' + ${image.id} + '/' + ${order.id}}">
+                    <i class="tooltipped delete-button-position fas fa-minus-circle red-text" style="font-size: 25px"
+                       data-tooltip="Remove"></i>
                 </a>
             </tr>
         </div>
 
         <div class="col s12" style="border-top-style: groove">
-            <p><span>Price of service:</span> <span
+            <p><span class="order-section-title">Price of service:</span> <span
                     th:if="${order.priceOfService==null}"><data
                     class="param-not-set">To be set at the end of the repair</data></span><span
                     th:text="${order.priceOfService}"></span></p>
@@ -124,7 +125,6 @@
 
             <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
         </div>
-
     </div>
 
     <!--Progress sheet MODAL-->
@@ -169,7 +169,6 @@
                 </p>
 
                 <input class="btn" type="submit" value="Upload"/>
-
             </form>
         </div>
     </div>

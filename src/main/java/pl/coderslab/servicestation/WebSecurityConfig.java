@@ -1,7 +1,9 @@
 package pl.coderslab.servicestation;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -14,6 +16,7 @@ import pl.coderslab.servicestation.services.SpringDataUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
+@ComponentScan({"pl.coderslab.servicestation"})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -26,17 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new SpringDataUserDetailsService();
     }
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private SpringDataUserDetailsService springDataUserDetailsService;
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+//
+//
+//    private SpringDataUserDetailsService springDataUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(springDataUserDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);
+                .userDetailsService(customUserDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override

@@ -88,7 +88,7 @@ public class EmployeeController {
     public String employeeDetails(@PathVariable Long id, Model model) {
         Employee employee = employeeService.findById(id);
         model.addAttribute("employee", employee);
-        return "/employees/employeeDetails";
+        return "employees/employeeDetails";
     }
 
     @Secured("ROLE_ADMIN")

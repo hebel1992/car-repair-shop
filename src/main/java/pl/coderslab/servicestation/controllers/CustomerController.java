@@ -52,11 +52,11 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @GetMapping("/details/{id}")
+    @RequestMapping("/details/{id}")
     public String customerDetails(@PathVariable("id") Long id, Model model) {
         Customer customer = customerService.findById(id);
         model.addAttribute("customer", customer);
-        return "/customers/customerDetails";
+        return "customers/customerDetails";
     }
 
     @GetMapping("/update/{id}")

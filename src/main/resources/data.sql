@@ -13,7 +13,7 @@ INSERT INTO customers (id, address, date_of_birth, first_name, last_name, note, 
 INSERT INTO customers (id, address, first_name, last_name, note, phone_number) VALUES (8, 'ul. Nowa 33, Warszawa', 'Ewelina', 'Nowa', 'This is short about order of Ewelina', '0336123567');
 INSERT INTO customers (id, first_name, last_name, phone_number) VALUES (9, 'Kacper', 'Polak', '0998765888');
 INSERT INTO customers (id, address, date_of_birth, first_name, last_name, note, phone_number) VALUES (10, 'ul. Krotka 55, Polanowice', '1977-10-13', 'Aleksandra', 'Michalowska', 'This is short about order of Aleksandra', '923489732417');
-#
+
 INSERT INTO vehicles (id, customer_id ,brand, engine_size, fuel_type, model,plate_number, year_of_production) VALUES (1, 1, 'Nissan', 1.2, 2, 'Almera', 'GH13P2', 2009);
 INSERT INTO vehicles (id, customer_id ,brand, fuel_type, model, note, plate_number, year_of_production) VALUES (2, 1, 'Volkswagen', 3, 'Golf', 'short note', 'YTF18PO', 2012);
 INSERT INTO vehicles (id, customer_id, brand, engine_size, fuel_type, model, note, plate_number, year_of_production) VALUES (3, 2, 'Toyota', 2.0, 3, 'Corolla', 'Short note about Corolla', 'YO91AP', 2018);
@@ -34,7 +34,7 @@ INSERT INTO employees (id, address, date_of_birth, first_name, last_name, phone_
 INSERT INTO employees (id, address, date_of_birth, first_name, last_name, phone_number, rate_per_hour) VALUES (8, 'ul. Starogorska 3, Wolow', '1993-01-08', 'Edmund', 'Dante', 354654374343, 16.0);
 
 
-INSERT INTO orders (id, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (1, NOW(), 'Timing gear broken - need to be changed', DATE_ADD(NOW(),INTERVAL +5 DAY), 'Timing gear change', 1, 1);
+INSERT INTO orders (id, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (1, NOW(), 'Timing gear broken - need to be changed', DATE_ADD(NOW(),INTERVAL +5 DAY), 'Timing gear change', 1, 2);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (1,1);
 INSERT INTO orders (id, actual_repair_start, created, initial_diagnosis, planned_repair_start, title, status_id, vehicle_id) VALUES (2, NOW(), DATE_ADD(NOW(),INTERVAL -5 DAY), 'Engine oil need to be changed', NOW(), 'Oil change', 2, 2);
 INSERT INTO orders_employees (order_id, employee_id) VALUES (2,1);

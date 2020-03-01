@@ -102,7 +102,7 @@ public class OrderController {
         model.addAttribute("order", order);
         Part part = new Part();
         model.addAttribute("part", part);
-        return "/orders/orderCourse";
+        return "orders/orderCourse";
     }
 
     @PostMapping("/repair-progress-report-update-action/{orderId}")
@@ -208,7 +208,7 @@ public class OrderController {
         Vehicle vehicle = vehicleService.findById(vehicleId);
         model.addAttribute("vehicleCurrentOrders", vehicleCurrentOrders);
         model.addAttribute("vehicle", vehicle);
-        return "/orders/currentOrdersForVehicle";
+        return "orders/currentOrdersForVehicle";
     }
 
     @RequestMapping("/vehicleHistoryOrders/{vehicleId}")
@@ -217,7 +217,7 @@ public class OrderController {
         Vehicle vehicle = vehicleService.findById(vehicleId);
         model.addAttribute("vehicleHistoryOrders", vehicleHistoryOrders);
         model.addAttribute("vehicle", vehicle);
-        return "/orders/historyOrdersForVehicle";
+        return "orders/historyOrdersForVehicle";
     }
 
     @RequestMapping("/historyOrders")

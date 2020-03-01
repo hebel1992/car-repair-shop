@@ -68,7 +68,7 @@ public class EmployeeController {
         User user = new User();
         user.setEmployee(employee);
         model.addAttribute("user", user);
-        return "/employees/createUserForm";
+        return "employees/createUserForm";
     }
 
     @Secured("ROLE_ADMIN")
@@ -76,7 +76,7 @@ public class EmployeeController {
     public String addUserToEmployeeAction(@ModelAttribute("user") @Validated({UserGroup.class, Default.class}) User user,
                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/employees/createUserForm";
+            return "employees/createUserForm";
         }
 
         userService.saveUser(user);

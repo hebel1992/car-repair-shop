@@ -60,7 +60,7 @@ public class VehicleController {
     public String vehicleDetails(@PathVariable Long id, Model model) {
         Vehicle vehicle = vehicleService.findById(id);
         model.addAttribute("vehicle", vehicle);
-        return "/vehicles/vehicleDetails";
+        return "vehicles/vehicleDetails";
     }
 
     @GetMapping("/update/{id}")

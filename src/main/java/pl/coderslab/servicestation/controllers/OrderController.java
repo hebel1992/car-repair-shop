@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.servicestation.models.*;
 import pl.coderslab.servicestation.services.*;
 import pl.coderslab.servicestation.validationGroups.CancelledOrderGroup;
+import pl.coderslab.servicestation.validationGroups.CreatedOrderGroup;
 import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 
 import javax.validation.Valid;
@@ -174,8 +175,13 @@ public class OrderController {
 
     @Secured("ROLE_ADMIN")
     @PostMapping("/update-action")
-    public String updateCustomer(@ModelAttribute("order") @Valid Order order, BindingResult bindingResult) {
+    public String updateCustomer(Model model, @ModelAttribute("order") @Validated({Default.class, CreatedOrderGroup.class}) Order order,
+                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            return "orders/editOrder";
+        }
+        if(order.getStatus().getId()==3 && order.getActualRepairStart()==null){
+            model.addAttribute("finishedWithoutStartDate", "true");
             return "orders/editOrder";
         }
 

@@ -125,11 +125,13 @@
 
             <p><span>Last update:</span> <span th:text="${order.updated}"></span></p>
         </div>
+
+
     </div>
 
     <!--Progress sheet MODAL-->
-    <div id="progress-sheet" class="modal">
-        <div class="modal-content center-align">
+    <div id="progress-sheet" class="modal center-align">
+        <div class="modal-content">
             <h3 class="title">Repair progress sheet</h3>
 
             <form method="post" th:action="@{'/orders/repair-progress-report-update-action/' +  ${order.id}}">

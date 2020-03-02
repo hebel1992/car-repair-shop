@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.servicestation.validationGroups.CancelledOrderGroup;
+import pl.coderslab.servicestation.validationGroups.CreatedOrderGroup;
 import pl.coderslab.servicestation.validationGroups.FinishedOrderGroup;
 
 import javax.persistence.*;
@@ -68,6 +69,7 @@ public class Order extends AbstractEntity {
     @Column(name = "cancel_reason", columnDefinition = "text")
     private String cancelReason;
 
+    @NotNull(groups = {CreatedOrderGroup.class})
     @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;

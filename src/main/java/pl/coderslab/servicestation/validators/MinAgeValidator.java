@@ -17,7 +17,7 @@ public class MinAgeValidator implements ConstraintValidator<MinAge, LocalDate> {
     public boolean isValid(LocalDate age, ConstraintValidatorContext constraintValidatorContext) {
         LocalDate today = LocalDate.now();
         if (age != null) {
-            return Period.between(age, today).getYears() >= 16;
+            return Period.between(age, today).getYears() >= value;
         }
         return true;
     }

@@ -66,6 +66,8 @@
                 <label for="actualDate">Actual Repair Start</label>
                 <span class="error-message" th:if="${#fields.hasErrors('actualRepairStart')}"
                       th:errors="*{actualRepairStart}"></span>
+                <span class="error-message" th:if="${finishedWithoutStartDate!=null}">Finished order must have start date
+                </span>
             </div>
 
             <div class="input-field col l12">

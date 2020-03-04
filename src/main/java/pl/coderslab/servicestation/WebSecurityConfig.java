@@ -38,15 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
-                .antMatchers("/", "/login", "/register").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/home", "/customers", "/employees", "/vehicles", "/orders").authenticated()
                 .and().formLogin()
-                .loginPage("/login")
+                .loginPage("/")
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login-error")
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")
+                .logout().logoutSuccessUrl("/")
                 .and()
                 .exceptionHandling().accessDeniedPage("/access-denied");
     }

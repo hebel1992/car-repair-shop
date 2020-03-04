@@ -1,5 +1,6 @@
 package pl.coderslab.servicestation.controllers;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;

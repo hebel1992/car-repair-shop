@@ -25,12 +25,12 @@
         </div>
 
         <tr th:each="startedOrder : ${ordersStarted}">
-            <div class="col s12 m6 l4">
+            <div class="col s12 m6 l4 my-card">
                 <div class="card light-blue lighten-3">
                     <a th:href="'/orders/details/'+ ${startedOrder.id}">
                         <div class="card-content white-text">
                             <span class="card-title"><span class="order-title" th:text="${startedOrder.title}"></span>
-                                <i class="material-icons calendar wrench-icon right">build</i></span>
+                                    <i class="material-icons calendar wrench-icon right">build</i></span>
                             <p th:text="'Vehicle: ' + ${startedOrder.vehicle.brand + ' ' +
                             startedOrder.vehicle.model + ' ' + startedOrder.vehicle.plateNumber}"></p>
                             <p th:text="'Status: ' + ${startedOrder.status.description}"></p>

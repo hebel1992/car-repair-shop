@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.coderslab.servicestation.EntityNotFoundException;
 import pl.coderslab.servicestation.models.Customer;
-import pl.coderslab.servicestation.models.Vehicle;
 import pl.coderslab.servicestation.repositories.CustomerRepository;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
-    public List<Customer> findFiltered(String firstName, String lastName, String phoneNumber){
+    public List<Customer> findFiltered(String firstName, String lastName, String phoneNumber) {
         return customerRepository.findWithFilters(firstName, lastName, phoneNumber);
     }
 }

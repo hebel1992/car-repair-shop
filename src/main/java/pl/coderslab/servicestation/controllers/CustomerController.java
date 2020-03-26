@@ -1,6 +1,5 @@
 package pl.coderslab.servicestation.controllers;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,7 @@ public class CustomerController {
 
     @PostMapping("/filtered")
     public String filteredCustomers(Model addToModel, @RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastName, @RequestParam("phone") String phoneNumber) {
+                                    @RequestParam("lastName") String lastName, @RequestParam("phone") String phoneNumber) {
 
         List<Customer> customers = customerService.findFiltered(firstName, lastName, phoneNumber);
         addToModel.addAttribute("customers", customers);

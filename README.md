@@ -21,6 +21,13 @@ Used technologies:
 App sample: 
 https://heroku-service-station.herokuapp.com/
 
-Login: admin
+Login: admin,
 Password: admin
 
+Screenshots:
+
+![Alt text](src/main/resources/static/img/main.png?raw=true "Optional Title")
+-
+![Alt text](src/main/resources/static/img/createVeh.png?raw=true "Optional Title")
+-
+![Alt text](src/main/resources/static/img/manageOrder.png?raw=true "Optional Title")

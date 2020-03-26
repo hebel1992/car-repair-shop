@@ -1,26 +1,25 @@
 ## **CAR REPAIR SHOP**
 
-Simple application for you car repair shop.
-
-It provides functionality to store and manage your:
-- employees
-- customers and their cars
-- keep track and store documentation about each repair
+Application for bussines specialized in repairing cars. Might be very useful for companies hiring more than 5-6 employees.
+It provides functionality such as: tracking and documenting each order, adding invoices, storing informations about employess, customers and their cars. 
 
 Future features:
 - generating monthly/annual activity reports
 
 Used technologies:
-- Spring boot
+- Java
+- Spring Boot
 - Spring security
 - Thymeleaf
 - Hibernate
 - MySql
+- HTML
+- CSS
+- Java Script
 - Materialize css
 
 App sample: 
 https://heroku-service-station.herokuapp.com/
 
 Login: admin
-
 Password: admin

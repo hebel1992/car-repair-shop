@@ -19,13 +19,11 @@
 
             <h3 class="col l12">Create order</h3>
 
-
             <div class="input-field col s12">
                 <input type="text" id="title" th:field="*{title}">
                 <label for="title">Title</label>
                 <span class="error-message" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
             </div>
-
 
             <div class="input-field col s12">
                 <textarea class="materialize-textarea" id="initialDiagnosis" th:field="*{initialDiagnosis}"></textarea>

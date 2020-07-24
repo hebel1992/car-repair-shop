@@ -27,12 +27,4 @@ public class LoginViewController {
     public String accessDenied() {
         return "accessDeniedPage";
     }
-
-//    @GetMapping("/admin")
-//    @ResponseBody
-//    public String userInfo(@AuthenticationPrincipal CurrentUser customUser) {
-//        logger.info("customUser class {} ", customUser.getClass());
-//        User entityUser = customUser.getUser();
-//        return "Hello " + entityUser.getUsername();
-//    }
 }

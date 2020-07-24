@@ -18,22 +18,22 @@
 
 <section class="container section">
     <div class="row">
-        <div class="col s12">
-            <h2>History of repairs</h2>
+        <div class="col s12 history main-section">
+            <span class="page-title">History of repairs</span>
         </div>
         <tr th:each="historyOrder : ${historyOrders}">
-            <div class="col s12 m6 l4">
+            <div class="col s12 l6">
                 <div class="card green lighten-3">
                     <a th:href="'/orders/details/'+ ${historyOrder.id}">
                         <div class="card-content white-text">
                             <span class="card-title"><span class="order-title" th:text="${historyOrder.title}"></span>
-                                <i class="material-icons calendar wrench-icon right">build</i></span>
+                                <i class="material-icons wrench">build</i></span>
                             <p th:text="'Vehicle: ' + ${historyOrder.vehicle.brand + ' ' +
                             historyOrder.vehicle.model + ' ' + historyOrder.vehicle.plateNumber}"></p>
                             <p th:text="'Status: ' + ${historyOrder.status.description}"></p>
                         </div>
                         <div class="card-action">
-                            <div class="valign-wrapper">
+                            <div class="valign-wrapper my-date">
                                 <i class="material-icons calendar">calendar_today</i>
                                 <span th:if="${historyOrder.actualRepairStart!=null}" th:text="'Start date: ' + ${historyOrder.actualRepairStart}"></span>
                                 <span th:if="${historyOrder.actualRepairStart==null}" th:text="'Start date: repair not started'"></span>

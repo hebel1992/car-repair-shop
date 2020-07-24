@@ -15,11 +15,16 @@
 
 <section class="container section">
 
-    <h2>Employees <a href="#"><i class="material-icons tooltipped modal-trigger search-icon"
-                                 data-tooltip="Filter" href="#add-filters">search</i></a>
-        <a class="btn waves-effect waves-light right" th:href="@{/employees/add}">Add new employee</a></h2>
     <div class="row">
-
+        <div class="col s12 main-section">
+            <div class="main-section-header">
+                <div class="main-section-header__elem">
+                    <span class="page-title">Employees</span> <a href="#"><i
+                        class="material-icons tooltipped modal-trigger search-icon"
+                        data-tooltip="Filter" href="#add-filters">search</i></a></div>
+                <a class="btn waves-effect waves-light add-button" th:href="@{/employees/add}">Add new employee</a>
+            </div>
+        </div>
         <div class="col s12">
             <table class="striped">
                 <thead>

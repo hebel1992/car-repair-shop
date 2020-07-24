@@ -35,7 +35,7 @@ public class EmployeeController {
 
     @PostMapping("/filtered")
     public String filteredEmployees(Model addToModel, @RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastName, @RequestParam("phone") String phoneNumber) {
+                                    @RequestParam("lastName") String lastName, @RequestParam("phone") String phoneNumber) {
 
         List<Employee> employees = employeeService.findFiltered(firstName, lastName, phoneNumber);
         addToModel.addAttribute("employees", employees);

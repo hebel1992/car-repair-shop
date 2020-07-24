@@ -1,6 +1,56 @@
+body {
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.section {
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+}
+
+.main-section {
+    margin-top: 2rem;
+}
+
+.main-section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.main-section-header__elem {
+    display: flex;
+    align-items: center;
+}
+
+.home-page-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
 div.input-field {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.header-title {
+    font-size: 1.5rem;
+}
+
+.brand-logo {
+    display: flex !important;
+    align-items: center;
 }
 
 .error-message {
@@ -12,19 +62,42 @@ div.input-field {
     height: 35px;
 }
 
+.my-date {
+    font-size: .8rem;
+}
+
 .calendar {
-    margin-right: 5px;
+    margin-right: .5rem;
 }
 
-.section {
-    padding-top: 4vw;
-    padding-bottom: 4vw;
+.account-icon {
+    font-size: 3rem !important;
+    line-height: 65px !important;
 }
 
-body {
-    background-size: cover;
-    min-height: 1000px;
+.planned {
+    margin: 3rem 0 1.5rem 0;
 }
+
+.history {
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    width: 85%;
+}
+
+.add-button {
+    margin: .7rem 0 0 0 !important;
+}
+
+.wrench {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+}
+
 
 #login-button {
     margin-top: 30px;
@@ -43,25 +116,10 @@ body {
     font-size: 20px;
 }
 
-.btn-large {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-}
 
 .btn {
     margin-left: 5px;
     margin-right: 5px;
-}
-
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-}
-
-.wrench-icon {
-    font-size: 40px;
 }
 
 .order-title {
@@ -160,7 +218,30 @@ body {
 
 .search-icon {
     font-size: 50px;
-    margin-left: 20px;
-    color: green
+    color: green;
+    margin-left: 1rem;
+}
+
+@media (min-width: 35rem) {
+    .header-title {
+        font-size: 2rem;
+    }
+
+    .main-section-header {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .page-title {
+        font-size: 3rem;
+    }
+
+    .add-button {
+        margin: 0 !important;
+    }
+
+    .my-date {
+        font-size: 1rem;
+    }
 }
 
